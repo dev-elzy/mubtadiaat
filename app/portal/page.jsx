@@ -27,7 +27,7 @@ export default function PortalAdmin() {
 
   async function loadData() {
     try {
-      const authRes = await fetch('/api/auth/check').then(r => r.json()).catch(() => ({ authenticated: true }));
+      const authRes = await fetch('/api/auth/check').then(r => r.json()).catch(() => ({ authenticated: false }));
       if (!authRes.authenticated) {
         router.push('/portal/login');
         return;
@@ -56,7 +56,7 @@ export default function PortalAdmin() {
 
   async function handleLogout() {
     await fetch('/api/auth/logout', { method: 'POST' });
-    router.push('/portal/login');
+    router.push('/');
     router.refresh();
   }
 
