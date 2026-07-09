@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "p3hm-landing-profile",
+  "pages_build_output_dir": ".",
+  "compatibility_date": "2026-07-09",
+  "routes": [
+    {
+      "pattern": "p3hm.my.id",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.p3hm.my.id",
+      "custom_domain": true
+    }
+  ]
+}

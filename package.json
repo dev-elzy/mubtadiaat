@@ -1,0 +1,18 @@
+{
+  "name": "p3hm-profile-website",
+  "version": "1.0.0",
+  "description": "Official Profile Website for Pondok Pesantren Putri Hidayatul Mubtadiat (p3hm.my.id)",
+  "private": true,
+  "scripts": {
+    "dev": "npx wrangler pages dev .",
+    "deploy": "npx wrangler pages deploy . --project-name=p3hm-landing-profile"
+  },
+  "keywords": [
+    "pesantren",
+    "lirboyo",
+    "p3hm",
+    "hidayatul-mubtadiat"
+  ],
+  "author": "Pondok Pesantren Putri Hidayatul Mubtadiat",
+  "license": "UNLICENSED"
+}

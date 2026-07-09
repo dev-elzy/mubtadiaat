@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pondok Pesantren Putri Hidayatul Mubtadiat — Lirboyo, Kediri</title>
+<meta name="description" content="Pondok Pesantren Putri Hidayatul Mubtadiat (P3HM) Lirboyo Kediri — Menempa Muslimah Sejati berakar pada Kitab Salaf, Madrasah Diniyah, dan Pembinaan Akhlaqul Karimah.">
+<link rel="canonical" href="https://p3hm.my.id/">
+
+<!-- Open Graph / WhatsApp / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://p3hm.my.id/">
+<meta property="og:title" content="Pondok Pesantren Putri Hidayatul Mubtadiat — Lirboyo Kediri">
+<meta property="og:description" content="Menempa Muslimah Sejati, Berakar pada Kitab Salaf di bawah naungan Yayasan Hidayatul Mubtadiat Lirboyo Kediri.">
+<meta property="og:site_name" content="P3HM Lirboyo">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal-950:#0F2B24;
+    --teal-900:#16342C;
+    --teal-800:#204238;
+    --gold-500:#AD8A4E;
+    --gold-300:#D8BE8C;
+    --cream-100:#FBF8F1;
+    --cream-200:#F4EEE0;
+    --ivory:#FFFEFB;
+    --ink:#241F19;
+    --ink-soft:#54503f;
+    --sage:#7C9188;
+    --line: rgba(36,31,25,0.1);
+    --shadow: 0 18px 50px -26px rgba(15,43,36,0.32);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream-100);
+    color:var(--ink);
+    font-family:'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  .display{font-family:'Fraunces', serif;}
+  .arabic{font-family:'Amiri', serif;}
+  .eyebrow{
+    font-size:11.5px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    font-weight:600;
+    color:var(--gold-500);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1px;
+    background:var(--gold-500);
+    display:inline-block;
+  }
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  @media(max-width:640px){ .wrap{padding:0 22px;} }
+
+  /* ---------- pattern (girih motif, signature element) ---------- */
+  .girih-divider{
+    width:100%; height:30px;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0.4;
+  }
+  .girih-divider svg{ height:16px; width:auto; }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(251,248,241,0.82);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease, box-shadow .3s ease;
+  }
+  header.scrolled{ border-bottom-color:var(--line); box-shadow:0 8px 30px -20px rgba(0,0,0,0.15); }
+  nav{
+    max-width:1180px; margin:0 auto; padding:16px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Fraunces', serif; font-weight:500; font-size:15.5px;
+    letter-spacing:0.01em; color:var(--teal-900);
+    line-height:1.15;
+  }
+  .brand .mark{
+    width:34px; height:34px; border-radius:50%;
+    background:var(--teal-900);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .brand .mark svg{ width:18px; height:18px; }
+  .nav-links{ display:flex; gap:34px; font-size:14px; font-weight:500; color:var(--ink-soft);}
+  .nav-links a{ position:relative; padding:4px 0; transition:color .25s;}
+  .nav-links a:hover{ color:var(--teal-900); }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:0; height:1px; width:0%;
+    background:var(--gold-500); transition:width .3s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{
+    background:var(--teal-900); color:var(--cream-100);
+    padding:10px 22px; border-radius:100px; font-size:13.5px; font-weight:600;
+    letter-spacing:0.02em; transition:background .25s, transform .25s;
+  }
+  .nav-cta:hover{ background:var(--gold-500); transform:translateY(-1px); }
+  .burger{ display:none; }
+  @media(max-width:860px){
+    .nav-links{ display:none; }
+    .burger{ display:block; cursor:pointer; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:168px 0 90px;
+    background:
+      radial-gradient(ellipse 780px 420px at 50% -14%, rgba(173,138,78,0.07), transparent 62%),
+      var(--cream-100);
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero-pattern{
+    position:absolute; inset:0; pointer-events:none; opacity:0.5;
+  }
+  .hero-eyebrow{
+    justify-content:center; margin:0 auto 26px;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after{
+    content:""; width:22px; height:1px; background:var(--gold-500); display:inline-block;
+  }
+  .hero-arabic{
+    font-size:clamp(28px, 5vw, 46px);
+    color:var(--teal-900);
+    line-height:1.6;
+    margin-bottom:18px;
+    font-weight:700;
+  }
+  .hero-title{
+    font-size:clamp(38px, 6vw, 70px);
+    font-weight:500;
+    color:var(--teal-950);
+    line-height:1.06;
+    letter-spacing:-0.01em;
+    max-width:900px;
+    margin:0 auto 20px;
+  }
+  .hero-title em{
+    font-style:italic; font-weight:400; color:var(--gold-500);
+  }
+  .hero-sub{
+    max-width:560px; margin:0 auto 42px;
+    color:var(--ink-soft); font-size:16.5px; line-height:1.7;
+  }
+  .hero-actions{
+    display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:64px;
+  }
+  .btn-primary{
+    background:var(--teal-900); color:var(--cream-100);
+    padding:15px 30px; border-radius:100px; font-weight:600; font-size:14.5px;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .25s ease, background .25s ease, box-shadow .25s ease;
+    box-shadow:0 14px 30px -14px rgba(15,43,36,0.5);
+  }
+  .btn-primary:hover{ background:var(--teal-800); transform:translateY(-2px); }
+  .btn-ghost{
+    border:1px solid var(--line); background:transparent;
+    padding:15px 28px; border-radius:100px; font-weight:600; font-size:14.5px;
+    color:var(--teal-900); transition:border-color .25s ease, background .25s ease, transform .25s ease;
+  }
+  .btn-ghost:hover{ border-color:var(--gold-500); background:var(--ivory); transform:translateY(-2px); }
+
+  .hero-frame{
+    position:relative; max-width:920px; margin:0 auto;
+    border-radius:20px; overflow:hidden;
+    box-shadow: var(--shadow);
+    border:1px solid var(--line);
+    aspect-ratio:16/8.2;
+    background:linear-gradient(160deg, var(--teal-950) 0%, var(--teal-900) 55%, var(--teal-800) 100%);
+  }
+  .hero-frame > img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+  .hero-frame.img-failed > img{ display:none; }
+  .hero-frame .hero-fallback{ display:none; position:absolute; inset:0; }
+  .hero-frame.img-failed .hero-fallback{ display:block; }
+  .hero-frame svg{ width:100%; height:100%; display:block; }
+  .hero-frame-caption{
+    position:absolute; left:26px; bottom:20px; z-index:2;
+    color:var(--cream-100); font-size:13px; letter-spacing:0.04em;
+    display:flex; align-items:center; gap:8px;
+    text-shadow:0 2px 10px rgba(15,43,36,0.6);
+  }
+  .hero-frame-caption .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold-300); }
+  .hero-frame::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(180deg, rgba(15,43,36,0) 55%, rgba(15,43,36,0.5) 100%);
+  }
+
+  .stat-row{
+    max-width:920px; margin:38px auto 0;
+    display:grid; grid-template-columns:repeat(3,1fr);
+    border-top:1px solid var(--line);
+    padding-top:32px;
+  }
+  .stat-row.stat-row-4{ grid-template-columns:repeat(4,1fr); }
+  @media(max-width:640px){ .stat-row.stat-row-4{ grid-template-columns:1fr; } }
+  .stat-row div{ text-align:center; border-right:1px solid var(--line); }
+  .stat-row div:last-child{ border-right:none; }
+  .stat-num{ font-family:'Fraunces', serif; font-size:30px; color:var(--teal-900); font-weight:500; }
+  .stat-label{ font-size:12.5px; color:var(--ink-soft); margin-top:4px; letter-spacing:0.02em;}
+  @media(max-width:640px){
+    .stat-row{ grid-template-columns:1fr; gap:20px; }
+    .stat-row div{ border-right:none; border-bottom:1px solid var(--line); padding-bottom:16px;}
+    .stat-row div:last-child{ border-bottom:none; padding-bottom:0;}
+  }
+
+  /* ---------- SECTION shared ---------- */
+  section{ padding:110px 0; }
+  @media(max-width:640px){ section{ padding:74px 0; } }
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .section-title{
+    font-size:clamp(30px,4vw,44px); font-weight:500; color:var(--teal-950);
+    margin-top:16px; line-height:1.15; letter-spacing:-0.01em;
+  }
+  .section-title em{ font-style:italic; color:var(--gold-500); font-weight:400; }
+
+  /* ---------- PROFIL ---------- */
+  .profil{ background:var(--ivory); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .profil-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:center;
+  }
+  @media(max-width:900px){ .profil-grid{ grid-template-columns:1fr; gap:40px;} }
+  .profil-text p{ color:var(--ink-soft); line-height:1.85; font-size:15.5px; margin-bottom:20px; }
+  .profil-text p:last-child{ margin-bottom:0; }
+  .profil-media{ position:relative; }
+  .profil-media .art-panel{
+    position:relative;
+    width:100%; aspect-ratio:4/5; border-radius:18px; box-shadow:var(--shadow); border:1px solid var(--line);
+    background:linear-gradient(165deg, var(--teal-950), var(--teal-900) 60%, var(--teal-800));
+    overflow:hidden;
+  }
+  .art-panel > img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+  .art-panel.img-failed > img{ display:none; }
+  .art-panel .art-fallback{ display:none; position:absolute; inset:0; }
+  .art-panel.img-failed .art-fallback{ display:block; }
+  .profil-media .art-panel svg{ width:100%; height:100%; display:block; }
+  .profil-tag{
+    position:absolute; bottom:-22px; left:-22px;
+    background:var(--teal-900); color:var(--cream-100);
+    padding:18px 22px; border-radius:14px;
+    font-family:'Fraunces', serif; font-size:14px; line-height:1.5;
+    box-shadow:0 20px 40px -18px rgba(15,43,36,0.55);
+    max-width:220px;
+  }
+  .profil-tag b{ display:block; font-size:22px; color:var(--gold-300); margin-bottom:2px; }
+  @media(max-width:900px){ .profil-tag{ position:static; margin-top:20px; max-width:none; } }
+
+  /* ---------- PROGRAM ---------- */
+  .program-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:20px; overflow:hidden;
+  }
+  @media(max-width:900px){ .program-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:560px){ .program-grid{ grid-template-columns:1fr; } }
+  .program-card{
+    background:var(--cream-100); padding:38px 28px; transition:background .3s ease;
+  }
+  .program-card:hover{ background:var(--ivory); }
+  .program-icon{
+    width:44px; height:44px; border-radius:12px;
+    background:var(--teal-900); display:flex; align-items:center; justify-content:center;
+    margin-bottom:22px;
+  }
+  .program-icon svg{ width:20px; height:20px; stroke:var(--gold-300); }
+  .program-card h3{
+    font-family:'Fraunces', serif; font-weight:500; font-size:18.5px; color:var(--teal-950);
+    margin-bottom:10px;
+  }
+  .program-card p{ font-size:13.8px; color:var(--ink-soft); line-height:1.7; }
+
+  /* ---------- PENDAFTARAN ---------- */
+  .daftar{
+    background:var(--teal-950);
+    color:var(--cream-100);
+    position:relative;
+    overflow:hidden;
+  }
+  .daftar::before{
+    content:"";
+    position:absolute; top:-120px; right:-120px; width:420px; height:420px;
+    background:radial-gradient(circle, rgba(173,138,78,0.22), transparent 70%);
+  }
+  .daftar .eyebrow{ color:var(--gold-300); }
+  .daftar .eyebrow::before{ background:var(--gold-300); }
+  .daftar .section-title{ color:var(--cream-100); }
+  .daftar .section-title em{ color:var(--gold-300); }
+  .daftar-sub{ color:rgba(251,248,241,0.72); max-width:560px; font-size:15.5px; line-height:1.75; margin-top:16px;}
+
+  .daftar-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:56px;
+  }
+  @media(max-width:980px){ .daftar-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:560px){ .daftar-grid{ grid-template-columns:1fr; } }
+  .daftar-card{
+    background:rgba(251,248,241,0.05);
+    border:1px solid rgba(251,248,241,0.14);
+    border-radius:16px; padding:26px 22px;
+    display:flex; flex-direction:column; justify-content:space-between; gap:26px;
+    transition:background .3s ease, border-color .3s ease, transform .3s ease;
+    min-height:168px;
+  }
+  .daftar-card:hover{
+    background:rgba(251,248,241,0.09); border-color:var(--gold-500); transform:translateY(-4px);
+  }
+  .daftar-card .num{ font-family:'Fraunces', serif; font-size:13px; color:var(--gold-300); }
+  .daftar-card h4{ font-size:14.5px; font-weight:600; line-height:1.4; }
+  .daftar-card .go{
+    display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--gold-300); font-weight:600;
+  }
+  .daftar-card .go svg{ width:13px; height:13px; transition:transform .25s; }
+  .daftar-card:hover .go svg{ transform:translateX(3px); }
+
+  /* ---------- KONTAK ---------- */
+  .kontak{ background:var(--cream-100); }
+  .kontak-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start;
+  }
+  @media(max-width:900px){ .kontak-grid{ grid-template-columns:1fr; gap:48px; } }
+  .kontak-list{ margin-top:36px; display:flex; flex-direction:column; gap:26px; }
+  .kontak-item{ display:flex; gap:18px; align-items:flex-start; }
+  .kontak-item .ic{
+    width:42px; height:42px; border-radius:11px; background:var(--ivory);
+    border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .kontak-item .ic svg{ width:18px; height:18px; stroke:var(--teal-900); }
+  .kontak-item h4{ font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--sage); margin-bottom:4px; font-weight:600;}
+  .kontak-item p, .kontak-item a{ font-size:15px; color:var(--ink); line-height:1.6; }
+  .kontak-item a:hover{ color:var(--gold-500); }
+
+  .kontak-card{
+    background:var(--teal-900); border-radius:20px; padding:44px;
+    color:var(--cream-100);
+  }
+  .kontak-card .arabic{ font-size:24px; color:var(--gold-300); margin-bottom:18px; line-height:1.7;}
+  .kontak-card p{ color:rgba(251,248,241,0.78); font-size:14.5px; line-height:1.8; margin-bottom:28px; }
+  .kontak-social{ display:flex; gap:12px; }
+  .soc-btn{
+    flex:1; text-align:center; padding:13px; border-radius:100px;
+    border:1px solid rgba(251,248,241,0.22); font-size:13.5px; font-weight:600;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    transition:background .25s ease, border-color .25s ease;
+  }
+  .soc-btn:hover{ background:rgba(251,248,241,0.1); border-color:var(--gold-300); }
+  .soc-btn svg{ width:15px; height:15px; }
+
+  /* ---------- SEJARAH ---------- */
+  .sejarah{ background:var(--cream-100); }
+  .sejarah-grid{
+    display:grid; grid-template-columns:0.85fr 1.15fr; gap:64px; align-items:flex-start;
+  }
+  @media(max-width:900px){ .sejarah-grid{ grid-template-columns:1fr; gap:36px; } }
+  .founder-card{
+    background:var(--ivory); border:1px solid var(--line); border-radius:18px;
+    padding:32px; position:sticky; top:100px;
+  }
+  @media(max-width:900px){ .founder-card{ position:static; } }
+  .founder-card .yr{
+    font-family:'Fraunces', serif; font-size:38px; color:var(--teal-900); font-weight:500;
+    margin-bottom:2px;
+  }
+  .founder-card .yr-sub{ font-size:12.5px; color:var(--sage); letter-spacing:0.04em; margin-bottom:26px;}
+  .founder-row{ display:flex; flex-direction:column; gap:18px; }
+  .founder-row + .founder-row{ border-top:1px solid var(--line); padding-top:18px; }
+  .founder-row h5{ font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--gold-500); margin-bottom:4px; font-weight:700;}
+  .founder-row p{ font-size:15px; color:var(--ink); font-weight:500; }
+  .sejarah-text p{ color:var(--ink-soft); line-height:1.85; font-size:15.5px; margin-bottom:18px; }
+  .pull-note{
+    border-left:2px solid var(--gold-500); padding-left:20px; margin:28px 0;
+    font-family:'Fraunces', serif; font-style:italic; color:var(--teal-900); font-size:17px; line-height:1.6;
+  }
+
+  /* ---------- VISI MISI ---------- */
+  .visimisi{ background:var(--teal-950); color:var(--cream-100); }
+  .visimisi .eyebrow{ color:var(--gold-300); }
+  .visimisi .eyebrow::before{ background:var(--gold-300); }
+  .visimisi .section-title{ color:var(--cream-100); }
+  .visimisi .section-title em{ color:var(--gold-300); }
+  .visi-lead{
+    font-family:'Fraunces', serif; font-style:italic; font-size:clamp(20px,2.6vw,26px);
+    color:var(--gold-300); max-width:760px; line-height:1.55; margin-top:18px;
+  }
+  .misi-list{
+    margin-top:52px; display:grid; grid-template-columns:repeat(2,1fr); gap:1px;
+    background:rgba(251,248,241,0.14); border:1px solid rgba(251,248,241,0.14); border-radius:18px; overflow:hidden;
+  }
+  @media(max-width:760px){ .misi-list{ grid-template-columns:1fr; } }
+  .misi-item{
+    background:var(--teal-950); padding:26px 28px; display:flex; gap:18px; align-items:flex-start;
+  }
+  .misi-item .no{
+    font-family:'Fraunces', serif; font-size:14px; color:var(--gold-300); flex-shrink:0; padding-top:2px;
+  }
+  .misi-item p{ font-size:14.5px; line-height:1.65; color:rgba(251,248,241,0.85); }
+
+  /* ---------- JENJANG ---------- */
+  .jenjang-wrap{
+    display:flex; flex-wrap:wrap; gap:10px; margin-top:44px;
+  }
+  .jenjang-chip{
+    border:1px solid var(--line); background:var(--ivory); border-radius:100px;
+    padding:12px 22px; font-size:13.5px; font-weight:600; color:var(--teal-900);
+    display:flex; align-items:center; gap:10px; transition:border-color .25s, transform .25s;
+  }
+  .jenjang-chip:hover{ border-color:var(--gold-500); transform:translateY(-2px); }
+  .jenjang-chip .yrs{
+    background:var(--teal-900); color:var(--gold-300); font-size:10.5px; font-weight:700;
+    padding:3px 8px; border-radius:100px;
+  }
+
+  /* ---------- KEGIATAN EKSTRA ---------- */
+  .ekstra-cols{ display:grid; grid-template-columns:1fr 1fr; gap:56px; margin-top:16px; }
+  @media(max-width:800px){ .ekstra-cols{ grid-template-columns:1fr; gap:40px; } }
+  .ekstra-col h3{
+    font-family:'Fraunces', serif; font-size:20px; color:var(--teal-950); font-weight:500; margin-bottom:6px;
+  }
+  .ekstra-col .ekstra-sub{ font-size:13px; color:var(--sage); margin-bottom:22px; }
+  .ekstra-entry{ padding:16px 0; border-top:1px solid var(--line); }
+  .ekstra-entry:first-of-type{ border-top:none; padding-top:0; }
+  .ekstra-entry h4{ font-size:14.5px; font-weight:600; color:var(--ink); margin-bottom:4px; }
+  .ekstra-entry p{ font-size:13.3px; color:var(--ink-soft); line-height:1.6; }
+
+  /* ---------- FASILITAS ---------- */
+  .fasilitas{ background:var(--ivory); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .fas-wrap{ display:flex; flex-wrap:wrap; gap:10px; margin-top:40px; }
+  .fas-chip{
+    font-size:13px; color:var(--ink-soft); background:var(--cream-100); border:1px solid var(--line);
+    padding:10px 18px; border-radius:100px;
+  }
+
+  /* ---------- GALERI ---------- */
+  .galeri-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:48px;
+  }
+  @media(max-width:900px){ .galeri-grid{ grid-template-columns:repeat(2,1fr); } }
+  .galeri-item{
+    position:relative; border-radius:16px; overflow:hidden;
+    background:linear-gradient(165deg, var(--teal-950), var(--teal-900) 65%, var(--teal-800));
+    aspect-ratio:1/1.05;
+    border:1px solid rgba(216,190,140,0.14);
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .galeri-item:hover{ transform:translateY(-5px); box-shadow:0 24px 46px -24px rgba(15,43,36,0.55); }
+  .galeri-item > img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform .5s ease;
+  }
+  .galeri-item:hover > img{ transform:scale(1.06); }
+  .galeri-item.img-failed > img{ display:none; }
+  .galeri-item .g-photo-cap{
+    position:absolute; left:0; right:0; bottom:0; padding:16px 14px 12px; z-index:1;
+    background:linear-gradient(180deg, transparent, rgba(15,43,36,0.85));
+    color:var(--cream-100); font-size:13px; font-weight:600;
+  }
+  .galeri-item.img-failed .g-photo-cap{ display:none; }
+  .galeri-item .g-fallback{
+    display:none; position:absolute; inset:0;
+    padding:24px; flex-direction:column; justify-content:space-between;
+  }
+  .galeri-item.img-failed .g-fallback{ display:flex; }
+  .galeri-item .g-icon{ width:34px; height:34px; }
+  .galeri-item .g-icon svg{ width:100%; height:100%; stroke:var(--gold-300); }
+  .galeri-item .g-cap{ color:var(--cream-100); }
+  .galeri-item .g-cap h4{ font-family:'Fraunces', serif; font-weight:500; font-size:16px; margin-bottom:4px; }
+  .galeri-item .g-cap p{ font-size:12px; color:rgba(251,248,241,0.62); line-height:1.5; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ivory); border-top:1px solid var(--line);
+    padding:40px 0;
+  }
+  .foot-row{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;
+    font-size:13px; color:var(--ink-soft);
+  }
+  .foot-brand{ display:flex; align-items:center; gap:10px; font-family:'Fraunces', serif; color:var(--teal-900); font-size:14.5px;}
+
+  /* reveal animation */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; animation:none !important; }
+    .reveal{ opacity:1; transform:none; }
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--gold-500); outline-offset:3px; border-radius:4px;
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <nav>
+    <div class="brand">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" stroke="#D8BE8C" stroke-width="1.3" stroke-linejoin="round"/></svg>
+      </span>
+      <span>Hidayatul Mubtadiat</span>
+    </div>
+    <div class="nav-links">
+      <a href="#profil">Profil</a>
+      <a href="#program">Pendidikan</a>
+      <a href="#galeri">Galeri</a>
+      <a href="#pendaftaran">Pendaftaran</a>
+      <a href="#kontak">Kontak</a>
+    </div>
+      <a href="#pendaftaran" class="nav-cta">Daftar Santri Baru</a>
+      <a href="https://portal.p3hm.my.id/login" target="_blank" class="nav-cta" style="background:var(--gold-500); margin-left:8px;">Portal Wali & Akademik</a>
+    </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow eyebrow" style="justify-content:center;">Lirboyo · Kota Kediri · Jawa Timur</div>
+    <div class="hero-arabic arabic">مَعْهَدْ لِلْبَنَاتْ هِدَايَةُ الْمُبْتَدِئَاتْ</div>
+    <h1 class="hero-title reveal">Menempa Muslimah <em>Sejati</em>,<br>Berakar pada Kitab Salaf</h1>
+    <p class="hero-sub reveal">Pondok Pesantren Putri Hidayatul Mubtadiat mendidik santriwati dengan keilmuan agama yang mendalam dan kesiapan menjawab kebutuhan masyarakat — di bawah naungan Yayasan Hidayatul Mubtadiat, Lirboyo Kediri.</p>
+    <div class="hero-actions reveal">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfUOGLDZHGW7ApSoHTWbrMjbDJXALVHKdHEos95H5fkqxzHmg/viewform" target="_blank" class="btn-primary">
+        Pendaftaran Online 1446–1447 H
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#profil" class="btn-ghost">Lihat Profil Pondok</a>
+    </div>
+
+    <div class="hero-frame reveal" id="heroFrame">
+      <img src="https://lirboyo.net/wp-content/uploads/2022/02/Bangunan-dalam.jpg" alt="Lingkungan Pondok Pesantren Putri Hidayatul Mubtadiat, Lirboyo Kediri" onerror="document.getElementById('heroFrame').classList.add('img-failed')">
+      <div class="hero-fallback">
+      <svg viewBox="0 0 920 448" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="20%" r="70%">
+            <stop offset="0%" stop-color="#AD8A4E" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#AD8A4E" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="920" height="448" fill="url(#glow)"/>
+        <!-- stars -->
+        <g fill="#D8BE8C" opacity="0.5">
+          <circle cx="120" cy="60" r="1.4"/><circle cx="240" cy="40" r="1.1"/><circle cx="700" cy="55" r="1.4"/>
+          <circle cx="800" cy="90" r="1.1"/><circle cx="560" cy="35" r="1.1"/><circle cx="360" cy="30" r="1.1"/>
+        </g>
+        <!-- ground line -->
+        <line x1="0" y1="392" x2="920" y2="392" stroke="#D8BE8C" stroke-opacity="0.25" stroke-width="1"/>
+        <!-- distant lattice band -->
+        <g stroke="#D8BE8C" stroke-opacity="0.22" stroke-width="1" fill="none">
+          <path d="M40 392 L40 250 L100 250 L100 392 M160 392 L160 260 L220 260 L220 392 M700 392 L700 260 L760 260 L760 392 M820 392 L820 250 L880 250 L880 392"/>
+        </g>
+        <!-- main gate structure (gapura) -->
+        <g stroke="#D8BE8C" stroke-width="1.6" fill="none" stroke-linejoin="round">
+          <path d="M300 392 V180 Q300 150 330 150 H590 Q620 150 620 180 V392"/>
+          <path d="M330 392 V210 H590 V392"/>
+          <path d="M420 392 V270 Q420 250 460 250 Q500 250 500 270 V392"/>
+          <path d="M300 195 H620"/>
+          <path d="M270 210 V392 M650 210 V392"/>
+        </g>
+        <!-- roof / dome ornament -->
+        <g stroke="#AD8A4E" stroke-width="1.8" fill="none" stroke-linecap="round">
+          <path d="M330 150 Q460 90 590 150"/>
+          <path d="M410 150 Q460 118 510 150"/>
+          <circle cx="460" cy="96" r="7"/>
+          <path d="M460 89 V70"/>
+        </g>
+        <!-- geometric star ornament above gate -->
+        <g stroke="#D8BE8C" stroke-width="1" fill="none" opacity="0.75">
+          <polygon points="460,166 468,182 486,182 472,193 478,210 460,199 442,210 448,193 434,182 452,182"/>
+        </g>
+        <!-- side buildings silhouette -->
+        <g fill="#0F2B24" opacity="0.55">
+          <rect x="60" y="300" width="150" height="92"/>
+          <rect x="710" y="300" width="150" height="92"/>
+        </g>
+        <g stroke="#D8BE8C" stroke-opacity="0.3" stroke-width="1">
+          <rect x="60" y="300" width="150" height="92" fill="none"/>
+          <rect x="710" y="300" width="150" height="92" fill="none"/>
+          <line x1="90" y1="300" x2="90" y2="392"/><line x1="130" y1="300" x2="130" y2="392"/>
+          <line x1="170" y1="300" x2="170" y2="392"/>
+          <line x1="740" y1="300" x2="740" y2="392"/><line x1="780" y1="300" x2="780" y2="392"/>
+          <line x1="820" y1="300" x2="820" y2="392"/>
+        </g>
+      </svg>
+      </div>
+      <div class="hero-frame-caption"><span class="dot"></span> Lingkungan Pondok Putri Hidayatul Mubtadiat, Lirboyo Kediri</div>
+    </div>
+
+    <div class="stat-row stat-row-4 reveal">
+      <div>
+        <div class="stat-num">1406 H</div>
+        <div class="stat-label">Berdiri 15 September 1985 M</div>
+      </div>
+      <div>
+        <div class="stat-num">Salaf</div>
+        <div class="stat-label">Sistem Klasikal Kitab Kuning</div>
+      </div>
+      <div>
+        <div class="stat-num">1446 H</div>
+        <div class="stat-label">Periode Pendaftaran 2025–2026</div>
+      </div>
+      <div>
+        <div class="stat-num">Putri</div>
+        <div class="stat-label">Khusus Santriwati</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="girih-divider">
+  <svg viewBox="0 0 240 20" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#AD8A4E" stroke-width="1" fill="none">
+      <path d="M0 10 H90"/>
+      <polygon points="100,2 108,10 100,18 92,10"/>
+      <path d="M116 10 h8"/>
+      <polygon points="130,2 138,10 130,18 122,10"/>
+      <path d="M146 10 H240"/>
+    </g>
+  </svg>
+</div>
+
+<section class="profil" id="profil">
+  <div class="wrap">
+    <div class="profil-grid">
+      <div class="profil-media reveal">
+        <div class="art-panel" id="profilPanel">
+          <img src="https://lirboyo.net/wp-content/uploads/2025/01/Kamar-Santri-1-1024x683.png" alt="Kamar santri di Pondok Pesantren Putri Hidayatul Mubtadiat" onerror="document.getElementById('profilPanel').classList.add('img-failed')">
+          <div class="art-fallback">
+          <svg viewBox="0 0 460 575" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="glow2" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="#AD8A4E" stop-opacity="0.16"/>
+                <stop offset="100%" stop-color="#AD8A4E" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="460" height="575" fill="url(#glow2)"/>
+            <g stroke="#D8BE8C" stroke-opacity="0.5" stroke-width="1.3" fill="none">
+              <circle cx="230" cy="120" r="60"/>
+              <circle cx="230" cy="120" r="44"/>
+            </g>
+            <g stroke="#D8BE8C" stroke-opacity="0.85" stroke-width="1.1" fill="none">
+              <polygon points="230,84 244,106 269,106 249,120 258,145 230,130 202,145 211,120 191,106 216,106"/>
+            </g>
+            <!-- open book -->
+            <g stroke="#D8BE8C" stroke-width="1.5" fill="none" stroke-linejoin="round">
+              <path d="M100 420 Q100 240 230 260 Q230 400 230 430"/>
+              <path d="M360 420 Q360 240 230 260"/>
+              <path d="M100 420 Q230 400 360 420"/>
+              <path d="M100 420 L100 434 Q230 414 360 434 L360 420"/>
+            </g>
+            <g stroke="#D8BE8C" stroke-opacity="0.4" stroke-width="0.8" fill="none">
+              <path d="M118 300 Q170 288 218 300 M118 330 Q170 318 218 330 M118 360 Q170 348 218 360 M118 390 Q170 378 218 390"/>
+              <path d="M242 300 Q290 288 342 300 M242 330 Q290 318 342 330 M242 360 Q290 348 342 360 M242 390 Q290 378 342 390"/>
+            </g>
+            <!-- bottom ornament band -->
+            <g stroke="#AD8A4E" stroke-opacity="0.6" stroke-width="1" fill="none">
+              <line x1="70" y1="500" x2="390" y2="500"/>
+              <polygon points="230,488 238,500 230,512 222,500" fill="#AD8A4E" fill-opacity="0.6"/>
+            </g>
+            <text x="230" y="540" text-anchor="middle" font-family="Amiri, serif" font-size="22" fill="#D8BE8C" fill-opacity="0.85">هداية المبتدئات</text>
+          </svg>
+          </div>
+        </div>
+        <div class="profil-tag">
+          <b>Sejak 1406 H</b>
+          Diasuh oleh KH. M. Anwar Manshur & Ibu Nyai Hj. Ummi Kultsum
+        </div>
+      </div>
+      <div class="profil-text reveal">
+        <div class="eyebrow">Profil Singkat</div>
+        <h2 class="section-title">Pendidikan yang Menyatukan <em>Ilmu</em> dan <em>Kepribadian</em></h2>
+        <p>Pondok Pesantren Putri Hidayatul Mubtadiat (P3HM) adalah unit pendidikan khusus santriwati di bawah naungan Pondok Pesantren Lirboyo, Kediri, dengan Pendiri sekaligus Pengasuh KH. M. Anwar Manshur bersama Ibu Nyai Hj. Ummi Kultsum.</p>
+        <p>Melalui pembinaan yang konsisten, pondok ini mengarahkan santriwatinya menjadi kader-kader muslimah sejati yang berdaya guna dalam menyukseskan dakwah dan pengembangan Islam di lingkungannya masing-masing.</p>
+        <p>Madrasah Putri Hidayatul Mubtadiat (MPHM), sebagai unit pendidikan formal keagamaan di bawah naungan yang sama, menerapkan sistem klasikal berjenjang dengan fokus pengajaran kitab-kitab salaf — ciri khas yang menjadi identitas pesantren ini secara turun-temurun.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sejarah" id="sejarah">
+  <div class="wrap">
+    <div class="sejarah-grid">
+      <div class="founder-card reveal">
+        <div class="yr">1406 H</div>
+        <div class="yr-sub">15 September 1985 M — resmi berdiri</div>
+        <div class="founder-row">
+          <h5>Pendiri &amp; Pengasuh</h5>
+          <p>KH. M. Anwar Manshur</p>
+        </div>
+        <div class="founder-row">
+          <h5>Mendampingi Sejak Awal</h5>
+          <p>Ibu Nyai Hj. Ummi Kultsum</p>
+        </div>
+        <div class="founder-row">
+          <h5>Atas Dawuh</h5>
+          <p>KH. Mahrus Aly, Pengasuh PP. Lirboyo</p>
+        </div>
+      </div>
+      <div class="sejarah-text reveal">
+        <div class="eyebrow">Sekilas Sejarah</div>
+        <h2 class="section-title">Berawal dari <em>Dua</em> Santri Perdana</h2>
+        <p>Gagasan mendirikan pesantren khusus putri di lingkungan PP. Lirboyo bermula dari dawuh KH. Mahrus Aly kepada menantu dan putrinya, KH. M. Anwar Manshur dan Ibu Nyai Hj. Ummi Kultsum. Setelah melalui pertimbangan yang matang tentang pentingnya pendidikan agama bagi perempuan, keduanya memutuskan memulai dengan mengajar dua santri putri yang datang dari Jakarta dan Karawang, bersama para khadimat keluarga ndalem.</p>
+        <p class="pull-note">Wanita adalah tiang bagi bangsanya — semakin kokoh pendidikan yang ia terima, semakin kokoh pula generasi yang ia bentuk.</p>
+        <p>Metode pengajian yang semula berbentuk halaqah sederhana kemudian dikembangkan menjadi sistem madrasah berjenjang pada 1407–1408 H, sambil tetap mempertahankan pengajian kitab kuning dengan sistem sorogan dan bandongan di luar jam sekolah. Seiring bertambahnya santri, dibangunlah asrama, MCK, dan gedung madrasah tersendiri — sebelumnya seluruh kegiatan santri masih menyatu dengan ndalem pengasuh.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="visimisi">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-bottom:0;">
+      <div class="eyebrow">Arah Perjuangan</div>
+      <h2 class="section-title">Visi & <em>Misi</em> Yayasan</h2>
+      <p class="visi-lead">Mewujudkan generasi Islam Ahlussunnah wal Jama'ah yang kokoh keilmuannya dan nyata kontribusinya bagi agama, bangsa, dan masyarakat.</p>
+    </div>
+    <div class="misi-list reveal">
+      <div class="misi-item"><span class="no">01</span><p>Terwujudnya generasi Islam Ahlussunnah wal Jama'ah.</p></div>
+      <div class="misi-item"><span class="no">02</span><p>Tegaknya Agama Islam Ahlussunnah wal Jama'ah.</p></div>
+      <div class="misi-item"><span class="no">03</span><p>Membantu program pemerintah dalam membangun manusia seutuhnya.</p></div>
+      <div class="misi-item"><span class="no">04</span><p>Menjadi sarana pendidikan, pelatihan, dan pengembangan sumber daya manusia.</p></div>
+      <div class="misi-item"><span class="no">05</span><p>Menjadi media dakwah bagi masyarakat sekitar.</p></div>
+      <div class="misi-item"><span class="no">06</span><p>Menjadi sarana sosial kemasyarakatan.</p></div>
+      <div class="misi-item"><span class="no">07</span><p>Menjadi media informasi dan komunikasi pendidikan.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="program">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Arah Pendidikan</div>
+      <h2 class="section-title">Empat Pilar Pembinaan <em>Santriwati</em></h2>
+    </div>
+    <div class="program-grid reveal">
+      <div class="program-card">
+        <div class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <h3>Kitab Salaf</h3>
+        <p>Kajian kitab kuning secara klasikal dan berjenjang sebagai fondasi utama keilmuan agama.</p>
+      </div>
+      <div class="program-card">
+        <div class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h3>Madrasah Diniyah</h3>
+        <p>Kegiatan belajar mengajar formal yang terstruktur di bawah Madrasah Putri Hidayatul Mubtadiat.</p>
+      </div>
+      <div class="program-card">
+        <div class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z"/></svg></div>
+        <h3>Pembinaan Akhlak</h3>
+        <p>Penanaman adab dan kepribadian muslimah sejati dalam keseharian pondok.</p>
+      </div>
+      <div class="program-card">
+        <div class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Kesiapan Sosial</h3>
+        <p>Membekali santriwati agar berperan aktif menyukseskan dakwah di tengah masyarakat.</p>
+      </div>
+    </div>
+
+    <div class="section-head reveal" style="margin-top:80px; margin-bottom:0;">
+      <div class="eyebrow">Jenjang & Unit</div>
+      <h2 class="section-title">Satu Atap, <em>Delapan</em> Jenjang Belajar</h2>
+    </div>
+    <div class="jenjang-wrap reveal">
+      <div class="jenjang-chip">Madrasah Ibtidaiyah <span class="yrs">6 Th</span></div>
+      <div class="jenjang-chip">Madrasah Tsanawiyah <span class="yrs">3 Th</span></div>
+      <div class="jenjang-chip">Madrasah Aliyah <span class="yrs">3 Th</span></div>
+      <div class="jenjang-chip">Al-Robithoh <span class="yrs">1 Th</span></div>
+      <div class="jenjang-chip">Perkuliahan</div>
+      <div class="jenjang-chip">Tahfidzil Qur'an</div>
+      <div class="jenjang-chip">Tartilil Qur'an</div>
+      <div class="jenjang-chip">Bahtsul Masa-il</div>
+    </div>
+  </div>
+</section>
+
+<section class="ekstra">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Di Luar Jam Sekolah</div>
+      <h2 class="section-title">Jam'iyyah & <em>Kursus</em> Keterampilan</h2>
+    </div>
+    <div class="ekstra-cols">
+      <div class="ekstra-col reveal">
+        <h3>Jam'iyyah</h3>
+        <p class="ekstra-sub">Kegiatan rutin malam Jum'at & mingguan</p>
+        <div class="ekstra-entry"><h4>Khitobah</h4><p>Latihan berpidato dan berbicara di depan umum dengan bahasa yang baik dan lugas.</p></div>
+        <div class="ekstra-entry"><h4>Diba'iyyah & Barzanji</h4><p>Pembacaan sholawat dan syair pujian kepada Nabi Muhammad ﷺ.</p></div>
+        <div class="ekstra-entry"><h4>Manaqib</h4><p>Mengkaji sejarah dan keutamaan para wali serta ulama besar.</p></div>
+        <div class="ekstra-entry"><h4>Simtuth Duror</h4><p>Pembacaan kitab Maulid karya Al-Habib Ali bin Muhammad Al-Habsyi.</p></div>
+        <div class="ekstra-entry"><h4>Izalatun Najasah & Tajhizul Mayyit</h4><p>Pembelajaran tata cara bersuci dan mengurus jenazah sesuai syariat.</p></div>
+      </div>
+      <div class="ekstra-col reveal">
+        <h3>Kursus Keterampilan</h3>
+        <p class="ekstra-sub">Bekal kemandirian di luar keilmuan agama</p>
+        <div class="ekstra-entry"><h4>Murottilil Qur'an</h4><p>Pelatihan membaca Al-Qur'an dengan tartil sesuai kaidah tajwid.</p></div>
+        <div class="ekstra-entry"><h4>Vokal & Rebana</h4><p>Pengembangan seni suara serta latihan mengiringi sholawat dan qosidah.</p></div>
+        <div class="ekstra-entry"><h4>Menjahit</h4><p>Keterampilan menjahit untuk kebutuhan pribadi maupun usaha.</p></div>
+        <div class="ekstra-entry"><h4>Kepribadian</h4><p>Pelatihan etika dan pengembangan diri agar santriwati berakhlak baik.</p></div>
+        <div class="ekstra-entry"><h4>Make Up</h4><p>Dasar-dasar tata rias yang sesuai norma kepantasan.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fasilitas">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-bottom:0;">
+      <div class="eyebrow">Sarana Penunjang</div>
+      <h2 class="section-title">Fasilitas <em>Pondok</em></h2>
+    </div>
+    <div class="fas-wrap reveal">
+      <span class="fas-chip">Kamar Santri</span>
+      <span class="fas-chip">Kamar Pengurus</span>
+      <span class="fas-chip">MCK</span>
+      <span class="fas-chip">Mushola</span>
+      <span class="fas-chip">Lokal / Kelas</span>
+      <span class="fas-chip">Aula</span>
+      <span class="fas-chip">Rental Komputer</span>
+      <span class="fas-chip">Wartel</span>
+      <span class="fas-chip">Kantin</span>
+      <span class="fas-chip">Ruang Serbaguna</span>
+      <span class="fas-chip">Ruang Penyimpanan Barang</span>
+      <span class="fas-chip">Perpustakaan</span>
+      <span class="fas-chip">Jemuran</span>
+      <span class="fas-chip">Ruang Panggilan</span>
+      <span class="fas-chip">UKS</span>
+      <span class="fas-chip">Toko Buku / Kitab</span>
+      <span class="fas-chip">Dapur</span>
+      <span class="fas-chip">Kantor</span>
+    </div>
+  </div>
+</section>
+
+<section id="galeri">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Dokumentasi</div>
+      <h2 class="section-title">Galeri <em>Kegiatan</em> Santriwati</h2>
+    </div>
+    <div class="galeri-grid reveal">
+      <div class="galeri-item" id="g1">
+        <img src="https://lirboyo.net/wp-content/uploads/2022/02/Sorogan-Kitab-1024x561.jpg" alt="Kegiatan sorogan kitab santriwati" loading="lazy" onerror="document.getElementById('g1').classList.add('img-failed')">
+        <div class="g-photo-cap">Sorogan Kitab</div>
+        <div class="g-fallback">
+          <div class="g-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg></div>
+          <div class="g-cap"><h4>Sorogan Kitab</h4><p>Bimbingan membaca kitab langsung dengan ustadzah, satu per satu.</p></div>
+        </div>
+      </div>
+      <div class="galeri-item" id="g2">
+        <img src="https://lirboyo.net/wp-content/uploads/2022/02/Bahtsul-Masail-1024x561.jpg" alt="Kegiatan Bahtsul Masa-il" loading="lazy" onerror="document.getElementById('g2').classList.add('img-failed')">
+        <div class="g-photo-cap">Bahtsul Masa-il</div>
+        <div class="g-fallback">
+          <div class="g-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+          <div class="g-cap"><h4>Bahtsul Masa-il</h4><p>Musyawarah memecahkan persoalan fikih kontemporer bersama-sama.</p></div>
+        </div>
+      </div>
+      <div class="galeri-item" id="g3">
+        <img src="https://lirboyo.net/wp-content/uploads/2025/01/Kamar-Santri-1-1024x683.png" alt="Kamar santri" loading="lazy" onerror="document.getElementById('g3').classList.add('img-failed')">
+        <div class="g-photo-cap">Kamar Santri</div>
+        <div class="g-fallback">
+          <div class="g-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="1.5"/><path d="M3 7l3-4h12l3 4"/><path d="M8 12h8M8 16h5"/></svg></div>
+          <div class="g-cap"><h4>Kamar Santri</h4><p>Asrama sebagai ruang tumbuh keseharian dan kebersamaan santriwati.</p></div>
+        </div>
+      </div>
+      <div class="galeri-item" id="g4">
+        <img src="https://lirboyo.net/wp-content/uploads/2022/02/Perpustakaan-1024x561.jpg" alt="Perpustakaan pondok" loading="lazy" onerror="document.getElementById('g4').classList.add('img-failed')">
+        <div class="g-photo-cap">Perpustakaan</div>
+        <div class="g-fallback">
+          <div class="g-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <div class="g-cap"><h4>Perpustakaan</h4><p>Koleksi kitab dan referensi sebagai ruang belajar mandiri santriwati.</p></div>
+        </div>
+      </div>
+      <div class="galeri-item" id="g5">
+        <img src="https://lirboyo.net/wp-content/uploads/2022/02/Koreksian-Kitab-1024x561.jpg" alt="Kegiatan koreksian kitab" loading="lazy" onerror="document.getElementById('g5').classList.add('img-failed')">
+        <div class="g-photo-cap">Koreksian Kitab</div>
+        <div class="g-fallback">
+          <div class="g-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <div class="g-cap"><h4>Koreksian Kitab</h4><p>Penyelarasan makna dan harakat kitab agar sesuai kaidah yang benar.</p></div>
+        </div>
+      </div>
+      <div class="galeri-item" id="g6">
+        <img src="https://lirboyo.net/wp-content/uploads/2022/02/Muhafadhah-Akhirussanah-1024x561.jpg" alt="Muhafadhah Akhirussanah" loading="lazy" onerror="document.getElementById('g6').classList.add('img-failed')">
+        <div class="g-photo-cap">Muhafadhah</div>
+        <div class="g-fallback">
+          <div class="g-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/></svg></div>
+          <div class="g-cap"><h4>Muhafadhah</h4><p>Ujian hafalan santriwati di penghujung tahun ajaran, akhirussanah.</p></div>
+        </div>
+      </div>
+      <div class="galeri-item" id="g7">
+        <img src="https://lirboyo.net/wp-content/uploads/2022/02/Haul-Haflah-Akhirussanah-1024x561.jpg" alt="Haul dan Haflah Akhirussanah" loading="lazy" onerror="document.getElementById('g7').classList.add('img-failed')">
+        <div class="g-photo-cap">Haul & Haflah</div>
+        <div class="g-fallback">
+          <div class="g-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.5 13.5L7 22l5-3 5 3-1.5-8.5"/></svg></div>
+          <div class="g-cap"><h4>Haul & Haflah</h4><p>Peringatan tahunan sekaligus wisuda purna santriwati akhirussanah.</p></div>
+        </div>
+      </div>
+      <div class="galeri-item" id="g8">
+        <img src="https://lirboyo.net/wp-content/uploads/2022/02/Kunjungan-Syekh-Fadhil-1024x561.jpg" alt="Kunjungan tamu ulama ke pondok" loading="lazy" onerror="document.getElementById('g8').classList.add('img-failed')">
+        <div class="g-photo-cap">Kunjungan Ulama</div>
+        <div class="g-fallback">
+          <div class="g-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 7.5H22l-6 5 2.5 7.5-6.5-5-6.5 5 2.5-7.5-6-5h7.5z"/></svg></div>
+          <div class="g-cap"><h4>Kunjungan Ulama</h4><p>Silaturahmi dan mau'idzoh dari tamu ulama ke lingkungan pondok.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="daftar" id="pendaftaran">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Penerimaan Santri Baru</div>
+      <h2 class="section-title">Periode 1446–1447 H <em>/ 2025–2026 M</em></h2>
+      <p class="daftar-sub">Seluruh proses pendaftaran calon santriwati baru dilakukan secara online. Ikuti tautan di bawah ini untuk mendaftar, membaca panduan, hingga melihat pengumuman kelulusan.</p>
+    </div>
+    <div class="daftar-grid">
+      <a class="daftar-card reveal" href="https://docs.google.com/forms/d/e/1FAIpQLSfUOGLDZHGW7ApSoHTWbrMjbDJXALVHKdHEos95H5fkqxzHmg/viewform" target="_blank">
+        <div><div class="num">01</div><h4>Formulir Pendaftaran Online</h4></div>
+        <div class="go">Buka tautan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+      </a>
+      <a class="daftar-card reveal" href="https://drive.google.com/file/d/1QLPH_J8HU4v6OsoS6hBZGhd_OhFNszMt/view" target="_blank">
+        <div><div class="num">02</div><h4>Tutorial Pendaftaran</h4></div>
+        <div class="go">Buka tautan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+      </a>
+      <a class="daftar-card reveal" href="https://drive.google.com/file/d/1y8QMDZrai0549JOBLNbiknSr6V8Z4gnO/view" target="_blank">
+        <div><div class="num">03</div><h4>Informasi Pendaftaran</h4></div>
+        <div class="go">Buka tautan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+      </a>
+      <a class="daftar-card reveal" href="https://drive.google.com/file/d/1d8JaeSllBEkkmUvFcRiZje6gs_30YgO-/view" target="_blank">
+        <div><div class="num">04</div><h4>Materi Ujian Masuk</h4></div>
+        <div class="go">Buka tautan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+      </a>
+      <a class="daftar-card reveal" href="https://drive.google.com/file/d/1I7Qqx5Wq1gBP3edSCvB5whNoPoaSoS-o/view" target="_blank">
+        <div><div class="num">05</div><h4>Daftar Santri Diterima</h4></div>
+        <div class="go">Buka tautan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+      </a>
+      <a class="daftar-card reveal" href="https://drive.google.com/file/d/1A9dHeLl1Z2FLqNhVz_ZoK56vHQ_VKDEt/view" target="_blank">
+        <div><div class="num">06</div><h4>Unduh Brosur P3HM</h4></div>
+        <div class="go">Buka tautan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="kontak" id="kontak">
+  <div class="wrap">
+    <div class="kontak-grid">
+      <div class="reveal">
+        <div class="eyebrow">Hubungi Kami</div>
+        <h2 class="section-title">Kami Siap Menjawab <em>Pertanyaan</em> Anda</h2>
+        <div class="kontak-list">
+          <div class="kontak-item">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div>
+              <h4>Telepon / WhatsApp</h4>
+              <a href="https://wa.me/628561985565" target="_blank">0856-1985-565</a>
+            </div>
+          </div>
+          <div class="kontak-item">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div>
+              <h4>Alamat</h4>
+              <p>Jl. KH. Abdul Karim, PO. Box 140, Lirboyo, Mojoroto, Kota Kediri 64117, Jawa Timur</p>
+            </div>
+          </div>
+          <div class="kontak-item">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
+            <div>
+              <h4>Instagram</h4>
+              <a href="https://www.instagram.com/p3hmlirboyo/" target="_blank">@p3hmlirboyo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kontak-card reveal">
+        <div class="arabic">بَارَكَ اللهُ فِيْكُمْ</div>
+        <p>Untuk informasi lebih lanjut seputar penerimaan santri baru maupun kegiatan pondok, silakan hubungi kami langsung melalui WhatsApp atau ikuti kabar terbaru di Instagram.</p>
+        <div class="kontak-social">
+          <a class="soc-btn" href="https://wa.me/628561985565" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            WhatsApp
+          </a>
+          <a class="soc-btn" href="https://www.instagram.com/p3hmlirboyo/" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+            Instagram
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <div class="foot-brand">
+      <span class="mark" style="width:28px;height:28px;">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" stroke="#AD8A4E" stroke-width="1.3" stroke-linejoin="round"/></svg>
+      </span>
+      Pondok Pesantren Putri Hidayatul Mubtadiat
+    </div>
+    <div>© 2026 Yayasan Hidayatul Mubtadiat · Lirboyo, Kediri</div>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 12);
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
