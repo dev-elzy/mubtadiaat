@@ -1,18 +1,24 @@
 {
-  "name": "p3hm-profile-website",
+  "name": "p3hm-landing-profile",
   "version": "1.0.0",
-  "description": "Official Profile Website for Pondok Pesantren Putri Hidayatul Mubtadiat (p3hm.my.id)",
   "private": true,
   "scripts": {
-    "dev": "npx wrangler pages dev .",
-    "deploy": "npx wrangler pages deploy . --project-name=p3hm-landing-profile"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "pages:deploy": "npm run pages:build && wrangler pages deploy",
+    "pages:watch": "npx @cloudflare/next-on-pages --watch",
+    "pages:dev": "npx wrangler pages dev"
   },
-  "keywords": [
-    "pesantren",
-    "lirboyo",
-    "p3hm",
-    "hidayatul-mubtadiat"
-  ],
-  "author": "Pondok Pesantren Putri Hidayatul Mubtadiat",
-  "license": "UNLICENSED"
+  "dependencies": {
+    "next": "^14.2.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.11.0",
+    "wrangler": "^3.50.0"
+  }
 }

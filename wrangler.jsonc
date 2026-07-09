@@ -1,16 +1,13 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "p3hm-landing-profile",
-  "pages_build_output_dir": ".",
-  "compatibility_date": "2026-07-09",
-  "routes": [
+  "pages_build_output_dir": ".vercel/output/static",
+  "compatibility_date": "2026-06-18",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
     {
-      "pattern": "p3hm.my.id",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.p3hm.my.id",
-      "custom_domain": true
+      "binding": "DB",
+      "database_name": "portal_db",
+      "database_id": "7fbfed88-5661-4bc0-af16-7c416293e0bd"
     }
   ]
 }
