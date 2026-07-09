@@ -1,6 +1,8 @@
 import './globals.css';
 import LayoutWrapper from '../components/ui/LayoutWrapper';
 
+export const runtime = 'edge';
+
 export const metadata = {
   title: 'Pondok Pesantren Putri Hidayatul Mubtadiat - Lirboyo',
   description: 'Website Profil dan Portal Berita P3HM Lirboyo',
