@@ -1,4 +1,5 @@
 import { getPublishedGaleri } from '../lib/db';
+import EmptyState from '../../components/ui/EmptyState';
 
 export const runtime = 'edge';
 
@@ -10,7 +11,11 @@ export default async function GaleriPage() {
       <h1 style={{ fontFamily: '"Fraunces", serif', fontSize: '36px', color: 'var(--teal-900)', marginBottom: '40px' }}>Galeri Dokumentasi</h1>
       
       {galeri.length === 0 ? (
-        <p>Belum ada dokumentasi.</p>
+        <EmptyState 
+          title="Belum Ada Dokumentasi" 
+          message="Galeri dokumentasi foto kegiatan santriwati belum tersedia atau sedang diperbarui. Silakan kembali beberapa saat lagi." 
+          icon="gallery" 
+        />
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px' }}>
           {galeri.map(g => (

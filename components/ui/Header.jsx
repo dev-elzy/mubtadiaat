@@ -49,7 +49,7 @@ export default function Header() {
           <Link href="/profil">Profil Madrasah</Link>
           <Link href="/berita">Portal Berita</Link>
           <Link href="/galeri">Galeri</Link>
-          <Link href="/#kontak">Kontak</Link>
+          <Link href="/kontak">Kontak</Link>
         </div>
         
         <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -112,7 +112,7 @@ export default function Header() {
               <Link href="/galeri" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', color: 'inherit' }}>
                 Galeri Dokumentasi
               </Link>
-              <Link href="/#kontak" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/kontak" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', color: 'inherit' }}>
                 Hubungi Kami
               </Link>
             </div>

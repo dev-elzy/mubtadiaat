@@ -1,4 +1,5 @@
 import { getPublishedBerita } from '../lib/db';
+import EmptyState from '../../components/ui/EmptyState';
 
 export const runtime = 'edge';
 
@@ -10,7 +11,11 @@ export default async function BeritaPage() {
       <h1 style={{ fontFamily: '"Fraunces", serif', fontSize: '36px', color: 'var(--teal-900)', marginBottom: '40px' }}>Portal Berita</h1>
       
       {berita.length === 0 ? (
-        <p>Belum ada berita.</p>
+        <EmptyState 
+          title="Belum Ada Berita" 
+          message="Saat ini belum ada artikel berita atau pengumuman terbaru yang diterbitkan. Silakan kembali dalam beberapa waktu ke depan." 
+          icon="news" 
+        />
       ) : (
         <div className="mag-grid">
           {berita.map(b => (

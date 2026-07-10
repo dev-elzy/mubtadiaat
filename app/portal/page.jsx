@@ -17,6 +17,7 @@ export default function PortalAdmin() {
   const [settings, setSettings] = useState({});
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
   const [toast, setToast] = useState({ show: false, msg: '', type: 'success' });
   const router = useRouter();
 
@@ -32,6 +33,7 @@ export default function PortalAdmin() {
         router.push('/portal/login');
         return;
       }
+      setAuthenticated(true);
 
       const [bRes, gRes, sRes, cRes] = await Promise.all([
         fetch('/api/berita').then(r => r.json()).catch(() => []),
@@ -56,8 +58,7 @@ export default function PortalAdmin() {
 
   async function handleLogout() {
     await fetch('/api/auth/logout', { method: 'POST' });
-    router.push('/');
-    router.refresh();
+    window.location.href = 'https://p3hm.my.id/';
   }
 
   async function handleSaveSettings(newSettings) {
@@ -85,6 +86,38 @@ export default function PortalAdmin() {
       default: return 'Portal CMS Admin';
     }
   };
+
+  if (loading || !authenticated) {
+    return (
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        background: 'radial-gradient(circle at center, #16342C 0%, #0F2B24 100%)',
+        fontFamily: '"Plus Jakarta Sans", sans-serif',
+        color: '#e5ddd0'
+      }}>
+        <div className="spinner" style={{
+          width: '40px',
+          height: '40px',
+          border: '3px solid rgba(216, 190, 140, 0.1)',
+          borderTopColor: '#D8BE8C',
+          borderRadius: '50%',
+          animation: 'spin 0.8s linear infinite',
+          marginBottom: '16px'
+        }}></div>
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}} />
+        <span style={{ fontSize: '13.5px', letterSpacing: '0.05em', color: '#D8BE8C' }}>Memeriksa Otorisasi Akses...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="portal-root">
