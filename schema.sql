@@ -74,6 +74,19 @@ INSERT INTO settings (key, value) VALUES ('phoneWa', '0856-1985-565');
 INSERT INTO settings (key, value) VALUES ('instagramHandle', '@p3hmlirboyo');
 INSERT INTO settings (key, value) VALUES ('address', 'Jl. KH. Abdul Karim, PO. Box 140, Lirboyo, Mojoroto, Kota Kediri 64117, Jawa Timur');
 
+-- Profil Page Settings
+INSERT OR IGNORE INTO settings (key, value) VALUES ('profilSingkatEyebrow', 'Profil Singkat');
+INSERT OR IGNORE INTO settings (key, value) VALUES ('profilSingkatTitleHtml', 'Pendidikan yang Menyatukan <em>Ilmu</em> dan <em>Kepribadian</em>');
+INSERT OR IGNORE INTO settings (key, value) VALUES ('profilSingkat', 'Pondok Pesantren Putri Hidayatul Mubtadiat (P3HM) adalah unit pendidikan khusus santriwati di bawah naungan Pondok Pesantren Lirboyo, Kediri, dengan Pendiri sekaligus Pengasuh KH. M. Anwar Manshur bersama Ibu Nyai Hj. Ummi Kultsum.
+
+Melalui pembinaan yang konsisten, pondok ini mengarahkan santriwatinya menjadi kader-kader muslimah sejati yang berdaya guna dalam menyukseskan dakwah dan pengembangan Islam di lingkungannya masing-masing.
+
+Madrasah Putri Hidayatul Mubtadiat (MPHM), sebagai unit pendidikan formal keagamaan di bawah naungan yang sama, menerapkan sistem klasikal berjenjang dengan fokus pengajaran kitab-kitab salaf — ciri khas yang menjadi identitas pesantren ini secara turun-temurun.');
+INSERT OR IGNORE INTO settings (key, value) VALUES ('profilSingkatImage', '/images/muhafadhah-akhirussanah.jpg');
+INSERT OR IGNORE INTO settings (key, value) VALUES ('profilSingkatTagBold', 'Sejak 1406 H');
+INSERT OR IGNORE INTO settings (key, value) VALUES ('profilSingkatTagText', 'Diasuh oleh KH. M. Anwar Manshur & Ibu Nyai Hj. Ummi Kultsum');
+
+
 -- ==========================================
 -- VIEWS COUNTER (Real-time, Deduplicated)
 -- ==========================================

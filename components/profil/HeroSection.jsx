@@ -11,7 +11,18 @@ export default function HeroSection({ settings = {} }) {
   const arabic = settings.heroArabic || "مَعْهَدْ لِلْبَنَاتْ هِدَايَةُ الْمُبْتَدِئَاتْ";
   const titleHtml = settings.heroTitleHtml || 'Menempa Muslimah <em>Sejati</em>,<br />Berakar pada Kitab Salaf';
   const sub = settings.heroSub || "Pondok Pesantren Putri Hidayatul Mubtadiat mendidik santriwati dengan keilmuan agama yang mendalam dan kesiapan menjawab kebutuhan masyarakat — di bawah naungan Yayasan Hidayatul Mubtadiat, Lirboyo Kediri.";
-  const daftarUrl = settings.daftarUrl || "https://docs.google.com/forms/d/e/1FAIpQLSfUOGLDZHGW7ApSoHTWbrMjbDJXALVHKdHEos95H5fkqxzHmg/viewform";
+  const daftarUrl = settings.daftarUrl || "https://p3hm.my.id/pendaftaran";
+  const heroImage = settings.heroImage || "/images/bangunan-dalam.jpg";
+  const heroCaption = settings.heroCaption || "Lingkungan Pondok Putri Hidayatul Mubtadiat, Lirboyo Kediri";
+
+  const stat1Num = settings.stat1Num || "1406 H";
+  const stat1Label = settings.stat1Label || "Berdiri 15 September 1985 M";
+  const stat2Num = settings.stat2Num || "Salaf";
+  const stat2Label = settings.stat2Label || "Sistem Klasikal Kitab Kuning";
+  const stat3Num = settings.stat3Num || "1446 H";
+  const stat3Label = settings.stat3Label || "Periode Pendaftaran 2025–2026";
+  const stat4Num = settings.stat4Num || "Putri";
+  const stat4Label = settings.stat4Label || "Khusus Santriwati";
 
   return (
     <>
@@ -35,8 +46,8 @@ export default function HeroSection({ settings = {} }) {
 
           <Reveal className={`hero-frame ${imgFailed ? 'img-failed' : ''}`} id="heroFrame">
             <Image 
-              src="/images/bangunan-dalam.jpg" 
-              alt="Lingkungan Pondok Pesantren Putri Hidayatul Mubtadiat, Lirboyo Kediri" 
+              src={heroImage} 
+              alt={heroCaption} 
               width={920}
               height={448}
               priority
@@ -91,25 +102,25 @@ export default function HeroSection({ settings = {} }) {
                 </g>
               </svg>
             </div>
-            <div className="hero-frame-caption"><span className="dot"></span> Lingkungan Pondok Putri Hidayatul Mubtadiat, Lirboyo Kediri</div>
+            <div className="hero-frame-caption"><span className="dot"></span> {heroCaption}</div>
           </Reveal>
 
           <Reveal className="stat-row stat-row-4">
             <div>
-              <div className="stat-num">1406 H</div>
-              <div className="stat-label">Berdiri 15 September 1985 M</div>
+              <div className="stat-num">{stat1Num}</div>
+              <div className="stat-label">{stat1Label}</div>
             </div>
             <div>
-              <div className="stat-num">Salaf</div>
-              <div className="stat-label">Sistem Klasikal Kitab Kuning</div>
+              <div className="stat-num">{stat2Num}</div>
+              <div className="stat-label">{stat2Label}</div>
             </div>
             <div>
-              <div className="stat-num">1446 H</div>
-              <div className="stat-label">Periode Pendaftaran 2025–2026</div>
+              <div className="stat-num">{stat3Num}</div>
+              <div className="stat-label">{stat3Label}</div>
             </div>
             <div>
-              <div className="stat-num">Putri</div>
-              <div className="stat-label">Khusus Santriwati</div>
+              <div className="stat-num">{stat4Num}</div>
+              <div className="stat-label">{stat4Label}</div>
             </div>
           </Reveal>
         </div>

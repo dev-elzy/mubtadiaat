@@ -17,11 +17,11 @@ export default async function ProfilPage() {
     <main className="profil-layout">
       {/* 1. Komponen-komponen Profil Statis & Dinamis */}
       <HeroSection settings={settings} />
-      <ProfilSingkat text={settings.profilSingkat} />
-      <SejarahSection />
-      <VisiMisi />
-      <ProgramPendidikan />
-      <EkstraFasilitas />
+      <ProfilSingkat settings={settings} text={settings.profilSingkat} />
+      <SejarahSection settings={settings} />
+      <VisiMisi settings={settings} />
+      <ProgramPendidikan settings={settings} />
+      <EkstraFasilitas settings={settings} />
     </main>
   );
 }
