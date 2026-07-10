@@ -83,7 +83,7 @@ export default async function KontakPage() {
             {/* Google Maps Card */}
             <div style={{ background: '#ffffff', border: '1px solid rgba(173,138,78,0.15)', borderRadius: '16px', padding: '16px', boxShadow: '0 10px 30px rgba(15,43,36,0.03)', overflow: 'hidden' }}>
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.709971279144!2d112.0006764!3d-7.820468999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e78f5f4d852a36b%3A0xc3ec5bf81c5d01ec!2sPondok%20Pesantren%20Putri%20Hidayatul%20Mubtadiat!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7905.4219870463285!2d111.99477514016729!3d-7.820383967588941!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7857d659b0d9bb%3A0xeb9af58aef8914eb!2sPondok%20Pesantren%20Putri%20Hidayatul%20Mubtadi&#39;aat%20%5BP3HM%5D%20Lirboyo!5e0!3m2!1sid!2sid!4v1783649645613!5m2!1sid!2sid" 
                 width="100%" 
                 height="280" 
                 style={{ border: 0, borderRadius: '12px' }} 
