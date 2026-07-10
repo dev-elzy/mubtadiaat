@@ -110,3 +110,46 @@ INSERT OR IGNORE INTO psb_pages (id, title, slug, icon, order_num, is_default_ho
   '',
   'published'
 );
+
+CREATE TABLE IF NOT EXISTS psb_classes (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  materi_ujian TEXT,
+  kurikulum TEXT,
+  status_note TEXT,
+  daftar_url TEXT,
+  order_num INTEGER DEFAULT 1
+);
+
+INSERT OR IGNORE INTO psb_classes (id, title, materi_ujian, kurikulum, status_note, daftar_url, order_num) VALUES
+('class-1', 'MADRASAH IBTIDAIYAH (KELAS I)', 'CTBQ An-Nahdliyah
+Ilmu Tauhid Dasar
+Hidayatul Mubtadi'' I
+Fasholatan & Doa Harian
+Ilmu Akhlaq I
+Pegon & Menulis Arab
+Bahasa Indonesia', 'Al-Qur''an & Tajwid Praktis
+Tauhid (Aqidatul Awam)
+Fiqih Dasar (Safinatun Naja)
+Hafalan Juz ''Amma
+Bahasa Arab Dasar', '', 'http://bit.ly/hidayatul-mubtadiaat', 1),
+('class-2', 'MADRASAH IBTIDAIYAH (KELAS II)', 'KELAS II IBTIDAIYAH TANPA UJIAN
+(Seleksi Berkas & Evaluasi Rapot Sebelumnya)', 'Fiqih Wanita & Risalatul Mahid
+Nahwu Dasar (Jurumiyah)
+Shorof (Amtsilah Tasrifiyah)
+Tarikh & Sirah Nabawiyah
+Akhlaq Santriwati', '', 'http://bit.ly/hidayatul-mubtadiaat', 2),
+('class-3', 'MADRASAH TSANAWIYAH (KELAS I TS)', 'Ujian Baca Kitab Safinatun Naja & Jurumiyah
+Tes Tajwid & Hafalan Al-Qur''an
+Wawancara Keislaman & Akhlaq', 'Fiqih Lanjutan (Fathul Qorib)
+Nahwu Lanjutan (Imrithy)
+Mustholah Hadits
+Akhlaq (Ta''lim Muta''allim)
+Bahtsul Masail Dasar', '', 'http://bit.ly/hidayatul-mubtadiaat', 3),
+('class-4', 'MADRASAH ALIYAH (KELAS I MA)', 'Ujian Baca Kitab Fathul Qorib & Imrithy
+Tes Kemampuan Bahasa Arab & Pegon
+Tes Pemahaman Fiqih Wanita', 'Ushul Fiqih (Al-Waraqat)
+Nahwu Tingkat Atas (Alfiyah Ibnu Malik)
+Tafsir & Ulumul Qur''an
+Bahtsul Masail Putri Lanjutan', '', 'http://bit.ly/hidayatul-mubtadiaat', 4);
+

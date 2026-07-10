@@ -5,13 +5,16 @@ import RichTextEditor from './RichTextEditor';
 
 export default function TabPsb({ showToast, confirm }) {
   const [pages, setPages] = useState([]);
+  const [classes, setClasses] = useState([]);
   const [settings, setSettings] = useState({
     psbPeriode: 'TA 1446 - 1447 H / 2025 - 2026 M',
     psbTitle: 'Penerimaan Santri Baru Pondok Pesantren Putri Hidayatul Mubtadiat'
   });
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
+  const [classModalOpen, setClassModalOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [savingClass, setSavingClass] = useState(false);
   const [savingSettings, setSavingSettings] = useState(false);
 
   const [form, setForm] = useState({
@@ -28,6 +31,16 @@ export default function TabPsb({ showToast, confirm }) {
     status: 'published'
   });
 
+  const [classForm, setClassForm] = useState({
+    id: '',
+    title: '',
+    materi_ujian: '',
+    kurikulum: '',
+    status_note: '',
+    daftar_url: 'http://bit.ly/hidayatul-mubtadiaat',
+    order_num: 1
+  });
+
   const loadData = async () => {
     setLoading(true);
     try {
@@ -36,6 +49,13 @@ export default function TabPsb({ showToast, confirm }) {
       if (Array.isArray(data)) {
         setPages(data);
       }
+
+      const classRes = await fetch('/api/psb/classes');
+      const classData = await classRes.json();
+      if (Array.isArray(classData)) {
+        setClasses(classData);
+      }
+
       const setRes = await fetch('/api/settings');
       const setData = await setRes.json();
       if (setData && typeof setData === 'object') {
@@ -186,9 +206,87 @@ export default function TabPsb({ showToast, confirm }) {
     }
   };
 
+  // MANAGEMENT CLASS CARDS (MATERI UJIAN & KURIKULUM)
+  const handleOpenCreateClass = () => {
+    setClassForm({
+      id: 'class-' + Date.now(),
+      title: '',
+      materi_ujian: '',
+      kurikulum: '',
+      status_note: '',
+      daftar_url: 'http://bit.ly/hidayatul-mubtadiaat',
+      order_num: classes.length + 1
+    });
+    setClassModalOpen(true);
+  };
+
+  const handleOpenEditClass = (item) => {
+    setClassForm({
+      id: item.id,
+      title: item.title || '',
+      materi_ujian: item.materi_ujian || '',
+      kurikulum: item.kurikulum || '',
+      status_note: item.status_note || '',
+      daftar_url: item.daftar_url || 'http://bit.ly/hidayatul-mubtadiaat',
+      order_num: item.order_num || 1
+    });
+    setClassModalOpen(true);
+  };
+
+  const handleSaveClass = async (e) => {
+    e.preventDefault();
+    if (!classForm.title.trim()) {
+      if (showToast) showToast('Judul kelas wajib diisi', 'error');
+      return;
+    }
+
+    setSavingClass(true);
+    try {
+      const res = await fetch('/api/psb/classes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(classForm)
+      });
+      const resData = await res.json();
+      if (res.ok && resData.success) {
+        if (showToast) showToast('Tabel kelas berhasil disimpan!', 'success');
+        setClassModalOpen(false);
+        loadData();
+      } else {
+        if (showToast) showToast(resData.error || 'Gagal menyimpan tabel kelas', 'error');
+      }
+    } catch (err) {
+      if (showToast) showToast('Terjadi kesalahan jaringan', 'error');
+    } finally {
+      setSavingClass(false);
+    }
+  };
+
+  const handleDeleteClass = async (item) => {
+    const ok = await confirm(`Hapus kartu kelas "${item.title}"?`);
+    if (!ok) return;
+
+    try {
+      const res = await fetch('/api/psb/classes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete', id: item.id })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        if (showToast) showToast('Tabel kelas berhasil dihapus', 'success');
+        loadData();
+      } else {
+        if (showToast) showToast(data.error || 'Gagal menghapus', 'error');
+      }
+    } catch (err) {
+      if (showToast) showToast('Terjadi kesalahan koneksi', 'error');
+    }
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-      {/* 1. PENGATURAN PERIODE & BANNER ATAS PSB ONLINE (Sesuai Desain Kartu Zamrud CMS Portal) */}
+      {/* 1. PENGATURAN PERIODE & BANNER ATAS PSB ONLINE */}
       <div className="card">
         <div className="card-head">
           <div className="card-head-left">
@@ -255,7 +353,90 @@ export default function TabPsb({ showToast, confirm }) {
         </form>
       </div>
 
-      {/* 2. DAFTAR NAVIGASI & HALAMAN PSB */}
+      {/* 2. MANAJEMEN TABEL KARTU KELAS (MATERI UJIAN & KURIKULUM - Sesuai Gambar Referensi ke-3) */}
+      <div className="card">
+        <div className="card-head">
+          <div className="card-head-left">
+            <h3>🎓 Manajemen Tabel Kelas (Materi Ujian &amp; Kurikulum PSB)</h3>
+            <p>Kelola daftar kartu kelas interaktif berisi tab Materi Ujian dan Kurikulum Pendidikan untuk seleksi masuk</p>
+          </div>
+          <button
+            onClick={handleOpenCreateClass}
+            className="btn btn-primary"
+            style={{
+              background: 'linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%)',
+              color: '#0B1A16',
+              fontWeight: '700'
+            }}
+          >
+            <span>+</span> Tambah Kelas Baru
+          </button>
+        </div>
+
+        <div style={{ overflowX: 'auto' }}>
+          <table className="table">
+            <thead>
+              <tr>
+                <th style={{ width: '60px' }}>No</th>
+                <th>Judul Kelas</th>
+                <th>Materi Ujian (Ringkas)</th>
+                <th>Kurikulum Kitab (Ringkas)</th>
+                <th>URL Pendaftaran</th>
+                <th style={{ textAlign: 'right' }}>Kelola</th>
+              </tr>
+            </thead>
+            <tbody>
+              {classes.length === 0 ? (
+                <tr>
+                  <td colSpan={6} style={{ padding: '36px', textAlign: 'center', color: 'var(--text-secondary)' }}>
+                    Belum ada kartu kelas PSB.
+                  </td>
+                </tr>
+              ) : (
+                classes.map((c, idx) => (
+                  <tr key={c.id}>
+                    <td style={{ fontWeight: '700', color: 'var(--gold)' }}>{c.order_num || idx + 1}</td>
+                    <td style={{ fontWeight: '700', color: 'var(--text)' }}>{c.title}</td>
+                    <td style={{ fontSize: '12.5px', color: 'var(--text-secondary)', whiteSpace: 'pre-line', maxWidth: '240px' }}>
+                      {(c.materi_ujian || '').split('\n').slice(0, 3).join('\n')}
+                      {(c.materi_ujian || '').split('\n').length > 3 && ' ...'}
+                    </td>
+                    <td style={{ fontSize: '12.5px', color: 'var(--text-secondary)', whiteSpace: 'pre-line', maxWidth: '240px' }}>
+                      {(c.kurikulum || '').split('\n').slice(0, 3).join('\n')}
+                      {(c.kurikulum || '').split('\n').length > 3 && ' ...'}
+                    </td>
+                    <td>
+                      <a href={c.daftar_url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '12.5px', color: 'var(--gold)', textDecoration: 'underline' }}>
+                        Daftar &rarr;
+                      </a>
+                    </td>
+                    <td style={{ textAlign: 'right' }}>
+                      <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                        <button
+                          onClick={() => handleOpenEditClass(c)}
+                          className="btn"
+                          style={{ background: 'var(--surface)', color: 'var(--text)', border: '1px solid var(--border)', padding: '7px 14px', fontSize: '12px' }}
+                        >
+                          ✏️ Edit
+                        </button>
+                        <button
+                          onClick={() => handleDeleteClass(c)}
+                          className="btn"
+                          style={{ background: 'rgba(239, 68, 68, 0.12)', color: '#F87171', border: '1px solid rgba(239,68,68,0.2)', padding: '7px 12px', fontSize: '12px' }}
+                        >
+                          🗑️
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* 3. DAFTAR NAVIGASI & HALAMAN PSB (/pendaftaran) */}
       <div className="card">
         <div className="card-head">
           <div className="card-head-left">
@@ -407,7 +588,135 @@ export default function TabPsb({ showToast, confirm }) {
         </div>
       </div>
 
-      {/* POPUP MODAL TAMBAH / EDIT MENU PSB (Sesuai Estetika Gelap Elegan CMS Portal) */}
+      {/* POPUP MODAL TAMBAH / EDIT KELAS (MATERI UJIAN & KURIKULUM) */}
+      {classModalOpen && (
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(5, 15, 12, 0.8)',
+          backdropFilter: 'blur(8px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '24px',
+          zIndex: 1100
+        }}>
+          <div style={{
+            background: 'var(--bg-elevated)',
+            border: '1px solid var(--border-strong)',
+            borderRadius: 'var(--radius-lg)',
+            width: '100%',
+            maxWidth: '650px',
+            maxHeight: '90vh',
+            overflowY: 'auto',
+            padding: '32px',
+            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', borderBottom: '1px solid var(--border)', paddingBottom: '16px' }}>
+              <h3 style={{ fontFamily: '"Fraunces", serif', fontSize: '20px', color: 'var(--gold)', margin: 0 }}>
+                {classForm.id && classes.some(c => c.id === classForm.id) ? 'Edit Kartu Kelas PSB' : 'Tambah Kartu Kelas PSB Baru'}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setClassModalOpen(false)}
+                style={{ background: 'transparent', border: 'none', fontSize: '22px', cursor: 'pointer', color: 'var(--text-secondary)' }}
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveClass} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 100px', gap: '16px' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '6px' }}>
+                    Judul Kelas / Jenjang *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Contoh: MADRASAH IBTIDAIYAH (KELAS I)"
+                    value={classForm.title}
+                    onChange={(e) => setClassForm({ ...classForm, title: e.target.value })}
+                    style={{ width: '100%', padding: '11px 14px', borderRadius: 'var(--radius-sm)', background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)', fontSize: '13.5px' }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '6px' }}>
+                    Urutan
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={classForm.order_num}
+                    onChange={(e) => setClassForm({ ...classForm, order_num: parseInt(e.target.value || 1, 10) })}
+                    style={{ width: '100%', padding: '11px 14px', borderRadius: 'var(--radius-sm)', background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)', fontSize: '13.5px' }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '6px' }}>
+                  Daftar Poin Materi Ujian (1 Poin per Baris)
+                </label>
+                <textarea
+                  rows={5}
+                  placeholder="CTBQ An-Nahdliyah&#10;Ilmu Tauhid Dasar&#10;Hidayatul Mubtadi' I"
+                  value={classForm.materi_ujian}
+                  onChange={(e) => setClassForm({ ...classForm, materi_ujian: e.target.value })}
+                  style={{ width: '100%', padding: '11px 14px', borderRadius: 'var(--radius-sm)', background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)', fontSize: '13.5px', lineHeight: '1.6' }}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '6px' }}>
+                  Daftar Poin Kurikulum Kitab &amp; Diniyah (1 Poin per Baris)
+                </label>
+                <textarea
+                  rows={5}
+                  placeholder="Al-Qur'an &amp; Tajwid Praktis&#10;Tauhid (Aqidatul Awam)&#10;Fiqih Dasar (Safinatun Naja)"
+                  value={classForm.kurikulum}
+                  onChange={(e) => setClassForm({ ...classForm, kurikulum: e.target.value })}
+                  style={{ width: '100%', padding: '11px 14px', borderRadius: 'var(--radius-sm)', background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)', fontSize: '13.5px', lineHeight: '1.6' }}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '6px' }}>
+                  Alamat URL Tombol &ldquo;DAFTAR SEKARANG&rdquo;
+                </label>
+                <input
+                  type="url"
+                  placeholder="http://bit.ly/hidayatul-mubtadiaat atau https://wa.me/..."
+                  value={classForm.daftar_url}
+                  onChange={(e) => setClassForm({ ...classForm, daftar_url: e.target.value })}
+                  style={{ width: '100%', padding: '11px 14px', borderRadius: 'var(--radius-sm)', background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)', fontSize: '13.5px' }}
+                />
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '8px' }}>
+                <button
+                  type="button"
+                  onClick={() => setClassModalOpen(false)}
+                  className="btn"
+                  style={{ background: 'var(--surface)', color: 'var(--text-secondary)', border: '1px solid var(--border)' }}
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  disabled={savingClass}
+                  className="btn btn-primary"
+                  style={{ background: 'var(--gold-dark)', color: '#0B1A16', fontWeight: '700' }}
+                >
+                  {savingClass ? 'Menyimpan...' : 'Simpan Tabel Kelas'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* POPUP MODAL TAMBAH / EDIT MENU PSB (/pendaftaran/...) */}
       {modalOpen && (
         <div style={{
           position: 'fixed',
@@ -603,7 +912,7 @@ export default function TabPsb({ showToast, confirm }) {
               {form.linkType === 'page' && (
                 <div>
                   <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '8px' }}>
-                    Isi Konten Halaman PSB
+                    Isi Konten Halaman PSB (Ketik Visual Ala MS Word)
                   </label>
                   <div style={{ background: '#ffffff', borderRadius: 'var(--radius-sm)', overflow: 'hidden' }}>
                     <RichTextEditor

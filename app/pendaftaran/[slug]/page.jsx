@@ -3,18 +3,19 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import PsbNavbar from '../../../components/psb/PsbNavbar';
+import PsbClassCards from '../../../components/psb/PsbClassCards';
 
 export const runtime = 'edge';
 
 export default function PendaftaranSlugPage() {
   const params = useParams();
   const slug = params?.slug;
+
   const [page, setPage] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!slug) return;
-    setLoading(true);
     fetch('/api/psb')
       .then(res => res.json())
       .then(data => {
@@ -32,28 +33,29 @@ export default function PendaftaranSlugPage() {
       {/* PSB Navbar Sesuai Referensi Top Header + Navigasi Menu */}
       <PsbNavbar />
 
-      <div className="wrap" style={{ maxWidth: '1150px', margin: '0 auto', padding: '0 24px' }}>
-        
+      <div className="wrap" style={{ maxWidth: '1180px', margin: '0 auto', padding: '0 24px' }}>
         {loading ? (
           <div style={{ textAlign: 'center', padding: '80px', color: 'var(--ink-soft)' }}>
-            Memuat halaman pendaftaran...
+            Memuat halaman...
           </div>
-        ) : page ? (
-          <div>
-            <div 
-              className="psb-dynamic-html"
-              dangerouslySetInnerHTML={{ __html: page.content }}
-            />
+        ) : !page ? (
+          <div style={{ padding: '60px 0', textAlign: 'center' }}>
+            <h2 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)' }}>Halaman Tidak Ditemukan</h2>
+            <p style={{ color: 'var(--ink-soft)', marginTop: '8px' }}>Halaman pendaftaran yang Anda cari tidak tersedia.</p>
           </div>
         ) : (
-          <div style={{ background: '#fff', border: '1px solid rgba(173,138,78,0.18)', borderRadius: '20px', padding: '48px', textAlign: 'center' }}>
-            <h2 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)', fontSize: '24px', margin: '0 0 12px 0' }}>Halaman Tidak Ditemukan</h2>
-            <p style={{ color: 'var(--ink-soft)', fontSize: '15px', margin: 0 }}>
-              Halaman pendaftaran yang Anda cari tidak tersedia atau sedang diperbarui oleh Admin.
-            </p>
+          <div style={{ margin: '24px 0' }}>
+            {page.content ? (
+              <div
+                className="psb-dynamic-html"
+                dangerouslySetInnerHTML={{ __html: page.content }}
+              />
+            ) : null}
           </div>
         )}
 
+        {/* TABEL KELAS & MATERI UJIAN / KURIKULUM (Tampil secara konsisten di setiap halaman PSB) */}
+        <PsbClassCards />
       </div>
     </main>
   );
