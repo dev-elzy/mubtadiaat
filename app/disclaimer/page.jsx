@@ -8,7 +8,7 @@ export default function DisclaimerPage() {
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <span style={{ fontSize: '13px', fontWeight: '700', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--gold-500)', display: 'block', marginBottom: '8px' }}>
-            Ketentuan Situs
+            Ketentuan Penggunaan
           </span>
           <h1 style={{ fontFamily: '"Fraunces", serif', fontSize: '38px', color: 'var(--teal-900)', fontWeight: '500', margin: 0 }}>
             Disclaimer (Penafian)
@@ -19,41 +19,35 @@ export default function DisclaimerPage() {
         {/* Content Card */}
         <div style={{ background: '#ffffff', border: '1px solid rgba(173,138,78,0.15)', borderRadius: '20px', padding: '40px', boxShadow: '0 10px 30px rgba(15,43,36,0.03)', color: 'var(--ink)', lineHeight: '1.8' }}>
           
+          <p>Dengan mengakses dan menggunakan <strong>p3hm.my.id</strong>, Anda telah memahami dan setuju bahwa:</p>
+
           <p>
-            Dengan menggunakan informasi yang tersedia di situs web resmi Pondok Pesantren Putri Hidayatul Mubtadiat (P3HM) Lirboyo Kediri (<strong>p3hm.my.id</strong>), Anda telah menyetujui seluruh ketentuan penafian (disclaimer) di bawah ini:
+            Semua isi berupa teks, gambar, suara, video dan segala bentuk grafis di <strong>p3hm.my.id</strong> hanya sebagai informasi dan tidak diharapkan untuk tujuan transaksi seperti saham/perdagangan dan lain-lain.
           </p>
 
-          <h3 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)', fontSize: '20px', marginTop: '28px', marginBottom: '12px' }}>
-            Akurasi Informasi
-          </h3>
           <p>
-            Seluruh konten, pengumuman, berita, dan jadwal kegiatan yang disajikan di situs web ini bertujuan untuk memberikan informasi umum mengenai profil pondok pesantren, pendaftaran santri baru, serta kegiatan pendidikan. Kami berupaya menjaga keakuratan informasi tersebut. Namun, P3HM tidak memberikan jaminan mutlak bahwa semua informasi yang dipublikasikan bebas dari kesalahan ketik, keterlambatan pembaruan, atau ketidaklengkapan data yang bersifat non-krusial.
+            <strong>p3hm.my.id</strong> berupaya keras menampilkan isi seakurat mungkin, namun <strong>p3hm.my.id</strong> dan semua mitra penyedia isi, termasuk pengelola konsultasi dan pengembang isi dari pihak lain di situs ini, tidak bertanggungjawab atas segala kesalahan dan keterlambatan memperbarui data atau informasi, atau segala kerugian yang timbul karena tindakan berkaitan penggunaan informasi yang disajikan.
           </p>
 
-          <h3 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)', fontSize: '20px', marginTop: '28px', marginBottom: '12px' }}>
-            Tautan Pihak Ketiga
-          </h3>
           <p>
-            Situs web ini mungkin berisi tautan eksternal ke situs pihak ketiga (seperti formulir registrasi eksternal, peta digital, atau media penyimpanan gambar Cloudinary). Tautan tersebut disediakan murni untuk kemudahan navigasi pengunjung. Kami tidak bertanggung jawab atas kebijakan privasi, akurasi, keandalan, atau konten yang terdapat pada situs web eksternal tersebut. Kunjungan Anda ke situs eksternal sepenuhnya menjadi risiko dan tanggung jawab pribadi Anda.
+            <strong>p3hm.my.id</strong> tidak bertanggungjawab atas akibat langsung ataupun tidak langsung dari semua teks, gambar, suara, video dan segala bentuk grafis yang dihasilkan dan disampaikan pembaca atau pengguna di berbagai rubrik publik seperti Tulisan Santri, Komentar Pembaca, dan lainnya. Namun demikian, <strong>p3hm.my.id</strong> berhak menyunting atau menghapus isi dari pembaca atau pengguna agar tidak merugikan orang lain, lembaga, ataupun badan tertentu serta menjauhi isi berbau pornografi dan sentimen suku, agama dan ras.
           </p>
 
-          <h3 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)', fontSize: '20px', marginTop: '28px', marginBottom: '12px' }}>
-            Batasan Tanggung Jawab
-          </h3>
           <p>
-            Pondok Pesantren Putri Hidayatul Mubtadiat beserta jajaran pengurus, staf administrasi, dan pengelola situs tidak bertanggung jawab atas segala bentuk kerugian langsung, tidak langsung, atau dampak lanjutan yang timbul dari akses penggunaan informasi atau ketidakmampuan mengakses bagian tertentu dari situs web ini.
+            Segala isi baik berupa teks, gambar, video, suara dan segala bentuk grafis yang disampaikan pembaca ataupun pengguna adalah tanggung jawab setiap individu, dan bukan tanggungjawab <strong>p3hm.my.id</strong>.
           </p>
 
-          <h3 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)', fontSize: '20px', marginTop: '28px', marginBottom: '12px' }}>
-            Perubahan Ketentuan
-          </h3>
           <p>
-            Pihak pesantren berhak sepenuhnya untuk melakukan pembaruan, modifikasi, penghapusan konten, atau perubahan ketentuan penggunaan situs web tanpa pemberitahuan tertulis terlebih dahulu demi menyesuaikan dengan perkembangan administrasi dan kebijakan internal lembaga.
+            Ada kalanya berita <strong>p3hm.my.id</strong> menyediakan link ke situs lain, link tersebut tidak menunjukan bahwa <strong>p3hm.my.id</strong> menyetujui situs pihak lain tersebut. Anda mengetahui dan menyetujui bahwa <strong>p3hm.my.id</strong> tidak bertanggung jawab atas isi atau materi lainnya yang ada pada situs pihak lain tersebut.
           </p>
 
-          <div style={{ marginTop: '40px', paddingTop: '24px', borderTop: '1px solid rgba(173,138,78,0.15)', fontSize: '13.5px', color: 'var(--text-tertiary)', textAlign: 'center' }}>
-            Terakhir Diperbarui: 10 Juli 2026
-          </div>
+          <p>
+            Setiap perjanjian dan transaksi antara Anda dan pihak lain/pengiklan yang ada di <strong>p3hm.my.id</strong> adalah antara Anda dan pihak lain/pengiklan. Anda mengetahui dan setuju bahwa <strong>p3hm.my.id</strong> tidak bertanggung jawab atas segala bentuk kehilangan atau klaim yang mungkin timbul dari perjanjian atau transaksi antara Anda dengan pihak lain/pengiklan.
+          </p>
+
+          <p>
+            Semua hasil karya yang dimuat di <strong>p3hm.my.id</strong> baik berupa teks, gambar, suara dan video serta segala bentuk grafis adalah menjadi hak cipta <strong>p3hm.my.id</strong>.
+          </p>
 
         </div>
 

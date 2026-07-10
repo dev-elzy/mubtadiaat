@@ -19,56 +19,57 @@ export default function PrivacyPolicyPage() {
         {/* Content Card */}
         <div style={{ background: '#ffffff', border: '1px solid rgba(173,138,78,0.15)', borderRadius: '20px', padding: '40px', boxShadow: '0 10px 30px rgba(15,43,36,0.03)', color: 'var(--ink)', lineHeight: '1.8' }}>
           
+          <h3 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)', fontSize: '20px', marginTop: 0, marginBottom: '12px' }}>
+            Cookies dan Teknologi Lainnya
+          </h3>
           <p>
-            Pondok Pesantren Putri Hidayatul Mubtadiat (P3HM) Lirboyo Kediri berkomitmen penuh untuk melindungi dan menghormati privasi data pribadi Anda sebagai pengunjung situs web resmi kami (<strong>p3hm.my.id</strong>). Dokumen Kebijakan Privasi ini menjelaskan jenis data yang kami kumpulkan, cara kami menggunakannya, serta hak-hak keamanan yang Anda miliki:
+            Cookie adalah satu bagian data yang disimpan di komputer pengguna yang berkaitan dengan informasi tentang pengguna tersebut. Kami menggunakan session ID cookie, yang berarti ketika pengguna menutup browser, cookie tersebut dihapus. Cookie juga digunakan untuk manajemen session di website kami. Pengguna harus mengaktifkan cookie untuk menggunakan website kami.
+          </p>
+          <p>
+            Ke depan, pengguna juga dapat menggunakan cookie untuk mengingat password mereka agar secara otomatis bisa log in pada situs kami. Kami tidak dan tidak akan menggunakan cookie untuk mengumpulkan informasi pribadi dari pengguna manapun yang tidak dimaksudkan untuk disampaikan pada kami.
           </p>
 
           <h3 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)', fontSize: '20px', marginTop: '28px', marginBottom: '12px' }}>
-            1. Pengumpulan Informasi Pribadi
+            IP Addresses
           </h3>
           <p>
-            Kami hanya mengumpulkan informasi pribadi yang Anda berikan secara sadar dan sukarela melalui fitur interaktif situs kami:
-          </p>
-          <ul style={{ paddingLeft: '20px', margin: '0 0 20px 0' }}>
-            <li>
-              <strong>Formulir Kontak (Hubungi Kami)</strong>: Nama Lengkap, Alamat Email, Subjek Pesan, dan isi tulisan Pesan Anda. Data ini dikirim langsung ke basis data kami untuk keperluan merespons pertanyaan Anda.
-            </li>
-            <li>
-              <strong>Kolom Komentar Berita &amp; Dokumentasi</strong>: Nama Lengkap, Alamat Email (opsional), dan isi opini komentar Anda. Nama Anda akan ditampilkan secara publik di samping komentar Anda, sedangkan alamat email disimpan secara internal.
-            </li>
-          </ul>
-
-          <h3 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)', fontSize: '20px', marginTop: '28px', marginBottom: '12px' }}>
-            2. Penggunaan Data Kunjungan (Analisis Non-Pribadi)
-          </h3>
-          <p>
-            Untuk memverifikasi jumlah pembaca secara real-time dan mencegah manipulasi statistik, situs web kami menggunakan pencatatan kunjungan (*view counter*). Sistem kami mengidentifikasi sidik jari peramban (*visitor hash*) berbasis kombinasi IP Address dan User-Agent perangkat Anda. Informasi ini dienkripsi secara satu arah (*one-way hash* SHA-256) untuk mengenali keunikan kunjungan Anda selama 24 jam tanpa melacak data identitas personal Anda.
+            <strong>p3hm.my.id</strong> menyimpan IP (Internet Protocol) address, atau lokasi komputer Anda di Internet, untuk keperluan administrasi sistem dan troubleshooting. Kami menggunakan IP address secara keseluruhan (agregat) untuk mengetahui lokasi-lokasi yang mengakses situs kami.
           </p>
 
           <h3 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)', fontSize: '20px', marginTop: '28px', marginBottom: '12px' }}>
-            3. Penggunaan Cookie
+            Log Files
           </h3>
           <p>
-            Situs kami menggunakan cookie teknis yang terbatas. Bagi pengunjung umum, cookie hanya digunakan untuk kenyamanan penyimpanan sesi ringan. Bagi administrator portal CMS, cookie digunakan secara wajib untuk verifikasi keamanan otentikasi login sesi admin agar mencegah akses tidak sah (*unauthorized access*).
+            Data log hanya digunakan dalam bentuk agregat (keseluruhan) untuk menganalisa penggunaan web kami.
           </p>
 
           <h3 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)', fontSize: '20px', marginTop: '28px', marginBottom: '12px' }}>
-            4. Keamanan dan Pembagian Informasi
+            Analisa Statistik
           </h3>
           <p>
-            P3HM menjamin bahwa seluruh data kontak dan komentar yang terkumpul disimpan di dalam Database Server yang terlindungi oleh enkripsi industri. Kami **tidak akan pernah** menjual, menyewakan, membagikan, atau menyebarluaskan data pribadi pengunjung kepada pihak ketiga di luar kepentingan administrasi resmi lembaga pesantren.
+            <strong>p3hm.my.id</strong> dapat melakukan analisa statistik, demografi dan marketing dari para pengguna dan pelanggannya serta kebiasaan serta pola-pola penggunaan yang terjadi untuk pengembangan produk dan menarik pengiklan terhadap kebiasaan pengguna. Kami juga menggunakan informasi ini untuk memungkinkan iklan yang lebih sesuai target pengguna. <strong>p3hm.my.id</strong> juga dapat berbagi informasi pengguna dengan instansi lain untuk tujuan analisa, termasuk analisa untuk meningkatkan hubungan pelanggan.
           </p>
 
           <h3 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)', fontSize: '20px', marginTop: '28px', marginBottom: '12px' }}>
-            5. Hak Anda atas Data Pribadi
+            Produk dan Layanan p3hm.my.id
           </h3>
           <p>
-            Anda memiliki hak penuh untuk meminta penghapusan komentar atau pesan masuk yang pernah Anda kirimkan ke situs web kami. Hubungi staf administrasi kami melalui saluran WhatsApp resmi yang tertera di halaman Kontak untuk mengajukan permohonan tersebut.
+            Secara rutin, kami akan memberikan berbagai informasi dan penawaran produk dan layanan lain <strong>p3hm.my.id</strong> pada pembaca kami. Informasi ini hanya akan kami bagi secara internal. Anda bisa memilih untuk tidak menerima penawaran-penawaran ini.
           </p>
 
-          <div style={{ marginTop: '40px', paddingTop: '24px', borderTop: '1px solid rgba(173,138,78,0.15)', fontSize: '13.5px', color: 'var(--text-tertiary)', textAlign: 'center' }}>
-            Terakhir Diperbarui: 10 Juli 2026
-          </div>
+          <h3 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)', fontSize: '20px', marginTop: '28px', marginBottom: '12px' }}>
+            Iklan Banner
+          </h3>
+          <p>
+            Kami dapat menggunakan informasi demografi dan preferensi untuk memungkinkan pemasangan iklan di situs web kami agar lebih tepat sasaran. Hal ini berarti pengguna dapat melihat iklan yang hanya menarik bagi mereka, dan pengiklan dapat menyampaikan pesan hanya kepada target yang tepat bagi produk mereka. Hal ini meningkatkan pengalaman pengguna dan keefektifan iklan. Kami hanya menyampaikan informasi kepada pihak ketiga dalam format agregat (keseluruhan).
+          </p>
+
+          <h3 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)', fontSize: '20px', marginTop: '28px', marginBottom: '12px' }}>
+            Konten yang Dibuat oleh Pengguna (Forum, Komunitas)
+          </h3>
+          <p>
+            Ke depan Kami akan menawarkan banyak fasilitas bagi pembaca di sejumlah area situs kami. Informasi apapun yang Anda sampaikan dan dipublikasikan di forum bersama dengan nama pengguna (screen name atau ID), adalah di area publik dan dapat digunakan oleh <strong>p3hm.my.id</strong> untuk keperluan promosi di seluruh media online dan offline. Untuk informasi lebih lanjut, silakan melihat Persetujuan Pengguna di masing-masing fasilitas dan layanan kami.
+          </p>
 
         </div>
 
