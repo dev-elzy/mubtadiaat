@@ -111,6 +111,10 @@ export default function PsbNavbar() {
     p => p.slug !== 'informasi-pendaftaran' && p.slug !== 'informasi-penerimaan'
   );
 
+  const sortedRegular = [...regularPages].sort((a, b) => (a.order_num || 0) - (b.order_num || 0));
+  const pagesBeforeInfo = sortedRegular.slice(0, 2);
+  const pagesAfterInfo = sortedRegular.slice(2);
+
   const infoPendaftaranPage = pages.find(p => p.slug === 'informasi-pendaftaran') || {
     title: 'Informasi Pendaftaran',
     slug: 'informasi-pendaftaran'
@@ -124,6 +128,71 @@ export default function PsbNavbar() {
   const isInfoActive =
     pathname === '/pendaftaran/informasi-pendaftaran' ||
     pathname === '/pendaftaran/informasi-penerimaan';
+
+  const renderNavItem = (page) => {
+    const isHome = page.is_default_home === 1 || page.slug === 'beranda';
+    const href = isHome ? '/pendaftaran' : `/pendaftaran/${page.slug}`;
+    const isActive = pathname === href;
+
+    if (page.link_type === 'external' || page.link_type === 'download') {
+      const targetUrl = page.file_url || page.external_url || '#';
+      return (
+        <a
+          key={page.id}
+          href={targetUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '16px 18px',
+            textDecoration: 'none',
+            color: '#334155',
+            fontSize: '13.5px',
+            fontWeight: '700',
+            letterSpacing: '0.02em',
+            textTransform: 'uppercase',
+            whiteSpace: 'nowrap',
+            borderBottom: '3px solid transparent',
+            transition: 'all 0.2s ease'
+          }}
+        >
+          <span style={{ color: '#0F2B24' }}>{renderIcon(page.icon || 'file')}</span>
+          <span>{page.title}</span>
+          <span style={{ fontSize: '11px', color: '#94a3b8' }}>↗</span>
+        </a>
+      );
+    }
+
+    return (
+      <Link
+        key={page.id}
+        href={href}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '16px 18px',
+          textDecoration: 'none',
+          color: isActive ? '#0F2B24' : '#334155',
+          fontSize: '13.5px',
+          fontWeight: isActive ? '800' : '700',
+          letterSpacing: '0.02em',
+          textTransform: 'uppercase',
+          whiteSpace: 'nowrap',
+          borderBottom: isActive ? '3px solid #0F2B24' : '3px solid transparent',
+          transition: 'all 0.2s ease',
+          background: isActive ? 'rgba(15, 43, 36, 0.04)' : 'transparent'
+        }}
+      >
+        <span style={{ color: isActive ? '#0F2B24' : '#64748b' }}>
+          {renderIcon(page.icon || 'file')}
+        </span>
+        <span>{page.title}</span>
+      </Link>
+    );
+  };
 
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 9999, background: '#ffffff', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}>
@@ -229,181 +298,110 @@ export default function PsbNavbar() {
           overflowX: 'auto',
           scrollbarWidth: 'none'
         }}>
-          {regularPages.map((page, idx) => {
-            const isHome = page.is_default_home === 1 || page.slug === 'beranda';
-            const href = isHome ? '/pendaftaran' : `/pendaftaran/${page.slug}`;
-            const isActive = pathname === href;
+          {/* MENU SEBELUM DROPDOWN (BERANDA, PENDAFTARAN ONLINE) */}
+          {pagesBeforeInfo.map(page => renderNavItem(page))}
 
-            // Jika eksternal atau download
-            if (page.link_type === 'external' || page.link_type === 'download') {
-              const targetUrl = page.file_url || page.external_url || '#';
-              return (
-                <a
-                  key={page.id}
-                  href={targetUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+          {/* DROPDOWN MENU INFORMASI (Informasi Pendaftaran & Informasi Penerimaan) */}
+          <div
+            ref={dropdownRef}
+            style={{ position: 'relative', display: 'inline-block' }}
+            onMouseEnter={() => setInfoDropdownOpen(true)}
+            onMouseLeave={() => setInfoDropdownOpen(false)}
+          >
+            <button
+              type="button"
+              onClick={() => setInfoDropdownOpen(!infoDropdownOpen)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '16px 18px',
+                background: isInfoActive ? 'rgba(15, 43, 36, 0.04)' : 'transparent',
+                border: 'none',
+                borderBottom: isInfoActive ? '3px solid #0F2B24' : '3px solid transparent',
+                color: isInfoActive ? '#0F2B24' : '#334155',
+                fontSize: '13.5px',
+                fontWeight: isInfoActive ? '800' : '700',
+                letterSpacing: '0.02em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <span style={{ color: isInfoActive ? '#0F2B24' : '#64748b' }}>
+                {renderIcon('info')}
+              </span>
+              <span>INFORMASI</span>
+              <span style={{ fontSize: '10px', marginLeft: '2px' }}>▼</span>
+            </button>
+
+            {/* POPUP DROPDOWN KARTU ELEGAN */}
+            {infoDropdownOpen && (
+              <div style={{
+                position: 'absolute',
+                top: '100%',
+                left: 0,
+                minWidth: '290px',
+                background: '#FFFFFF',
+                border: '1.5px solid rgba(173, 138, 78, 0.35)',
+                borderRadius: '14px',
+                boxShadow: '0 15px 35px rgba(15, 43, 36, 0.18)',
+                padding: '8px',
+                zIndex: 1100,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '4px'
+              }}>
+                <Link
+                  href={`/pendaftaran/${infoPendaftaranPage.slug}`}
+                  onClick={() => setInfoDropdownOpen(false)}
                   style={{
                     display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    padding: '16px 18px',
+                    flexDirection: 'column',
+                    padding: '12px 14px',
+                    borderRadius: '10px',
                     textDecoration: 'none',
-                    color: '#334155',
-                    fontSize: '13.5px',
-                    fontWeight: '700',
-                    letterSpacing: '0.02em',
-                    textTransform: 'uppercase',
-                    whiteSpace: 'nowrap',
-                    borderBottom: '3px solid transparent',
-                    transition: 'all 0.2s ease'
+                    background: pathname === `/pendaftaran/${infoPendaftaranPage.slug}` ? 'rgba(15, 43, 36, 0.07)' : 'transparent',
+                    transition: 'background 0.15s ease'
                   }}
                 >
-                  <span style={{ color: '#0F2B24' }}>{renderIcon(page.icon || 'file')}</span>
-                  <span>{page.title}</span>
-                  <span style={{ fontSize: '11px', color: '#94a3b8' }}>↗</span>
-                </a>
-              );
-            }
-
-            const element = (
-              <Link
-                key={page.id}
-                href={href}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '16px 18px',
-                  textDecoration: 'none',
-                  color: isActive ? '#0F2B24' : '#334155',
-                  fontSize: '13.5px',
-                  fontWeight: isActive ? '800' : '700',
-                  letterSpacing: '0.02em',
-                  textTransform: 'uppercase',
-                  whiteSpace: 'nowrap',
-                  borderBottom: isActive ? '3px solid #0F2B24' : '3px solid transparent',
-                  transition: 'all 0.2s ease',
-                  background: isActive ? 'rgba(15, 43, 36, 0.04)' : 'transparent'
-                }}
-              >
-                <span style={{ color: isActive ? '#0F2B24' : '#64748b' }}>
-                  {renderIcon(page.icon || 'file')}
-                </span>
-                <span>{page.title}</span>
-              </Link>
-            );
-
-            // Sisipkan dropdown INFORMASI setelah menu urutan ke-2 (atau setelah Beranda/Pendaftaran Online)
-            if (idx === 1 || (regularPages.length === 1 && idx === 0)) {
-              return (
-                <div key={`wrap-${page.id}`} style={{ display: 'flex', alignItems: 'center' }}>
-                  {element}
-
-                  {/* DROPDOWN MENU INFORMASI (Informasi Pendaftaran & Informasi Penerimaan) */}
-                  <div
-                    ref={dropdownRef}
-                    style={{ position: 'relative', display: 'inline-block' }}
-                    onMouseEnter={() => setInfoDropdownOpen(true)}
-                    onMouseLeave={() => setInfoDropdownOpen(false)}
-                  >
-                    <button
-                      type="button"
-                      onClick={() => setInfoDropdownOpen(!infoDropdownOpen)}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        padding: '16px 18px',
-                        background: isInfoActive ? 'rgba(15, 43, 36, 0.04)' : 'transparent',
-                        border: 'none',
-                        borderBottom: isInfoActive ? '3px solid #0F2B24' : '3px solid transparent',
-                        color: isInfoActive ? '#0F2B24' : '#334155',
-                        fontSize: '13.5px',
-                        fontWeight: isInfoActive ? '800' : '700',
-                        letterSpacing: '0.02em',
-                        textTransform: 'uppercase',
-                        cursor: 'pointer',
-                        whiteSpace: 'nowrap',
-                        transition: 'all 0.2s ease'
-                      }}
-                    >
-                      <span style={{ color: isInfoActive ? '#0F2B24' : '#64748b' }}>
-                        {renderIcon('info')}
-                      </span>
-                      <span>INFORMASI</span>
-                      <span style={{ fontSize: '10px', marginLeft: '2px' }}>▼</span>
-                    </button>
-
-                    {/* POPUP DROPDOWN KARTU ELEGAN */}
-                    {infoDropdownOpen && (
-                      <div style={{
-                        position: 'absolute',
-                        top: '100%',
-                        left: 0,
-                        minWidth: '290px',
-                        background: '#FFFFFF',
-                        border: '1.5px solid rgba(173, 138, 78, 0.35)',
-                        borderRadius: '14px',
-                        boxShadow: '0 15px 35px rgba(15, 43, 36, 0.18)',
-                        padding: '8px',
-                        zIndex: 1100,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '4px'
-                      }}>
-                        <Link
-                          href={`/pendaftaran/${infoPendaftaranPage.slug}`}
-                          onClick={() => setInfoDropdownOpen(false)}
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            padding: '12px 14px',
-                            borderRadius: '10px',
-                            textDecoration: 'none',
-                            background: pathname === `/pendaftaran/${infoPendaftaranPage.slug}` ? 'rgba(15, 43, 36, 0.07)' : 'transparent',
-                            transition: 'background 0.15s ease'
-                          }}
-                        >
-                          <div style={{ fontSize: '13.5px', fontWeight: '700', color: '#0F2B24' }}>
-                            📋 {infoPendaftaranPage.title || 'Informasi Pendaftaran'}
-                          </div>
-                          <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '2px' }}>
-                            Jadwal, syarat berkas, &amp; ketentuan pendaftaran
-                          </div>
-                        </Link>
-
-                        <div style={{ height: '1px', background: '#F1F5F9', margin: '2px 6px' }} />
-
-                        <Link
-                          href={`/pendaftaran/${infoPenerimaanPage.slug}`}
-                          onClick={() => setInfoDropdownOpen(false)}
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            padding: '12px 14px',
-                            borderRadius: '10px',
-                            textDecoration: 'none',
-                            background: pathname === `/pendaftaran/${infoPenerimaanPage.slug}` ? 'rgba(15, 43, 36, 0.07)' : 'transparent',
-                            transition: 'background 0.15s ease'
-                          }}
-                        >
-                          <div style={{ fontSize: '13.5px', fontWeight: '700', color: '#0F2B24' }}>
-                            👥 Informasi Penerimaan
-                          </div>
-                          <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '2px' }}>
-                            Daftar santriwati lulus seleksi &amp; konfirmasi WA
-                          </div>
-                        </Link>
-                      </div>
-                    )}
+                  <div style={{ fontSize: '13.5px', fontWeight: '700', color: '#0F2B24' }}>
+                    📋 {infoPendaftaranPage.title || 'Informasi Pendaftaran'}
                   </div>
-                </div>
-              );
-            }
+                  <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '2px' }}>
+                    Jadwal, syarat berkas, &amp; ketentuan pendaftaran
+                  </div>
+                </Link>
 
-            return element;
-          })}
+                <div style={{ height: '1px', background: '#F1F5F9', margin: '2px 6px' }} />
+
+                <Link
+                  href={`/pendaftaran/${infoPenerimaanPage.slug}`}
+                  onClick={() => setInfoDropdownOpen(false)}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: '12px 14px',
+                    borderRadius: '10px',
+                    textDecoration: 'none',
+                    background: pathname === `/pendaftaran/${infoPenerimaanPage.slug}` ? 'rgba(15, 43, 36, 0.07)' : 'transparent',
+                    transition: 'background 0.15s ease'
+                  }}
+                >
+                  <div style={{ fontSize: '13.5px', fontWeight: '700', color: '#0F2B24' }}>
+                    👥 Informasi Penerimaan
+                  </div>
+                  <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '2px' }}>
+                    Daftar santriwati lulus seleksi &amp; konfirmasi WA
+                  </div>
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* MENU SETELAH DROPDOWN (MATERI UJIAN, WHATSAPP PANITIA, DLL.) */}
+          {pagesAfterInfo.map(page => renderNavItem(page))}
         </div>
       </div>
     </header>
