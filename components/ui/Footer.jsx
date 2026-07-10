@@ -57,8 +57,14 @@ export default function Footer() {
           <div style={{ fontSize: '14px', color: 'rgba(229, 221, 208, 0.6)' }}>
             © {new Date().getFullYear()} Yayasan Hidayatul Mubtadiat · Lirboyo, Kediri.
           </div>
-          <div style={{ display: 'flex', gap: '24px', fontSize: '14px' }}>
-            <Link href="/portal" style={{ color: 'rgba(229, 221, 208, 0.8)', textDecoration: 'none' }}>Portal Admin</Link>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', fontSize: '14px' }}>
+            <Link href="/tentang-kami" style={{ color: 'rgba(229, 221, 208, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = '#fff'} onMouseOut={(e) => e.currentTarget.style.color = 'rgba(229, 221, 208, 0.8)'}>Tentang Kami</Link>
+            <span style={{ color: 'rgba(229, 221, 208, 0.3)' }}>|</span>
+            <Link href="/disclaimer" style={{ color: 'rgba(229, 221, 208, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = '#fff'} onMouseOut={(e) => e.currentTarget.style.color = 'rgba(229, 221, 208, 0.8)'}>Disclaimer</Link>
+            <span style={{ color: 'rgba(229, 221, 208, 0.3)' }}>|</span>
+            <Link href="/privacy-policy" style={{ color: 'rgba(229, 221, 208, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = '#fff'} onMouseOut={(e) => e.currentTarget.style.color = 'rgba(229, 221, 208, 0.8)'}>Privacy Policy</Link>
+            <span style={{ color: 'rgba(229, 221, 208, 0.3)' }}>|</span>
+            <Link href="/portal" style={{ color: 'rgba(229, 221, 208, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = '#fff'} onMouseOut={(e) => e.currentTarget.style.color = 'rgba(229, 221, 208, 0.8)'}>Portal Admin</Link>
           </div>
         </div>
       </div>
