@@ -31,7 +31,7 @@ export default function TabGaleri({ galeri, categories = [], onRefresh, showToas
     fd.append('folder', 'p3hm/galeri');
 
     try {
-      const res = await fetch('/api/upload', { method: 'POST', body: fd });
+      const res = await fetch('/api/cloudinary', { method: 'POST', body: fd });
       const data = await res.json();
       if (res.ok && data.secure_url) {
         setForm({ ...form, image: data.secure_url, cloudinaryId: data.public_id });

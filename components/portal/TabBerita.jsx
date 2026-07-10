@@ -38,7 +38,7 @@ export default function TabBerita({ berita, categories = [], onRefresh, showToas
     formData.append('folder', 'p3hm/berita');
 
     try {
-      const res = await fetch('/api/upload', { method: 'POST', body: formData });
+      const res = await fetch('/api/cloudinary', { method: 'POST', body: formData });
       const data = await res.json();
       if (res.ok && data.secure_url) {
         setForm({ ...form, image: data.secure_url, cloudinaryId: data.public_id });
