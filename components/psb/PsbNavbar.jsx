@@ -286,7 +286,9 @@ export default function PsbNavbar() {
       <div style={{
         background: '#ffffff',
         borderBottom: '1px solid #e2e8f0',
-        boxShadow: '0 4px 15px rgba(0,0,0,0.03)'
+        boxShadow: '0 4px 15px rgba(0,0,0,0.03)',
+        position: 'relative',
+        overflow: 'visible'
       }}>
         <div style={{
           maxWidth: '1200px',
@@ -294,9 +296,10 @@ export default function PsbNavbar() {
           padding: '0 24px',
           display: 'flex',
           alignItems: 'center',
+          flexWrap: 'wrap',
           gap: '4px',
-          overflowX: 'auto',
-          scrollbarWidth: 'none'
+          position: 'relative',
+          overflow: 'visible'
         }}>
           {/* MENU SEBELUM DROPDOWN (BERANDA, PENDAFTARAN ONLINE) */}
           {pagesBeforeInfo.map(page => renderNavItem(page))}
@@ -310,7 +313,11 @@ export default function PsbNavbar() {
           >
             <button
               type="button"
-              onClick={() => setInfoDropdownOpen(!infoDropdownOpen)}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setInfoDropdownOpen(prev => !prev);
+              }}
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -333,7 +340,7 @@ export default function PsbNavbar() {
                 {renderIcon('info')}
               </span>
               <span>INFORMASI</span>
-              <span style={{ fontSize: '10px', marginLeft: '2px' }}>▼</span>
+              <span style={{ fontSize: '11px', marginLeft: '3px' }}>{infoDropdownOpen ? '▲' : '▼'}</span>
             </button>
 
             {/* POPUP DROPDOWN KARTU ELEGAN */}
@@ -342,16 +349,16 @@ export default function PsbNavbar() {
                 position: 'absolute',
                 top: '100%',
                 left: 0,
-                minWidth: '290px',
+                minWidth: '300px',
                 background: '#FFFFFF',
-                border: '1.5px solid rgba(173, 138, 78, 0.35)',
-                borderRadius: '14px',
-                boxShadow: '0 15px 35px rgba(15, 43, 36, 0.18)',
-                padding: '8px',
-                zIndex: 1100,
+                border: '1.5px solid rgba(173, 138, 78, 0.4)',
+                borderRadius: '16px',
+                boxShadow: '0 20px 45px rgba(15, 43, 36, 0.22)',
+                padding: '10px',
+                zIndex: 99999,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '4px'
+                gap: '6px'
               }}>
                 <Link
                   href={`/pendaftaran/${infoPendaftaranPage.slug}`}
