@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
             4. Keamanan dan Pembagian Informasi
           </h3>
           <p>
-            P3HM menjamin bahwa seluruh data kontak dan komentar yang terkumpul disimpan di dalam basis data Cloudflare D1 yang terlindungi oleh enkripsi industri. Kami **tidak akan pernah** menjual, menyewakan, membagikan, atau menyebarluaskan data pribadi pengunjung kepada pihak ketiga di luar kepentingan administrasi resmi lembaga pesantren.
+            P3HM menjamin bahwa seluruh data kontak dan komentar yang terkumpul disimpan di dalam Database Server yang terlindungi oleh enkripsi industri. Kami **tidak akan pernah** menjual, menyewakan, membagikan, atau menyebarluaskan data pribadi pengunjung kepada pihak ketiga di luar kepentingan administrasi resmi lembaga pesantren.
           </p>
 
           <h3 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)', fontSize: '20px', marginTop: '28px', marginBottom: '12px' }}>
