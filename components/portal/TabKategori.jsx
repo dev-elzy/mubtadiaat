@@ -74,6 +74,7 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
                 placeholder="Misal: Kajian Subuh, Prestasi Santri, dsb."
                 value={form.name}
                 onChange={e => setForm({ ...form, name: e.target.value })}
+                style={{ height: '38px' }}
               />
             </div>
 
@@ -83,13 +84,19 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
                 className="form-input"
                 value={form.type}
                 onChange={e => setForm({ ...form, type: e.target.value })}
+                style={{ height: '38px' }}
               >
                 <option value="berita">📰 Untuk Berita</option>
                 <option value="galeri">🖼️ Untuk Galeri</option>
               </select>
             </div>
 
-            <button type="submit" className="btn btn-primary" disabled={saving} style={{ padding: '11px 20px' }}>
+            <button 
+              type="submit" 
+              className="btn btn-primary" 
+              disabled={saving} 
+              style={{ height: '38px', padding: '0 20px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+            >
               {saving ? (
                 <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                   <span>Menyimpan</span>
@@ -102,6 +109,7 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
                 type="button"
                 className="btn btn-ghost"
                 onClick={() => setForm({ id: '', name: '', type: 'berita' })}
+                style={{ height: '38px', padding: '0 20px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
               >
                 Batal Edit
               </button>
