@@ -5,7 +5,14 @@ import { useState, useRef } from 'react';
 export default function RichTextEditor({ label, value, onChange, placeholder, rows = 6, helperText }) {
   const [showPreview, setShowPreview] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const [imageModalOpen, setImageModalOpen] = useState(false);
   const textareaRef = useRef(null);
+
+  // Image modal state
+  const [imgUrl, setImgUrl] = useState('');
+  const [imgLayout, setImgLayout] = useState('img-large');
+  const [imgAlt, setImgAlt] = useState('');
+  const [uploading, setUploading] = useState(false);
 
   const insertTag = (openTag, closeTag = '') => {
     const textarea = textareaRef.current;
@@ -29,8 +36,48 @@ export default function RichTextEditor({ label, value, onChange, placeholder, ro
     }, 10);
   };
 
+  const handleInsertImage = () => {
+    if (!imgUrl.trim()) return;
+    
+    // Generate img tag with corresponding size/layout class
+    const altAttr = imgAlt.trim() ? ` alt="${imgAlt.replace(/"/g, '&quot;')}"` : '';
+    const imgTag = `<img src="${imgUrl}"${altAttr} class="${imgLayout}" />`;
+    
+    insertTag(imgTag);
+    
+    // Reset state & close modal
+    setImgUrl('');
+    setImgLayout('img-large');
+    setImgAlt('');
+    setImageModalOpen(false);
+  };
+
+  async function handleImageUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('folder', 'p3hm/artikel_internal');
+
+    try {
+      const res = await fetch('/api/cloudinary', { method: 'POST', body: formData });
+      const data = await res.json();
+      if (res.ok && data.secure_url) {
+        setImgUrl(data.secure_url);
+      } else {
+        alert(data.error || 'Gagal mengunggah foto');
+      }
+    } catch (err) {
+      alert('Terjadi kesalahan pengunggahan: ' + err.message);
+    } finally {
+      setUploading(false);
+    }
+  }
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative' }}>
       {label && (
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <label className="form-label" style={{ margin: 0 }}>{label}</label>
@@ -138,6 +185,20 @@ export default function RichTextEditor({ label, value, onChange, placeholder, ro
           >
             💡 Catatan
           </button>
+          <button
+            type="button"
+            onClick={() => setImageModalOpen(true)}
+            title="Sisipkan Gambar di Dalam Berita"
+            style={{
+              ...toolbarBtnStyle,
+              background: 'var(--gold-dark)',
+              borderColor: 'var(--gold-dark)',
+              color: '#fff',
+              fontWeight: '700'
+            }}
+          >
+            📷 Sisipkan Gambar
+          </button>
         </div>
       )}
 
@@ -170,6 +231,9 @@ export default function RichTextEditor({ label, value, onChange, placeholder, ro
             <li>
               <b>&lt;p&gt; ... &lt;/p&gt; (Paragraf):</b> Memisahkan antar paragraf agar ada jarak pemisah yang nyaman dibaca.
             </li>
+            <li>
+              <b>Sisipkan Gambar:</b> Memungkinkan penempatan gambar di tengah teks (Lebar Penuh) atau disebelah teks kiri/kanan (Ukuran Kecil) seperti koran.
+            </li>
           </ul>
         </div>
       )}
@@ -177,6 +241,7 @@ export default function RichTextEditor({ label, value, onChange, placeholder, ro
       {/* Area Edit atau Pratinjau */}
       {showPreview ? (
         <div
+          className="article-content"
           style={{
             minHeight: `${rows * 24}px`,
             padding: '14px 16px',
@@ -210,6 +275,119 @@ export default function RichTextEditor({ label, value, onChange, placeholder, ro
         <span style={{ fontSize: '11.5px', color: 'var(--text-tertiary)' }}>
           {helperText}
         </span>
+      )}
+
+      {/* MODAL POP-UP SISIPKAN GAMBAR */}
+      {imageModalOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0, 0, 0, 0.7)',
+            backdropFilter: 'blur(6px)',
+            WebkitBackdropFilter: 'blur(6px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10005,
+            padding: '20px'
+          }}
+        >
+          <div
+            style={{
+              background: 'var(--bg-elevated, #16342c)',
+              border: '1px solid var(--border-strong, rgba(218, 190, 140, 0.2))',
+              borderRadius: '16px',
+              padding: '24px',
+              width: '100%',
+              maxWidth: '460px',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px'
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <h4 style={{ fontFamily: '"Fraunces", serif', fontSize: '18px', color: 'var(--gold-bright)', margin: 0 }}>
+                📷 Sisipkan Gambar Internal
+              </h4>
+              <button
+                type="button"
+                onClick={() => setImageModalOpen(false)}
+                style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', fontSize: '18px', cursor: 'pointer' }}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="form-group" style={{ margin: 0 }}>
+              <label className="form-label" style={{ color: 'var(--gold)' }}>1. Unggah Gambar dari Komputer</label>
+              <input type="file" accept="image/*" className="form-input" onChange={handleImageUpload} />
+              {uploading && (
+                <p style={{ fontSize: '11.5px', color: 'var(--gold)', marginTop: '4px' }}>
+                  Mengunggah gambar ke server...
+                </p>
+              )}
+            </div>
+
+            <div className="form-group" style={{ margin: 0 }}>
+              <label className="form-label" style={{ color: 'var(--gold)' }}>2. Atau Isi Tautan URL Gambar</label>
+              <input
+                type="url"
+                placeholder="https://example.com/gambar.jpg"
+                className="form-input"
+                value={imgUrl}
+                onChange={e => setImgUrl(e.target.value)}
+              />
+            </div>
+
+            <div className="form-group" style={{ margin: 0 }}>
+              <label className="form-label" style={{ color: 'var(--gold)' }}>3. Ukuran &amp; Posisi Teks (Layout Koran)</label>
+              <select className="form-input" value={imgLayout} onChange={e => setImgLayout(e.target.value)}>
+                <option value="img-large">📏 Lebar Penuh (Besar - Berada di Tengah)</option>
+                <option value="img-float-left">⬅️ Sebelah Kiri (Kecil - Teks Melingkar Kanan)</option>
+                <option value="img-float-right">➡️ Sebelah Kanan (Kecil - Teks Melingkar Kiri)</option>
+              </select>
+            </div>
+
+            <div className="form-group" style={{ margin: 0 }}>
+              <label className="form-label" style={{ color: 'var(--gold)' }}>4. Deskripsi Gambar / Alt (Opsional)</label>
+              <input
+                type="text"
+                placeholder="Misal: Foto suasana kajian"
+                className="form-input"
+                value={imgAlt}
+                onChange={e => setImgAlt(e.target.value)}
+              />
+            </div>
+
+            {imgUrl && (
+              <div style={{ border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden' }}>
+                <img src={imgUrl} alt="Preview" style={{ width: '100%', height: '120px', objectFit: 'cover' }} />
+              </div>
+            )}
+
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '8px' }}>
+              <button
+                type="button"
+                className="btn btn-ghost"
+                onClick={() => setImageModalOpen(false)}
+                style={{ padding: '8px 16px', fontSize: '13px' }}
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                disabled={!imgUrl || uploading}
+                onClick={handleInsertImage}
+                style={{ padding: '8px 16px', fontSize: '13px' }}
+              >
+                Sisipkan Foto
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

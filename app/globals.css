@@ -729,6 +729,7 @@
 }
 .article-featured-img img { width: 100%; max-height: 500px; object-fit: cover; display: block; }
 .article-content { font-size: 17px; line-height: 1.85; color: var(--ink); }
+.article-content::after { content: ""; display: table; clear: both; }
 .article-content p { margin-bottom: 20px; }
 .article-content h2, .article-content h3 { font-family: 'Fraunces', serif; color: var(--teal-900); margin: 36px 0 16px; }
 .article-content h2 { font-size: 26px; }
@@ -739,7 +740,36 @@
   border-left: 3px solid var(--gold-500); padding-left: 20px; margin: 28px 0;
   font-style: italic; color: var(--teal-900); font-size: 18px; line-height: 1.6;
 }
-.article-content img { border-radius: 12px; margin: 24px 0; }
+.article-content img { border-radius: 12px; margin: 24px 0; max-width: 100%; height: auto; }
+.article-content img.img-large {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+  margin: 32px auto;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.article-content img.img-float-left {
+  float: left;
+  width: 45%;
+  max-width: 340px;
+  margin: 12px 28px 24px 0;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.article-content img.img-float-right {
+  float: right;
+  width: 45%;
+  max-width: 340px;
+  margin: 12px 0 24px 28px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
 
 /* ====================================================================
    VIEW BADGE
@@ -916,8 +946,13 @@
   .founder-card { padding: 24px; }
   .founder-card .yr { font-size: 30px; }
   .visi-lead { font-size: 18px; }
-  .misi-item { padding: 20px 22px; }
   .misi-item p { font-size: 13.5px; }
+  .article-content img.img-float-left, .article-content img.img-float-right {
+    float: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 20px 0;
+  }
 }
 
 /* --- MOBILE SMALL (≤480px) --- */
