@@ -35,7 +35,7 @@ export default function HeroSection({ settings = {} }) {
 
           <Reveal className={`hero-frame ${imgFailed ? 'img-failed' : ''}`} id="heroFrame">
             <Image 
-              src="https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=1200" 
+              src="/images/bangunan-dalam.jpg" 
               alt="Lingkungan Pondok Pesantren Putri Hidayatul Mubtadiat, Lirboyo Kediri" 
               width={920}
               height={448}

@@ -14,7 +14,7 @@ export default function ProfilSingkat({ text }) {
           <Reveal className="profil-media">
             <div className={`art-panel ${imgFailed ? 'img-failed' : ''}`} id="profilPanel">
               <Image 
-                src="https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?q=80&w=1200" 
+                src="/images/muhafadhah-akhirussanah.jpg" 
                 alt="Kamar santri di Pondok Pesantren Putri Hidayatul Mubtadiat" 
                 width={460}
                 height={575}
