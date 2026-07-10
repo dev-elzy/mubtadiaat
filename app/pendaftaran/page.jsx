@@ -41,7 +41,7 @@ export default function PendaftaranPage() {
   }, []);
 
   return (
-    <main style={{ background: '#FAF7F0', minHeight: '100vh', paddingBottom: '90px', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+    <main style={{ background: '#FAF7F0', minHeight: '100vh', paddingTop: '106px', paddingBottom: '90px', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
       {/* PSB Navbar Premium */}
       <PsbNavbar />
 

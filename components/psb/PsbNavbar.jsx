@@ -214,9 +214,13 @@ export default function PsbNavbar() {
 
   return (
     <header style={{
-      position: 'sticky',
+      position: 'fixed',
       top: 0,
+      left: 0,
+      right: 0,
+      width: '100%',
       zIndex: 1000,
+      margin: 0,
       background: 'linear-gradient(180deg, #071813 0%, #0B241C 100%)',
       borderBottom: '1px solid rgba(212, 175, 55, 0.28)',
       boxShadow: '0 10px 30px rgba(0, 0, 0, 0.35)'

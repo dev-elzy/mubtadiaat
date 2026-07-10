@@ -190,20 +190,24 @@ input, select, textarea { font-family: inherit; }
   margin-left: var(--sidebar-w);
   flex: 1;
   min-height: 100vh;
+  padding-top: 86px;
 }
 .main-header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 10;
-  padding: 20px 32px;
+  left: var(--sidebar-w);
+  right: 0;
+  margin: 0;
+  z-index: 100;
+  padding: 18px 32px;
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(14, 37, 32, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  background: rgba(14, 37, 32, 0.98);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 .main-title {
   font-family: 'Fraunces', serif;
@@ -678,8 +682,10 @@ select.form-input { cursor: pointer; }
     z-index: 199;
   }
   .mobile-overlay.active { display: block; }
-  .main { margin-left: 0; }
+  .main { margin-left: 0; padding-top: 80px; }
   .main-header {
+    left: 0;
+    right: 0;
     padding: 14px 16px;
     flex-wrap: wrap;
     gap: 12px;
