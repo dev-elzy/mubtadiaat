@@ -9,6 +9,7 @@ import TabProfil from '../../components/portal/TabProfil';
 import TabBerita from '../../components/portal/TabBerita';
 import TabGaleri from '../../components/portal/TabGaleri';
 import TabKategori from '../../components/portal/TabKategori';
+import TabPesan from '../../components/portal/TabPesan';
 import CustomModal from '../../components/ui/CustomModal';
 
 export default function PortalAdmin() {
@@ -23,6 +24,7 @@ export default function PortalAdmin() {
   const [galeri, setGaleri] = useState([]);
   const [settings, setSettings] = useState({});
   const [categories, setCategories] = useState([]);
+  const [pesanList, setPesanList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
   const [toast, setToast] = useState({ show: false, msg: '', type: 'success' });
@@ -88,16 +90,18 @@ export default function PortalAdmin() {
       }
       setAuthenticated(true);
 
-      const [bRes, gRes, sRes, cRes] = await Promise.all([
+      const [bRes, gRes, sRes, cRes, pRes] = await Promise.all([
         fetch('/api/berita').then(r => r.json()).catch(() => []),
         fetch('/api/galeri').then(r => r.json()).catch(() => []),
         fetch('/api/settings').then(r => r.json()).catch(() => ({})),
-        fetch('/api/categories').then(r => r.json()).catch(() => [])
+        fetch('/api/categories').then(r => r.json()).catch(() => []),
+        fetch('/api/pesan').then(r => r.json()).catch(() => [])
       ]);
       setBerita(Array.isArray(bRes) ? bRes : []);
       setGaleri(Array.isArray(gRes) ? gRes : []);
       setSettings(sRes || {});
       setCategories(Array.isArray(cRes) ? cRes : []);
+      setPesanList(Array.isArray(pRes) ? pRes : []);
     } catch (e) {
       console.error(e);
     } finally {
@@ -142,6 +146,7 @@ export default function PortalAdmin() {
       case 'kategori': return 'Manajemen Kategori Kustom Berita & Galeri';
       case 'berita': return 'Manajemen Artikel & Publikasi Berita';
       case 'galeri': return 'Manajemen Dokumentasi & Galeri Kegiatan';
+      case 'pesan': return 'Kotak Masuk Pesan & Kontak';
       default: return 'Portal CMS Admin';
     }
   };
@@ -267,6 +272,22 @@ export default function PortalAdmin() {
             </svg>
             <span>Manajemen Galeri</span>
             <span className="badge-count">{galeri.length}</span>
+          </button>
+
+          <button
+            className={`nav-item ${activeTab === 'pesan' ? 'active' : ''}`}
+            onClick={() => handleTabChange('pesan')}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            <span>Pesan Masuk</span>
+            {pesanList.filter(p => p.is_read === 0).length > 0 && (
+              <span className="badge-count" style={{ background: '#3B82F6', color: '#fff' }}>
+                {pesanList.filter(p => p.is_read === 0).length}
+              </span>
+            )}
           </button>
         </nav>
 
@@ -418,6 +439,14 @@ export default function PortalAdmin() {
                   showToast={showToastMessage}
                   confirm={customConfirm}
                   alert={customAlert}
+                />
+              )}
+              {activeTab === 'pesan' && (
+                <TabPesan
+                  pesanList={pesanList}
+                  onRefresh={loadData}
+                  showToast={showToastMessage}
+                  confirm={customConfirm}
                 />
               )}
             </>

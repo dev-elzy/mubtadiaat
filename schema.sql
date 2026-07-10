@@ -114,3 +114,20 @@ CREATE TABLE comment_replies (
   FOREIGN KEY (comment_id) REFERENCES comments(id) ON DELETE CASCADE
 );
 CREATE INDEX IF NOT EXISTS idx_replies_comment ON comment_replies(comment_id);
+
+-- ==========================================
+-- INBOX MESSAGES (Contact Form Submissions)
+-- ==========================================
+DROP TABLE IF EXISTS pesan;
+CREATE TABLE pesan (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  subject TEXT NOT NULL,
+  message TEXT NOT NULL,
+  is_read INTEGER DEFAULT 0,
+  reply_text TEXT DEFAULT NULL,
+  replied_at TEXT DEFAULT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_pesan_created ON pesan(created_at DESC);
