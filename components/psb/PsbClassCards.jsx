@@ -13,7 +13,6 @@ export default function PsbClassCards() {
       .then(data => {
         if (Array.isArray(data)) {
           setClasses(data);
-          // Set tab default ke 'materi' untuk semua kelas
           const initialTabs = {};
           data.forEach(c => {
             initialTabs[c.id] = 'materi';
@@ -31,47 +30,59 @@ export default function PsbClassCards() {
 
   if (loading) {
     return (
-      <div style={{ padding: '60px 20px', textAlign: 'center', color: 'var(--ink-soft)' }}>
-        Memuat data kelas, materi ujian &amp; kurikulum P3HM...
+      <div style={{ padding: '60px 20px', textAlign: 'center', color: '#475569', fontWeight: '600' }}>
+        Memuat data kelas madrasah &amp; materi ujian masuk...
       </div>
     );
   }
 
   return (
-    <section style={{ margin: '36px 0 54px' }}>
-      {/* JUDUL FORMULIR & INSTRUKSI PEMILIHAN KELAS (Sesuai Referensi Gambar 3) */}
-      <div style={{ textAlign: 'center', marginBottom: '36px', padding: '0 16px' }}>
+    <section style={{ margin: '48px 0 64px' }}>
+      {/* SECTION HEADER */}
+      <div style={{ textAlign: 'center', marginBottom: '44px', padding: '0 16px' }}>
+        <div style={{
+          display: 'inline-block',
+          padding: '6px 16px',
+          borderRadius: '99px',
+          background: 'rgba(212, 175, 55, 0.15)',
+          border: '1px solid rgba(212, 175, 55, 0.45)',
+          color: '#856404',
+          fontSize: '11.5px',
+          fontWeight: '700',
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          marginBottom: '14px'
+        }}>
+          JENJANG &amp; KELAS DINIYAH
+        </div>
+
         <h2 style={{
           fontFamily: '"Fraunces", serif',
-          fontSize: '28px',
+          fontSize: 'clamp(26px, 3.5vw, 36px)',
           fontWeight: '700',
-          color: 'var(--teal-900)',
-          letterSpacing: '0.04em',
-          textTransform: 'uppercase',
-          marginBottom: '10px'
+          color: '#0B241C',
+          letterSpacing: '0.01em',
+          marginBottom: '12px'
         }}>
-          FORMULIR PENDAFTARAN &amp; PILIHAN KELAS
+          Pilihan Kelas &amp; Rincian Materi Ujian Masuk
         </h2>
+
         <p style={{
-          fontSize: '14.5px',
-          color: 'var(--ink)',
-          fontWeight: '600',
-          letterSpacing: '0.02em',
-          textTransform: 'uppercase',
-          marginBottom: '6px'
+          fontSize: '15.5px',
+          color: '#475569',
+          maxWidth: '680px',
+          margin: '0 auto',
+          lineHeight: '1.7'
         }}>
-          BACA DENGAN TELITI <span style={{ color: 'var(--gold-500)', fontWeight: '800' }}>MATERI UJIAN</span> DAN <span style={{ color: 'var(--gold-500)', fontWeight: '800' }}>KURIKULUM PENDIDIKAN</span> DALAM MEMILIH KELAS
-        </p>
-        <p style={{ fontSize: '13.5px', color: 'var(--ink-soft)', fontStyle: 'italic' }}>
-          Harap memilih kelas diniyah sesuai dengan kemampuan dan jenjang pendidikan santriwati
+          Silakan pelajari dengan teliti rincian <span style={{ color: '#0F766E', fontWeight: '700' }}>Materi Ujian Masuk</span> dan <span style={{ color: '#0F766E', fontWeight: '700' }}>Kurikulum Kitab</span> untuk menentukan pilihan kelas diniyah yang tepat bagi calon santriwati.
         </p>
       </div>
 
-      {/* GRID KARTU KELAS (Desain Zamrud Elegan P3HM terinspirasi Referensi Gambar 3) */}
+      {/* CLASS CARDS GRID */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: '24px'
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gap: '28px'
       }}>
         {classes.map((item) => {
           const activeTab = activeTabs[item.id] || 'materi';
@@ -82,136 +93,209 @@ export default function PsbClassCards() {
             <div
               key={item.id}
               style={{
-                background: '#0F2B24',
-                borderRadius: '20px',
-                border: '1.5px solid rgba(173, 138, 78, 0.4)',
-                boxShadow: '0 16px 40px -12px rgba(15, 43, 36, 0.35)',
+                background: '#0D2920',
+                borderRadius: '24px',
+                border: '1.5px solid rgba(212, 175, 55, 0.4)',
+                boxShadow: '0 20px 45px rgba(11, 36, 28, 0.22)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 overflow: 'hidden',
-                transition: 'transform 0.25s ease, box-shadow 0.25s ease'
+                transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                position: 'relative'
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = 'translateY(-6px)';
+                e.currentTarget.style.boxShadow = '0 26px 55px rgba(11, 36, 28, 0.32)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 20px 45px rgba(11, 36, 28, 0.22)';
               }}
             >
               <div>
-                {/* HEADER JUDUL KELAS */}
+                {/* CARD TOP HEADER */}
                 <div style={{
-                  background: 'linear-gradient(135deg, #14382F 0%, #0F2B24 100%)',
-                  padding: '20px 18px',
-                  borderBottom: '1px solid rgba(173, 138, 78, 0.25)',
-                  textAlign: 'center'
+                  background: 'linear-gradient(135deg, #13392D 0%, #0A221A 100%)',
+                  padding: '24px 24px 20px',
+                  borderBottom: '1px solid rgba(212, 175, 55, 0.25)',
+                  position: 'relative'
                 }}>
+                  <div style={{
+                    display: 'inline-block',
+                    fontSize: '10.5px',
+                    fontWeight: '800',
+                    color: '#FAD692',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    background: 'rgba(212, 175, 55, 0.16)',
+                    border: '1px solid rgba(212, 175, 55, 0.35)',
+                    padding: '4px 11px',
+                    borderRadius: '99px',
+                    marginBottom: '10px'
+                  }}>
+                    JENJANG MADRASAH
+                  </div>
                   <h3 style={{
                     fontFamily: '"Fraunces", serif',
-                    fontSize: '16.5px',
+                    fontSize: '20px',
                     fontWeight: '700',
                     color: '#FFFFFF',
-                    letterSpacing: '0.02em',
+                    lineHeight: '1.3',
                     margin: 0
                   }}>
                     {item.title}
                   </h3>
                 </div>
 
-                {/* TAB PILLS: MATERI UJIAN vs KURIKULUM */}
+                {/* SEGMENTED TAB SWITCHER */}
                 <div style={{
-                  display: 'flex',
-                  borderBottom: '1px solid rgba(173, 138, 78, 0.25)',
-                  background: '#0B1F1A'
+                  padding: '12px 18px',
+                  background: 'rgba(0, 0, 0, 0.22)',
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
                 }}>
-                  <button
-                    type="button"
-                    onClick={() => handleTabSwitch(item.id, 'materi')}
-                    style={{
-                      flex: 1,
-                      padding: '12px 8px',
-                      background: activeTab === 'materi' ? 'rgba(173, 138, 78, 0.2)' : 'transparent',
-                      border: 'none',
-                      borderBottom: activeTab === 'materi' ? '2.5px solid var(--gold-500)' : '2.5px solid transparent',
-                      color: activeTab === 'materi' ? '#FAD692' : 'rgba(255,255,255,0.65)',
-                      fontSize: '12.5px',
-                      fontWeight: '700',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '6px',
-                      transition: 'all 0.2s ease'
-                    }}
-                  >
-                    <span>📋 MATERI UJIAN</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleTabSwitch(item.id, 'kurikulum')}
-                    style={{
-                      flex: 1,
-                      padding: '12px 8px',
-                      background: activeTab === 'kurikulum' ? 'rgba(173, 138, 78, 0.2)' : 'transparent',
-                      border: 'none',
-                      borderBottom: activeTab === 'kurikulum' ? '2.5px solid var(--gold-500)' : '2.5px solid transparent',
-                      color: activeTab === 'kurikulum' ? '#FAD692' : 'rgba(255,255,255,0.65)',
-                      fontSize: '12.5px',
-                      fontWeight: '700',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '6px',
-                      transition: 'all 0.2s ease'
-                    }}
-                  >
-                    <span>📖 KURIKULUM</span>
-                  </button>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    background: 'rgba(255, 255, 255, 0.06)',
+                    borderRadius: '12px',
+                    padding: '4px',
+                    gap: '4px'
+                  }}>
+                    <button
+                      type="button"
+                      onClick={() => handleTabSwitch(item.id, 'materi')}
+                      style={{
+                        padding: '10px 12px',
+                        borderRadius: '9px',
+                        border: 'none',
+                        background: activeTab === 'materi' ? 'linear-gradient(135deg, #FAD692 0%, #E2B863 100%)' : 'transparent',
+                        color: activeTab === 'materi' ? '#0B241C' : 'rgba(255, 255, 255, 0.75)',
+                        fontSize: '12.5px',
+                        fontWeight: activeTab === 'materi' ? '800' : '600',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease',
+                        boxShadow: activeTab === 'materi' ? '0 4px 12px rgba(226, 184, 99, 0.3)' : 'none'
+                      }}
+                    >
+                      📋 MATERI UJIAN
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleTabSwitch(item.id, 'kurikulum')}
+                      style={{
+                        padding: '10px 12px',
+                        borderRadius: '9px',
+                        border: 'none',
+                        background: activeTab === 'kurikulum' ? 'linear-gradient(135deg, #FAD692 0%, #E2B863 100%)' : 'transparent',
+                        color: activeTab === 'kurikulum' ? '#0B241C' : 'rgba(255, 255, 255, 0.75)',
+                        fontSize: '12.5px',
+                        fontWeight: activeTab === 'kurikulum' ? '800' : '600',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease',
+                        boxShadow: activeTab === 'kurikulum' ? '0 4px 12px rgba(226, 184, 99, 0.3)' : 'none'
+                      }}
+                    >
+                      📖 KURIKULUM
+                    </button>
+                  </div>
                 </div>
 
-                {/* ISI TAB DAFTAR CHECKLIST */}
-                <div style={{ padding: '24px 20px', minHeight: '230px' }}>
+                {/* TAB LIST CONTENT */}
+                <div style={{ padding: '28px 24px', minHeight: '260px' }}>
                   {activeTab === 'materi' ? (
                     <div>
                       <div style={{
-                        fontSize: '11px',
+                        fontSize: '11.5px',
                         fontWeight: '700',
-                        color: 'var(--gold-500)',
+                        color: '#FAD692',
                         textTransform: 'uppercase',
                         letterSpacing: '0.06em',
-                        marginBottom: '14px'
+                        marginBottom: '16px'
                       }}>
                         Daftar Materi Ujian Masuk:
                       </div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '13px' }}>
                         {materiList.map((line, idx) => (
-                          <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', color: '#FBF8F1', fontSize: '13.5px', lineHeight: '1.5' }}>
-                            <span style={{ color: 'var(--gold-500)', fontWeight: '800', flexShrink: 0 }}>✔</span>
+                          <div key={idx} style={{
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: '12px',
+                            color: '#FBF8F1',
+                            fontSize: '14px',
+                            lineHeight: '1.55'
+                          }}>
+                            <span style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              width: '20px',
+                              height: '20px',
+                              borderRadius: '6px',
+                              background: 'rgba(212, 175, 55, 0.2)',
+                              color: '#FAD692',
+                              fontWeight: '800',
+                              fontSize: '11px',
+                              flexShrink: 0,
+                              marginTop: '1px'
+                            }}>
+                              ✓
+                            </span>
                             <span>{line}</span>
                           </div>
                         ))}
                         {materiList.length === 0 && (
-                          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', fontStyle: 'italic' }}>Belum ada rincian materi ujian.</p>
+                          <p style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.6)', fontStyle: 'italic' }}>
+                            Belum ada rincian materi ujian.
+                          </p>
                         )}
                       </div>
                     </div>
                   ) : (
                     <div>
                       <div style={{
-                        fontSize: '11px',
+                        fontSize: '11.5px',
                         fontWeight: '700',
-                        color: 'var(--gold-500)',
+                        color: '#34D399',
                         textTransform: 'uppercase',
                         letterSpacing: '0.06em',
-                        marginBottom: '14px'
+                        marginBottom: '16px'
                       }}>
                         Kurikulum Kitab &amp; Diniyah:
                       </div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '13px' }}>
                         {kurikulumList.map((line, idx) => (
-                          <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', color: '#FBF8F1', fontSize: '13.5px', lineHeight: '1.5' }}>
-                            <span style={{ color: '#34D399', fontWeight: '800', flexShrink: 0 }}>✔</span>
+                          <div key={idx} style={{
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: '12px',
+                            color: '#FBF8F1',
+                            fontSize: '14px',
+                            lineHeight: '1.55'
+                          }}>
+                            <span style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              width: '20px',
+                              height: '20px',
+                              borderRadius: '6px',
+                              background: 'rgba(52, 211, 153, 0.2)',
+                              color: '#34D399',
+                              fontWeight: '800',
+                              fontSize: '11px',
+                              flexShrink: 0,
+                              marginTop: '1px'
+                            }}>
+                              ✓
+                            </span>
                             <span>{line}</span>
                           </div>
                         ))}
                         {kurikulumList.length === 0 && (
-                          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', fontStyle: 'italic' }}>Belum ada rincian kurikulum.</p>
+                          <p style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.6)', fontStyle: 'italic' }}>
+                            Belum ada rincian kurikulum.
+                          </p>
                         )}
                       </div>
                     </div>
@@ -219,8 +303,8 @@ export default function PsbClassCards() {
                 </div>
               </div>
 
-              {/* FOOTER KARTU TOMBOL DAFTAR SEKARANG */}
-              <div style={{ padding: '16px 20px 22px' }}>
+              {/* CARD FOOTER CTA BUTTON */}
+              <div style={{ padding: '20px 24px 26px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
                 <a
                   href={item.daftar_url || '#'}
                   target="_blank"
@@ -228,21 +312,30 @@ export default function PsbClassCards() {
                   style={{
                     display: 'block',
                     width: '100%',
-                    padding: '13px',
+                    padding: '14px',
                     textAlign: 'center',
                     background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
                     color: '#FFFFFF',
-                    borderRadius: '12px',
+                    borderRadius: '14px',
                     fontWeight: '800',
                     fontSize: '14px',
-                    letterSpacing: '0.03em',
+                    letterSpacing: '0.04em',
                     textTransform: 'uppercase',
                     textDecoration: 'none',
-                    boxShadow: '0 6px 18px rgba(16, 185, 129, 0.35)',
-                    transition: 'all 0.2s ease'
+                    boxShadow: '0 8px 20px rgba(16, 185, 129, 0.35)',
+                    transition: 'all 0.2s ease',
+                    border: '1px solid rgba(255, 255, 255, 0.15)'
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.filter = 'brightness(1.1)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.filter = 'none';
+                    e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
-                  DAFTAR SEKARANG &rarr;
+                  ISI FORMULIR DAFTAR &rarr;
                 </a>
               </div>
             </div>
