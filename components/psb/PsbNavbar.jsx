@@ -126,7 +126,7 @@ export default function PsbNavbar() {
     pathname === '/pendaftaran/informasi-penerimaan';
 
   return (
-    <header style={{ position: 'sticky', top: 0, zIndex: 999, background: '#ffffff' }}>
+    <header style={{ position: 'sticky', top: 0, zIndex: 9999, background: '#ffffff', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}>
       
       {/* 1. TOP BAR DARK EMERALD (Sesuai Referensi Gambar Ke-1 & Ke-2) */}
       <div style={{

@@ -63,7 +63,7 @@ export default function Header() {
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: '0 5%',
-        zIndex: 900,
+        zIndex: 9999,
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         boxShadow: isScrolled ? '0 10px 30px rgba(0,0,0,0.15)' : '0 4px 20px rgba(15,43,36,0.03)'
       }}
