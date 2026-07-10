@@ -13,6 +13,12 @@ import CustomModal from '../../components/ui/CustomModal';
 
 export default function PortalAdmin() {
   const [activeTab, setActiveTab] = useState('overview');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setSidebarOpen(false);
+  };
   const [berita, setBerita] = useState([]);
   const [galeri, setGaleri] = useState([]);
   const [settings, setSettings] = useState({});
@@ -174,8 +180,11 @@ export default function PortalAdmin() {
 
   return (
     <div className="portal-root">
+      {/* MOBILE OVERLAY */}
+      <div className={`mobile-overlay ${sidebarOpen ? 'active' : ''}`} onClick={() => setSidebarOpen(false)} />
+
       {/* SIDEBAR NAVIGATION */}
-      <aside className="sidebar">
+      <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-brand">
           <img src="/logo.png" alt="Logo P3HM" />
           <div className="sidebar-brand-text">
@@ -188,7 +197,7 @@ export default function PortalAdmin() {
           <div className="sidebar-nav-label">Utama</div>
           <button
             className={`nav-item ${activeTab === 'overview' ? 'active' : ''}`}
-            onClick={() => setActiveTab('overview')}
+            onClick={() => handleTabChange('overview')}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="3" width="7" height="9" rx="1" />
@@ -201,7 +210,7 @@ export default function PortalAdmin() {
 
           <button
             className={`nav-item ${activeTab === 'tampilan' ? 'active' : ''}`}
-            onClick={() => setActiveTab('tampilan')}
+            onClick={() => handleTabChange('tampilan')}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 20h9" />
@@ -212,7 +221,7 @@ export default function PortalAdmin() {
 
           <button
             className={`nav-item ${activeTab === 'kategori' ? 'active' : ''}`}
-            onClick={() => setActiveTab('kategori')}
+            onClick={() => handleTabChange('kategori')}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
@@ -223,7 +232,7 @@ export default function PortalAdmin() {
 
           <button
             className={`nav-item ${activeTab === 'profil' ? 'active' : ''}`}
-            onClick={() => setActiveTab('profil')}
+            onClick={() => handleTabChange('profil')}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
@@ -235,7 +244,7 @@ export default function PortalAdmin() {
           <div className="sidebar-nav-label">Konten Dinamis</div>
           <button
             className={`nav-item ${activeTab === 'berita' ? 'active' : ''}`}
-            onClick={() => setActiveTab('berita')}
+            onClick={() => handleTabChange('berita')}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -249,7 +258,7 @@ export default function PortalAdmin() {
 
           <button
             className={`nav-item ${activeTab === 'galeri' ? 'active' : ''}`}
-            onClick={() => setActiveTab('galeri')}
+            onClick={() => handleTabChange('galeri')}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
@@ -291,11 +300,37 @@ export default function PortalAdmin() {
       {/* MAIN WORKSPACE */}
       <main className="main">
         <div className="main-header">
-          <div>
-            <span style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.04em', color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
-              Portal Manajemen Konten &middot; P3HM Lirboyo
-            </span>
-            <h2 className="main-title">{getTabTitle()}</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0 }}>
+            {/* Mobile hamburger button */}
+            <button
+              className="mobile-menu-btn"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              aria-label="Toggle Sidebar"
+              style={{
+                display: 'none',
+                background: 'transparent',
+                border: '1px solid var(--border)',
+                borderRadius: 'var(--radius-sm)',
+                padding: '7px',
+                color: 'var(--gold)',
+                cursor: 'pointer',
+                flexShrink: 0
+              }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px' }}>
+                {sidebarOpen ? (
+                  <path d="M18 6L6 18M6 6l12 12" />
+                ) : (
+                  <path d="M3 12h18M3 6h18M3 18h18" />
+                )}
+              </svg>
+            </button>
+            <div style={{ minWidth: 0 }}>
+              <span style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.04em', color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
+                Portal Manajemen Konten &middot; P3HM Lirboyo
+              </span>
+              <h2 className="main-title">{getTabTitle()}</h2>
+            </div>
           </div>
 
           <div className="main-header-actions">

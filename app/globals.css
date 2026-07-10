@@ -539,3 +539,123 @@
 .mag-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; }
 .mag-body { padding: 20px; }
 @media(max-width: 900px) { .dual-layout { flex-direction: column; } .side-profil { max-width: 100%; position: static; } .mag-grid { grid-template-columns: 1fr; } }
+
+/* ============================================
+   COMPREHENSIVE PUBLIC RESPONSIVE ENHANCEMENTS
+   ============================================ */
+
+/* --- TABLET (≤860px) --- */
+@media (max-width: 860px) {
+  .hero { padding: 140px 0 70px; }
+  .hero-sub { font-size: 15px; margin-bottom: 32px; }
+  .hero-actions { margin-bottom: 48px; }
+  .hero-frame { border-radius: 14px; }
+  .kontak-card { padding: 32px; }
+  .galeri-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+}
+
+/* --- MOBILE LARGE (≤640px) --- */
+@media (max-width: 640px) {
+  .hero { padding: 120px 0 60px; }
+  .hero-eyebrow { font-size: 10px; letter-spacing: 0.16em; }
+  .hero-sub { font-size: 14px; line-height: 1.65; }
+  .hero-actions { gap: 12px; }
+  .btn-primary { padding: 13px 24px; font-size: 13.5px; }
+  .btn-ghost { padding: 13px 22px; font-size: 13.5px; }
+  .hero-frame { border-radius: 12px; }
+  .hero-frame-caption { left: 14px; bottom: 12px; font-size: 11px; }
+  .profil-text p { font-size: 14.5px; }
+  .section-head { margin-bottom: 40px; }
+  .program-card { padding: 28px 22px; }
+  .program-card h3 { font-size: 16px; }
+  .program-card p { font-size: 13px; }
+  .daftar-grid { margin-top: 40px; gap: 12px; }
+  .daftar-card { padding: 22px 18px; min-height: 140px; }
+  .kontak-card { padding: 28px 22px; border-radius: 14px; }
+  .kontak-card .arabic { font-size: 20px; }
+  .kontak-social { flex-direction: column; }
+  .soc-btn { padding: 12px; }
+  .kontak-item h4 { font-size: 11px; }
+  .kontak-item p, .kontak-item a { font-size: 14px; }
+  .ekstra-entry h4 { font-size: 13.5px; }
+  .ekstra-entry p { font-size: 12.5px; }
+  .galeri-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .galeri-item .g-photo-cap { font-size: 11px; padding: 12px 10px 8px; }
+  .berita-grid { gap: 16px; }
+  .berita-card-body { padding: 16px; }
+  .berita-title { font-size: 16px; }
+  .berita-summary { font-size: 13px; }
+  footer { padding: 30px 0; }
+  .foot-row { font-size: 12px; flex-direction: column; text-align: center; gap: 12px; }
+  .sejarah-text p { font-size: 14px; }
+  .pull-note { font-size: 15px; }
+  .founder-card { padding: 24px; }
+  .founder-card .yr { font-size: 30px; }
+  .visi-lead { font-size: 18px; }
+  .misi-item { padding: 20px 22px; }
+  .misi-item p { font-size: 13.5px; }
+}
+
+/* --- MOBILE SMALL (≤480px) --- */
+@media (max-width: 480px) {
+  .hero { padding: 110px 0 50px; }
+  .hero-arabic { margin-bottom: 12px; }
+  .hero-sub { margin-bottom: 28px; }
+  .hero-actions { flex-direction: column; align-items: center; margin-bottom: 36px; }
+  .btn-primary, .btn-ghost { width: 100%; justify-content: center; text-align: center; }
+  .hero-frame { border-radius: 10px; }
+  .stat-row { margin-top: 28px; padding-top: 24px; }
+  .stat-num { font-size: 24px; }
+  .profil-media .art-panel { border-radius: 14px; }
+  .profil-tag { padding: 14px 18px; border-radius: 10px; }
+  .profil-tag b { font-size: 18px; }
+  .galeri-grid { grid-template-columns: 1fr; gap: 14px; }
+  .galeri-item { aspect-ratio: 16/12; border-radius: 12px; }
+  .kontak-card { padding: 24px 18px; border-radius: 12px; }
+  .jenjang-wrap { gap: 8px; }
+  .jenjang-chip { padding: 10px 16px; font-size: 12.5px; }
+  .fas-wrap { gap: 6px; }
+  .fas-chip { padding: 8px 14px; font-size: 12px; }
+  .daftar-card { padding: 18px 16px; min-height: auto; }
+  .daftar-card h4 { font-size: 13.5px; }
+  header#siteHeader nav { padding: 12px 18px; }
+  .brand { font-size: 14px; }
+  .brand .mark { width: 30px; height: 30px; }
+}
+
+/* --- MOBILE EXTRA SMALL (≤360px) --- */
+@media (max-width: 360px) {
+  .wrap { padding: 0 16px; }
+  .hero { padding: 100px 0 44px; }
+  .hero-arabic { line-height: 1.4; }
+  .btn-primary { padding: 12px 20px; font-size: 13px; }
+  .btn-ghost { padding: 12px 18px; font-size: 13px; }
+  .profil-text p { font-size: 13.5px; }
+  section { padding: 60px 0; }
+  .section-head { margin-bottom: 32px; }
+  .program-card { padding: 24px 18px; }
+  .kontak-card .arabic { font-size: 18px; }
+  .galeri-item { border-radius: 10px; }
+  header#siteHeader nav { padding: 10px 14px; }
+  .brand { font-size: 13px; gap: 8px; }
+  .brand .mark { width: 28px; height: 28px; }
+}
+
+/* --- EXTRA LARGE SCREENS (≥1440px) --- */
+@media (min-width: 1440px) {
+  .wrap { max-width: 1320px; }
+  .hero { padding: 200px 0 110px; }
+  .hero-sub { font-size: 17.5px; }
+  .hero-frame { max-width: 1020px; }
+  .stat-row { max-width: 1020px; }
+  section { padding: 130px 0; }
+  .profil-grid { gap: 80px; }
+  .galeri-grid { gap: 18px; }
+}
+
+/* --- ULTRA WIDE (≥1920px) --- */
+@media (min-width: 1920px) {
+  .wrap { max-width: 1440px; }
+  .hero-frame { max-width: 1100px; }
+  .stat-row { max-width: 1100px; }
+}
