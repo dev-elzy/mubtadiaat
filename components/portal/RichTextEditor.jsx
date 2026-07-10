@@ -125,7 +125,7 @@ export default function RichTextEditor({ label, value, onChange, placeholder, ro
           <button
             type="button"
             onClick={() => insertTag('<h2>', '</h2>')}
-            title="Judul Sub-Seksi"
+            title="Judul Sub-Bagian"
             style={toolbarBtnStyle}
           >
             H2 Judul

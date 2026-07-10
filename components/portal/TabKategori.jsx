@@ -116,7 +116,7 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
           <div className="card-head">
             <div className="card-head-left">
               <h3>📰 Kategori Artikel Berita ({beritaCategories.length})</h3>
-              <p>Daftar kategori untuk seksi Berita</p>
+              <p>Daftar kategori untuk bagian Berita</p>
             </div>
           </div>
           <div className="item-list">
@@ -143,7 +143,7 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
           <div className="card-head">
             <div className="card-head-left">
               <h3>🖼️ Kategori Galeri Dokumentasi ({galeriCategories.length})</h3>
-              <p>Daftar kategori untuk seksi Galeri</p>
+              <p>Daftar kategori untuk bagian Galeri</p>
             </div>
           </div>
           <div className="item-list">

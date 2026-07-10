@@ -23,7 +23,7 @@ export default function TabOverview({ berita, galeri, settings, onSelectTab }) {
           <div className="stat-value" style={{ fontSize: '20px' }}>
             {settings.homeBeritaMode === 'manual' ? '🎯 Manual Pilihan' : '⚡ Auto Terbaru'}
           </div>
-          <div className="stat-sub">Seksi Berita: {settings.showSectionBerita === 'true' ? 'Tampil' : 'Disembunyikan'}</div>
+          <div className="stat-sub">Bagian Berita: {settings.showSectionBerita === 'true' ? 'Tampil' : 'Disembunyikan'}</div>
         </div>
         <div className="stat-card">
           <div className="stat-label">Kontak &amp; WhatsApp</div>

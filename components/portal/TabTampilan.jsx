@@ -58,20 +58,20 @@ export default function TabTampilan({ settings, berita, galeri, onSaveSettings }
       <div className="card">
         <div className="card-head">
           <div className="card-head-left">
-            <h3>📰 Pengaturan Seksi Warta Terbaru di Beranda</h3>
+            <h3>📰 Pengaturan Bagian Warta Terbaru di Beranda</h3>
             <p>Atur apakah berita di Beranda dipilihin otomatis (terbaru) atau manual pilihan Admin</p>
           </div>
         </div>
         <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div className="form-group">
-            <label className="form-label">Tampilkan Seksi Berita di Beranda?</label>
+            <label className="form-label">Tampilkan Bagian Berita di Beranda?</label>
             <select
               className="form-input"
               value={formData.showSectionBerita}
               onChange={e => setFormData({ ...formData, showSectionBerita: e.target.value })}
             >
-              <option value="true">✅ Tampilkan Seksi Berita</option>
-              <option value="false">🚫 Sembunyikan Seksi Berita</option>
+              <option value="true">✅ Tampilkan Bagian Berita</option>
+              <option value="false">🚫 Sembunyikan Bagian Berita</option>
             </select>
           </div>
 
@@ -121,20 +121,20 @@ export default function TabTampilan({ settings, berita, galeri, onSaveSettings }
       <div className="card">
         <div className="card-head">
           <div className="card-head-left">
-            <h3>🖼️ Pengaturan Seksi Galeri Dokumentasi di Beranda</h3>
+            <h3>🖼️ Pengaturan Bagian Galeri Dokumentasi di Beranda</h3>
             <p>Atur tampilan foto kegiatan santriwati pada halaman awal</p>
           </div>
         </div>
         <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div className="form-group">
-            <label className="form-label">Tampilkan Seksi Galeri di Beranda?</label>
+            <label className="form-label">Tampilkan Bagian Galeri di Beranda?</label>
             <select
               className="form-input"
               value={formData.showSectionGaleri}
               onChange={e => setFormData({ ...formData, showSectionGaleri: e.target.value })}
             >
-              <option value="true">✅ Tampilkan Seksi Galeri</option>
-              <option value="false">🚫 Sembunyikan Seksi Galeri</option>
+              <option value="true">✅ Tampilkan Bagian Galeri</option>
+              <option value="false">🚫 Sembunyikan Bagian Galeri</option>
             </select>
           </div>
 

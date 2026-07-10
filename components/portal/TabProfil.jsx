@@ -80,7 +80,7 @@ export default function TabProfil({ settings, onSaveSettings }) {
         <div className="card-head">
           <div className="card-head-left">
             <h3>🏫 Deskripsi Profil Pondok Pesantren</h3>
-            <p>Teks pengenalan yang ditampilkan pada seksi Profil Singkat</p>
+            <p>Teks pengenalan yang ditampilkan pada bagian Profil Singkat</p>
           </div>
         </div>
         <div className="card-body">
