@@ -56,6 +56,13 @@ export default function TabOverview({ berita, galeri, settings, onSelectTab }) {
               </span>
               <span>&rarr;</span>
             </button>
+            <button className="btn btn-primary" onClick={() => onSelectTab('psb')} style={{ justifyContent: 'space-between', padding: '12px 18px', background: 'var(--gold-500)', color: '#0F2B24', border: 'none' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span>🎓</span>
+                <span>Kelola Menu &amp; Halaman PSB</span>
+              </span>
+              <span>&rarr;</span>
+            </button>
             <button className="btn btn-ghost" onClick={() => onSelectTab('tampilan')} style={{ justifyContent: 'space-between', padding: '12px 18px' }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <span>⚙️</span>

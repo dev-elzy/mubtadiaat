@@ -131,3 +131,45 @@ CREATE TABLE pesan (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 CREATE INDEX IF NOT EXISTS idx_pesan_created ON pesan(created_at DESC);
+
+-- ==========================================
+-- PSB DYNAMIC PAGES (Pendaftaran Menu System)
+-- ==========================================
+DROP TABLE IF EXISTS psb_pages;
+CREATE TABLE psb_pages (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  slug TEXT UNIQUE NOT NULL,
+  icon TEXT DEFAULT 'file',
+  order_num INTEGER DEFAULT 0,
+  is_default_home INTEGER DEFAULT 0,
+  link_type TEXT DEFAULT 'page',
+  external_url TEXT NULL,
+  file_url TEXT NULL,
+  content TEXT,
+  status TEXT DEFAULT 'published',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_psb_pages_slug ON psb_pages(slug);
+CREATE INDEX IF NOT EXISTS idx_psb_pages_order ON psb_pages(order_num ASC);
+
+INSERT OR IGNORE INTO psb_pages (id, title, slug, icon, order_num, is_default_home, link_type, content, status) VALUES (
+  'psb-1',
+  'BERANDA',
+  'beranda',
+  'home',
+  1,
+  1,
+  'page',
+  '<div class="psb-home-content">
+    <div style="background: #ffffff; border: 1px solid rgba(173,138,78,0.2); border-radius: 16px; padding: 28px; margin-bottom: 24px;">
+      <h3 style="font-family: Fraunces, serif; color: var(--teal-900); font-size: 22px; margin: 0 0 12px 0;">Selamat Datang di Portal Penerimaan Santri Baru P3HM</h3>
+      <p style="color: var(--ink-soft); font-size: 15px; line-height: 1.8; margin-bottom: 20px;">
+        Pondok Pesantren Putri Hidayatul Mubtadiat Lirboyo membuka pendaftaran santri baru secara online. Silakan periksa informasi persyaratan, alur daftar ulang, dan unduh berkas panduan melalui menu di atas.
+      </p>
+    </div>
+  </div>',
+  'published'
+);
+

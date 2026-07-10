@@ -10,6 +10,7 @@ import TabBerita from '../../components/portal/TabBerita';
 import TabGaleri from '../../components/portal/TabGaleri';
 import TabKategori from '../../components/portal/TabKategori';
 import TabPesan from '../../components/portal/TabPesan';
+import TabPsb from '../../components/portal/TabPsb';
 import CustomModal from '../../components/ui/CustomModal';
 
 export default function PortalAdmin() {
@@ -141,6 +142,7 @@ export default function PortalAdmin() {
   const getTabTitle = () => {
     switch (activeTab) {
       case 'overview': return 'Dasbor Ringkasan Inti';
+      case 'psb': return 'Manajemen Menu & Halaman Pendaftaran PSB';
       case 'tampilan': return 'Pengaturan Tata Letak & Mode Beranda';
       case 'profil': return 'Manajemen Profil & Kontak';
       case 'kategori': return 'Manajemen Kategori Kustom Berita & Galeri';
@@ -211,6 +213,17 @@ export default function PortalAdmin() {
               <rect x="3" y="16" width="7" height="5" rx="1" />
             </svg>
             <span>Ringkasan Dasbor</span>
+          </button>
+
+          <button
+            className={`nav-item ${activeTab === 'psb' ? 'active' : ''}`}
+            onClick={() => handleTabChange('psb')}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+              <path d="M6 12v5c3 3 9 3 12 0v-5" />
+            </svg>
+            <span>Manajemen Pendaftaran (PSB)</span>
           </button>
 
           <button
@@ -396,6 +409,12 @@ export default function PortalAdmin() {
                   galeri={galeri}
                   settings={settings}
                   onSelectTab={setActiveTab}
+                />
+              )}
+              {activeTab === 'psb' && (
+                <TabPsb
+                  showToast={showToastMessage}
+                  confirm={customConfirm}
                 />
               )}
               {activeTab === 'tampilan' && (

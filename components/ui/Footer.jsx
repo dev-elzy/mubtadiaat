@@ -25,10 +25,10 @@ export default function Footer() {
             <h4 style={{ color: 'white', fontSize: '16px', marginBottom: '24px', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>Tautan Cepat</h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <li><Link href="/" style={{ color: 'rgba(229, 221, 208, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }}>Beranda</Link></li>
-              <li><Link href="/profil" style={{ color: 'rgba(229, 221, 208, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }}>Profil Madrasah</Link></li>
+              <li><Link href="/profil" style={{ color: 'rgba(229, 221, 208, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }}>Profil P3HM</Link></li>
               <li><Link href="/berita" style={{ color: 'rgba(229, 221, 208, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }}>Portal Berita</Link></li>
               <li><Link href="/galeri" style={{ color: 'rgba(229, 221, 208, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }}>Galeri Dokumentasi</Link></li>
-              <li><Link href="https://docs.google.com/forms/d/e/1FAIpQLSfUOGLDZHGW7ApSoHTWbrMjbDJXALVHKdHEos95H5fkqxzHmg/viewform" target="_blank" style={{ color: 'var(--gold-500)', textDecoration: 'none', fontWeight: '500' }}>Pendaftaran Santri Baru</Link></li>
+              <li><Link href="/pendaftaran" style={{ color: 'var(--gold-500)', textDecoration: 'none', fontWeight: '500' }}>Pendaftaran Santri Baru</Link></li>
             </ul>
           </div>
 
