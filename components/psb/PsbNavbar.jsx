@@ -145,21 +145,18 @@ export default function PsbNavbar() {
           flexWrap: 'wrap',
           gap: '12px'
         }}>
-          {/* LOGO & TITLE PSB ONLINE */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            <div style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, #FAD692 0%, #AD8A4E 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 0 15px rgba(250,214,146,0.35)',
-              border: '2px solid #FFFFFF'
-            }}>
-              <span style={{ fontSize: '20px' }}>🕌</span>
-            </div>
+          {/* LOGO ASLI INSTANSI & TITLE PSB ONLINE */}
+          <Link href="/pendaftaran" style={{ display: 'flex', alignItems: 'center', gap: '14px', textDecoration: 'none' }}>
+            <img
+              src="/logo.png"
+              alt="Logo P3HM Lirboyo"
+              style={{
+                width: '44px',
+                height: '44px',
+                objectFit: 'contain',
+                filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.25))'
+              }}
+            />
             <div>
               <div style={{
                 fontFamily: '"Fraunces", serif',
@@ -179,7 +176,7 @@ export default function PsbNavbar() {
                 {settings.psbTitle}
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* BADGE TAHUN AJARAN & KEMBALI KE WEBSITE UTAMA */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>

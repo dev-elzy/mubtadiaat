@@ -26,10 +26,10 @@ export default function HeroSection({ settings = {} }) {
             <p>{sub}</p>
           </Reveal>
           <Reveal className="hero-actions">
-            <Link href={daftarUrl} target="_blank" className="btn-primary">
-              Pendaftaran Online 1446–1447 H
+            <a href="https://p3hm.my.id/pendaftaran" className="btn-primary">
+              Portal Pendaftaran Santri Baru
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </Link>
+            </a>
             <Link href="#profil" className="btn-ghost">Lihat Profil Pondok</Link>
           </Reveal>
 
