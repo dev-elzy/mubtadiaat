@@ -16,3 +16,6 @@ tmp-next/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Vercel project configuration
+.vercel/
