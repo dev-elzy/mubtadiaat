@@ -127,7 +127,6 @@ export default function TabPsb({ showToast, confirm }) {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Untuk upload file brosur/PDF (bisa ke Cloudinary atau base64 fallback)
     const reader = new FileReader();
     reader.onload = () => {
       setForm(prev => ({ ...prev, fileUrl: reader.result }));
@@ -188,246 +187,227 @@ export default function TabPsb({ showToast, confirm }) {
   };
 
   return (
-    <div>
-      {/* PENGATURAN BANNER ATAS PSB (Periode TA & Judul) */}
-      <form onSubmit={handleSaveSettings} style={{
-        background: '#ffffff',
-        border: '1px solid rgba(173,138,78,0.2)',
-        borderRadius: '16px',
-        padding: '24px',
-        marginBottom: '32px',
-        boxShadow: '0 4px 15px rgba(0,0,0,0.03)'
-      }}>
-        <h3 style={{ fontFamily: '"Fraunces", serif', fontSize: '19px', color: 'var(--teal-900)', margin: '0 0 16px 0' }}>
-          ⚙️ Pengaturan Periode &amp; Banner Atas PSB Online
-        </h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '16px' }}>
-          <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--teal-900)', marginBottom: '8px' }}>
-              Badge Periode Tahun Ajaran (Pojok Kanan Atas Header PSB)
-            </label>
-            <input
-              type="text"
-              value={settings.psbPeriode}
-              onChange={(e) => setSettings({ ...settings, psbPeriode: e.target.value })}
-              placeholder="Contoh: TA 1446 - 1447 H / 2025 - 2026 M"
-              style={{
-                width: '100%',
-                padding: '12px 14px',
-                borderRadius: '10px',
-                border: '1px solid rgba(173,138,78,0.3)',
-                fontSize: '14px',
-                color: 'var(--ink)'
-              }}
-            />
-          </div>
-          <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--teal-900)', marginBottom: '8px' }}>
-              Judul Portal / Identitas Madrasah
-            </label>
-            <input
-              type="text"
-              value={settings.psbTitle}
-              onChange={(e) => setSettings({ ...settings, psbTitle: e.target.value })}
-              style={{
-                width: '100%',
-                padding: '12px 14px',
-                borderRadius: '10px',
-                border: '1px solid rgba(173,138,78,0.3)',
-                fontSize: '14px',
-                color: 'var(--ink)'
-              }}
-            />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+      {/* 1. PENGATURAN PERIODE & BANNER ATAS PSB ONLINE (Sesuai Desain Kartu Zamrud CMS Portal) */}
+      <div className="card">
+        <div className="card-head">
+          <div className="card-head-left">
+            <h3>⚙️ Pengaturan Periode &amp; Banner Atas PSB Online</h3>
+            <p>Atur teks tahun ajaran yang tampil di pojok kanan atas Header PSB dan judul portal resmi</p>
           </div>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <form onSubmit={handleSaveSettings} className="card-body">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '20px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '8px' }}>
+                Badge Periode Tahun Ajaran (Pojok Kanan Atas Header PSB)
+              </label>
+              <input
+                type="text"
+                value={settings.psbPeriode}
+                onChange={(e) => setSettings({ ...settings, psbPeriode: e.target.value })}
+                placeholder="Contoh: TA 1446 - 1447 H / 2025 - 2026 M"
+                style={{
+                  width: '100%',
+                  padding: '11px 14px',
+                  borderRadius: 'var(--radius-sm)',
+                  background: 'var(--surface)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text)',
+                  fontSize: '13.5px'
+                }}
+              />
+            </div>
+            <div>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '8px' }}>
+                Judul Portal / Identitas Madrasah
+              </label>
+              <input
+                type="text"
+                value={settings.psbTitle}
+                onChange={(e) => setSettings({ ...settings, psbTitle: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '11px 14px',
+                  borderRadius: 'var(--radius-sm)',
+                  background: 'var(--surface)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text)',
+                  fontSize: '13.5px'
+                }}
+              />
+            </div>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <button
+              type="submit"
+              disabled={savingSettings}
+              className="btn btn-primary"
+              style={{
+                background: 'var(--gold-dark)',
+                color: '#0B1A16',
+                fontWeight: '700'
+              }}
+            >
+              {savingSettings ? 'Menyimpan...' : 'Simpan Pengaturan Periode PSB'}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      {/* 2. DAFTAR NAVIGASI & HALAMAN PSB */}
+      <div className="card">
+        <div className="card-head">
+          <div className="card-head-left">
+            <h3>📋 Daftar Navigasi &amp; Halaman PSB (/pendaftaran)</h3>
+            <p>Semua menu navigasi, ikon, tautan Google Form / Google Drive, atau halaman internal diatur sepenuhnya di sini (Tanpa teks statis)</p>
+          </div>
           <button
-            type="submit"
-            disabled={savingSettings}
+            onClick={handleOpenCreate}
+            className="btn btn-primary"
             style={{
-              background: 'var(--teal-900)',
-              color: 'var(--gold-500)',
-              border: 'none',
-              padding: '10px 22px',
-              borderRadius: '10px',
-              fontWeight: '700',
-              fontSize: '13.5px',
-              cursor: 'pointer'
+              background: 'linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%)',
+              color: '#0B1A16',
+              fontWeight: '700'
             }}
           >
-            {savingSettings ? 'Menyimpan...' : 'Simpan Pengaturan Periode PSB'}
+            <span>+</span> Tambah Menu PSB Baru
           </button>
         </div>
-      </form>
 
-      {/* HEADER DAFTAR MENU PSB */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
-        <div>
-          <h2 style={{ fontFamily: '"Fraunces", serif', fontSize: '22px', color: 'var(--teal-900)', margin: '0 0 6px 0' }}>
-            Daftar Navigasi &amp; Halaman PSB (/pendaftaran)
-          </h2>
-          <p style={{ color: 'var(--ink-soft)', fontSize: '13.5px', margin: 0 }}>
-            Semua menu navigasi, ikon, tautan Google Form / Google Drive, atau halaman internal diatur sepenuhnya di sini (Tanpa teks statis).
-          </p>
-        </div>
-        <button
-          onClick={handleOpenCreate}
-          style={{
-            background: 'linear-gradient(90deg, var(--gold-500) 0%, #C4A05C 100%)',
-            color: '#0F2B24',
-            border: 'none',
-            padding: '12px 22px',
-            borderRadius: '12px',
-            fontWeight: '700',
-            fontSize: '14px',
-            cursor: 'pointer',
-            boxShadow: '0 6px 16px rgba(196,160,92,0.25)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px'
-          }}
-        >
-          <span>+</span> Tambah Menu PSB Baru
-        </button>
-      </div>
-
-      {/* TABEL DAFTAR MENU PSB */}
-      <div style={{ background: '#fff', border: '1px solid rgba(173,138,78,0.2)', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 8px 25px rgba(15,43,36,0.03)' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-          <thead>
-            <tr style={{ background: 'var(--ivory)', borderBottom: '1px solid rgba(173,138,78,0.2)' }}>
-              <th style={{ padding: '16px 20px', fontSize: '13px', color: 'var(--teal-900)', fontWeight: '700', width: '70px' }}>No</th>
-              <th style={{ padding: '16px 20px', fontSize: '13px', color: 'var(--teal-900)', fontWeight: '700' }}>Judul &amp; Ikon</th>
-              <th style={{ padding: '16px 20px', fontSize: '13px', color: 'var(--teal-900)', fontWeight: '700' }}>Tipe Aksi / URL</th>
-              <th style={{ padding: '16px 20px', fontSize: '13px', color: 'var(--teal-900)', fontWeight: '700' }}>Status</th>
-              <th style={{ padding: '16px 20px', fontSize: '13px', color: 'var(--teal-900)', fontWeight: '700', textAlign: 'right' }}>Kelola</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
+        <div style={{ overflowX: 'auto' }}>
+          <table className="table">
+            <thead>
               <tr>
-                <td colSpan={5} style={{ padding: '40px', textAlign: 'center', color: 'var(--ink-soft)' }}>
-                  Memuat data menu PSB...
-                </td>
+                <th style={{ width: '60px' }}>No</th>
+                <th>Judul &amp; Ikon</th>
+                <th>Tipe Aksi / URL</th>
+                <th>Status</th>
+                <th style={{ textAlign: 'right' }}>Kelola</th>
               </tr>
-            ) : pages.length === 0 ? (
-              <tr>
-                <td colSpan={5} style={{ padding: '40px', textAlign: 'center', color: 'var(--ink-soft)' }}>
-                  Belum ada menu pendaftaran.
-                </td>
-              </tr>
-            ) : (
-              pages.map((item, idx) => {
-                const isHome = item.is_default_home || item.slug === 'beranda';
-                const urlPath = isHome ? '/pendaftaran' : `/pendaftaran/${item.slug}`;
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan={5} style={{ padding: '40px', textAlign: 'center', color: 'var(--text-secondary)' }}>
+                    Memuat data menu PSB...
+                  </td>
+                </tr>
+              ) : pages.length === 0 ? (
+                <tr>
+                  <td colSpan={5} style={{ padding: '40px', textAlign: 'center', color: 'var(--text-secondary)' }}>
+                    Belum ada menu pendaftaran.
+                  </td>
+                </tr>
+              ) : (
+                pages.map((item, idx) => {
+                  const isHome = item.is_default_home || item.slug === 'beranda';
+                  const urlPath = isHome ? '/pendaftaran' : `/pendaftaran/${item.slug}`;
 
-                return (
-                  <tr key={item.id} style={{ borderBottom: '1px solid rgba(173,138,78,0.1)' }}>
-                    <td style={{ padding: '16px 20px', fontWeight: '700', color: 'var(--teal-900)' }}>
-                      {item.order_num || idx + 1}
-                    </td>
-                    <td style={{ padding: '16px 20px' }}>
-                      <div style={{ fontWeight: '700', color: 'var(--teal-900)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span style={{ fontSize: '16px' }}>
-                          {item.icon === 'home' && '🏠'}
-                          {item.icon === 'book' && '📖'}
-                          {item.icon === 'info' && 'ℹ️'}
-                          {item.icon === 'folder' && '📂'}
-                          {item.icon === 'users' && '👥'}
-                          {item.icon === 'chat' && '💬'}
-                          {!['home','book','info','folder','users','chat'].includes(item.icon) && '📄'}
+                  return (
+                    <tr key={item.id}>
+                      <td style={{ fontWeight: '700', color: 'var(--gold)' }}>
+                        {item.order_num || idx + 1}
+                      </td>
+                      <td>
+                        <div style={{ fontWeight: '600', color: 'var(--text)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ fontSize: '16px' }}>
+                            {item.icon === 'home' && '🏠'}
+                            {item.icon === 'book' && '📖'}
+                            {item.icon === 'info' && 'ℹ️'}
+                            {item.icon === 'folder' && '📂'}
+                            {item.icon === 'users' && '👥'}
+                            {item.icon === 'chat' && '💬'}
+                            {!['home','book','info','folder','users','chat'].includes(item.icon) && '📄'}
+                          </span>
+                          <span>{item.title}</span>
+                        </div>
+                        <div style={{ fontSize: '12px', color: 'var(--text-tertiary)' }}>
+                          {urlPath}
+                        </div>
+                      </td>
+                      <td>
+                        {item.link_type === 'external' ? (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                            <span style={{ background: 'rgba(59,130,246,0.15)', color: '#60A5FA', padding: '3px 8px', borderRadius: '4px', fontSize: '10.5px', fontWeight: '700' }}>
+                              LINK EKSTERNAL
+                            </span>
+                            <a href={item.external_url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '12.5px', color: 'var(--gold)', textDecoration: 'underline' }}>
+                              {item.external_url} ↗
+                            </a>
+                          </div>
+                        ) : item.link_type === 'download' ? (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                            <span style={{ background: 'rgba(245,158,11,0.15)', color: '#FBBF24', padding: '3px 8px', borderRadius: '4px', fontSize: '10.5px', fontWeight: '700' }}>
+                              FILE / GOOGLE DRIVE
+                            </span>
+                            <a href={item.file_url || item.external_url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '12.5px', color: 'var(--gold)', textDecoration: 'underline' }}>
+                              {item.external_url || 'File Uploaded'} ↗
+                            </a>
+                          </div>
+                        ) : (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                            <span style={{ background: 'rgba(16,185,129,0.15)', color: '#34D399', padding: '3px 8px', borderRadius: '4px', fontSize: '10.5px', fontWeight: '700' }}>
+                              HALAMAN INTERNAL
+                            </span>
+                            <a href={urlPath} target="_blank" rel="noopener noreferrer" style={{ fontSize: '12.5px', color: 'var(--text-secondary)' }}>
+                              Lihat Halaman ↗
+                            </a>
+                          </div>
+                        )}
+                      </td>
+                      <td>
+                        <span style={{
+                          background: item.status === 'published' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(107, 138, 128, 0.2)',
+                          color: item.status === 'published' ? '#34D399' : 'var(--text-tertiary)',
+                          padding: '4px 10px',
+                          borderRadius: '100px',
+                          fontSize: '11.5px',
+                          fontWeight: '700'
+                        }}>
+                          {item.status === 'published' ? 'Aktif' : 'Draf'}
                         </span>
-                        <span>{item.title}</span>
-                      </div>
-                      <div style={{ fontSize: '12px', color: 'var(--ink-soft)' }}>
-                        {urlPath}
-                      </div>
-                    </td>
-                    <td style={{ padding: '16px 20px' }}>
-                      {item.link_type === 'external' ? (
-                        <div>
-                          <span style={{ background: '#EFF6FF', color: '#1D4ED8', padding: '3px 8px', borderRadius: '6px', fontSize: '11px', fontWeight: '700', marginRight: '6px' }}>
-                            LINK EKSTERNAL
-                          </span>
-                          <a href={item.external_url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '12.5px', color: 'var(--teal-900)' }}>
-                            {item.external_url} ↗
-                          </a>
+                      </td>
+                      <td style={{ textAlign: 'right' }}>
+                        <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                          <button
+                            onClick={() => handleOpenEdit(item)}
+                            className="btn"
+                            style={{
+                              background: 'var(--surface)',
+                              color: 'var(--text)',
+                              border: '1px solid var(--border)',
+                              padding: '7px 14px',
+                              fontSize: '12px'
+                            }}
+                          >
+                            ✏️ Edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(item)}
+                            className="btn"
+                            style={{
+                              background: 'rgba(239, 68, 68, 0.12)',
+                              color: '#F87171',
+                              border: '1px solid rgba(239,68,68,0.2)',
+                              padding: '7px 12px',
+                              fontSize: '12px'
+                            }}
+                          >
+                            🗑️
+                          </button>
                         </div>
-                      ) : item.link_type === 'download' ? (
-                        <div>
-                          <span style={{ background: '#FEF3C7', color: '#B45309', padding: '3px 8px', borderRadius: '6px', fontSize: '11px', fontWeight: '700', marginRight: '6px' }}>
-                            FILE / GOOGLE DRIVE
-                          </span>
-                          <a href={item.file_url || item.external_url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '12.5px', color: 'var(--teal-900)' }}>
-                            {item.external_url || 'File Uploaded'} ↗
-                          </a>
-                        </div>
-                      ) : (
-                        <div>
-                          <span style={{ background: '#ECFDF5', color: '#047857', padding: '3px 8px', borderRadius: '6px', fontSize: '11px', fontWeight: '700', marginRight: '6px' }}>
-                            HALAMAN INTERNAL
-                          </span>
-                          <a href={urlPath} target="_blank" rel="noopener noreferrer" style={{ fontSize: '12.5px', color: 'var(--teal-900)' }}>
-                            Lihat Halaman ↗
-                          </a>
-                        </div>
-                      )}
-                    </td>
-                    <td style={{ padding: '16px 20px' }}>
-                      <span style={{
-                        background: item.status === 'published' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(100, 116, 139, 0.15)',
-                        color: item.status === 'published' ? '#059669' : '#64748B',
-                        padding: '4px 10px',
-                        borderRadius: '100px',
-                        fontSize: '12px',
-                        fontWeight: '700'
-                      }}>
-                        {item.status === 'published' ? 'Aktif' : 'Draf'}
-                      </span>
-                    </td>
-                    <td style={{ padding: '16px 20px', textAlign: 'right' }}>
-                      <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
-                        <button
-                          onClick={() => handleOpenEdit(item)}
-                          style={{
-                            background: '#0F2B24',
-                            color: '#fff',
-                            border: 'none',
-                            padding: '8px 14px',
-                            borderRadius: '8px',
-                            fontSize: '13px',
-                            fontWeight: '600',
-                            cursor: 'pointer'
-                          }}
-                        >
-                          ✏️ Edit
-                        </button>
-                        <button
-                          onClick={() => handleDelete(item)}
-                          style={{
-                            background: 'rgba(239, 68, 68, 0.1)',
-                            color: '#DC2626',
-                            border: 'none',
-                            padding: '8px 14px',
-                            borderRadius: '8px',
-                            fontSize: '13px',
-                            fontWeight: '600',
-                            cursor: 'pointer'
-                          }}
-                        >
-                          🗑️
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })
-            )}
-          </tbody>
-        </table>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      {/* POPUP MODAL TAMBAH / EDIT MENU PSB */}
+      {/* POPUP MODAL TAMBAH / EDIT MENU PSB (Sesuai Estetika Gelap Elegan CMS Portal) */}
       {modalOpen && (
         <div style={{
           position: 'fixed',
@@ -435,8 +415,8 @@ export default function TabPsb({ showToast, confirm }) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'rgba(10, 26, 21, 0.7)',
-          backdropFilter: 'blur(5px)',
+          background: 'rgba(5, 15, 12, 0.8)',
+          backdropFilter: 'blur(8px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -444,23 +424,24 @@ export default function TabPsb({ showToast, confirm }) {
           zIndex: 1000
         }}>
           <div style={{
-            background: '#ffffff',
-            borderRadius: '20px',
+            background: 'var(--bg-elevated)',
+            border: '1px solid var(--border-strong)',
+            borderRadius: 'var(--radius-lg)',
             width: '100%',
             maxWidth: '850px',
             maxHeight: '90vh',
             overflowY: 'auto',
-            padding: '36px',
-            boxShadow: '0 25px 50px -12px rgba(15,43,36,0.3)'
+            padding: '32px',
+            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)'
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-              <h3 style={{ fontFamily: '"Fraunces", serif', fontSize: '22px', color: 'var(--teal-900)', margin: 0 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', borderBottom: '1px solid var(--border)', paddingBottom: '16px' }}>
+              <h3 style={{ fontFamily: '"Fraunces", serif', fontSize: '20px', color: 'var(--gold)', margin: 0 }}>
                 {form.id && form.title ? 'Edit Menu & Halaman PSB' : 'Tambah Menu PSB Baru'}
               </h3>
               <button
                 type="button"
                 onClick={() => setModalOpen(false)}
-                style={{ background: 'transparent', border: 'none', fontSize: '24px', cursor: 'pointer', color: 'var(--ink-soft)' }}
+                style={{ background: 'transparent', border: 'none', fontSize: '22px', cursor: 'pointer', color: 'var(--text-secondary)' }}
               >
                 ✕
               </button>
@@ -470,7 +451,7 @@ export default function TabPsb({ showToast, confirm }) {
               
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--teal-900)', marginBottom: '8px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '8px' }}>
                     Judul Menu Pendaftaran *
                   </label>
                   <input
@@ -481,17 +462,18 @@ export default function TabPsb({ showToast, confirm }) {
                     onChange={handleTitleChange}
                     style={{
                       width: '100%',
-                      padding: '12px 14px',
-                      borderRadius: '10px',
-                      border: '1px solid rgba(173,138,78,0.3)',
-                      fontSize: '14px',
-                      color: 'var(--ink)'
+                      padding: '11px 14px',
+                      borderRadius: 'var(--radius-sm)',
+                      background: 'var(--surface)',
+                      border: '1px solid var(--border)',
+                      color: 'var(--text)',
+                      fontSize: '13.5px'
                     }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--teal-900)', marginBottom: '8px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '8px' }}>
                     Pilihan Ikon Menu
                   </label>
                   <select
@@ -499,11 +481,12 @@ export default function TabPsb({ showToast, confirm }) {
                     onChange={(e) => setForm({ ...form, icon: e.target.value })}
                     style={{
                       width: '100%',
-                      padding: '12px 14px',
-                      borderRadius: '10px',
-                      border: '1px solid rgba(173,138,78,0.3)',
-                      fontSize: '14px',
-                      color: 'var(--ink)'
+                      padding: '11px 14px',
+                      borderRadius: 'var(--radius-sm)',
+                      background: 'var(--surface)',
+                      border: '1px solid var(--border)',
+                      color: 'var(--text)',
+                      fontSize: '13.5px'
                     }}
                   >
                     <option value="home">🏠 Ikon Rumah (Beranda)</option>
@@ -517,7 +500,7 @@ export default function TabPsb({ showToast, confirm }) {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--teal-900)', marginBottom: '8px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '8px' }}>
                     Urutan Posisi Menu
                   </label>
                   <input
@@ -527,23 +510,24 @@ export default function TabPsb({ showToast, confirm }) {
                     onChange={(e) => setForm({ ...form, orderNum: parseInt(e.target.value || 1, 10) })}
                     style={{
                       width: '100%',
-                      padding: '12px 14px',
-                      borderRadius: '10px',
-                      border: '1px solid rgba(173,138,78,0.3)',
-                      fontSize: '14px',
-                      color: 'var(--ink)'
+                      padding: '11px 14px',
+                      borderRadius: 'var(--radius-sm)',
+                      background: 'var(--surface)',
+                      border: '1px solid var(--border)',
+                      color: 'var(--text)',
+                      fontSize: '13.5px'
                     }}
                   />
                 </div>
               </div>
 
               {/* TIPE AKSI MENU */}
-              <div style={{ background: 'var(--ivory)', padding: '18px', borderRadius: '12px', border: '1px solid rgba(173,138,78,0.2)' }}>
-                <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--teal-900)', marginBottom: '12px' }}>
+              <div style={{ background: 'var(--surface)', padding: '18px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)' }}>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '12px' }}>
                   Tipe Aksi Saat Menu Diklik:
                 </label>
-                <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '16px' }}>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13.5px', fontWeight: '600', cursor: 'pointer' }}>
+                <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginBottom: '16px' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'var(--text)', cursor: 'pointer' }}>
                     <input
                       type="radio"
                       name="linkType"
@@ -552,16 +536,16 @@ export default function TabPsb({ showToast, confirm }) {
                     />
                     Halaman Konten Internal (/pendaftaran/[slug])
                   </label>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13.5px', fontWeight: '600', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'var(--text)', cursor: 'pointer' }}>
                     <input
                       type="radio"
                       name="linkType"
                       checked={form.linkType === 'external'}
                       onChange={() => setForm({ ...form, linkType: 'external' })}
                     />
-                    Tautan Eksternal (Link Google Form / WhatsApp)
+                    Tautan Eksternal (Google Form / WhatsApp)
                   </label>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13.5px', fontWeight: '600', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'var(--text)', cursor: 'pointer' }}>
                     <input
                       type="radio"
                       name="linkType"
@@ -574,7 +558,7 @@ export default function TabPsb({ showToast, confirm }) {
 
                 {form.linkType === 'external' && (
                   <div>
-                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '700', color: 'var(--teal-900)', marginBottom: '6px' }}>
+                    <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '600', color: 'var(--gold)', marginBottom: '6px' }}>
                       Alamat URL Tujuan (Contoh: Link Formulir Google Form atau WhatsApp) *
                     </label>
                     <input
@@ -582,15 +566,15 @@ export default function TabPsb({ showToast, confirm }) {
                       placeholder="http://bit.ly/hidayatul-mubtadiaat atau https://wa.me/62856..."
                       value={form.externalUrl}
                       onChange={(e) => setForm({ ...form, externalUrl: e.target.value })}
-                      style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid rgba(173,138,78,0.3)', fontSize: '13.5px' }}
+                      style={{ width: '100%', padding: '10px 14px', borderRadius: 'var(--radius-sm)', background: 'var(--bg-elevated)', border: '1px solid var(--border)', color: 'var(--text)', fontSize: '13px' }}
                     />
                   </div>
                 )}
 
                 {form.linkType === 'download' && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '700', color: 'var(--teal-900)', marginBottom: '6px' }}>
+                      <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '600', color: 'var(--gold)', marginBottom: '6px' }}>
                         Opsi 1: Tautan Folder / File Google Drive (Otomatis Menyesuaikan Realtime)
                       </label>
                       <input
@@ -598,17 +582,17 @@ export default function TabPsb({ showToast, confirm }) {
                         placeholder="https://drive.google.com/... atau https://sites.google.com/..."
                         value={form.externalUrl}
                         onChange={(e) => setForm({ ...form, externalUrl: e.target.value })}
-                        style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid rgba(173,138,78,0.3)', fontSize: '13.5px' }}
+                        style={{ width: '100%', padding: '10px 14px', borderRadius: 'var(--radius-sm)', background: 'var(--bg-elevated)', border: '1px solid var(--border)', color: 'var(--text)', fontSize: '13px' }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '700', color: 'var(--teal-900)', marginBottom: '6px' }}>
+                      <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '600', color: 'var(--gold)', marginBottom: '6px' }}>
                         Opsi 2: Atau Unggah File Langsung dari Komputer
                       </label>
                       <input
                         type="file"
                         onChange={handleFileUpload}
-                        style={{ fontSize: '13px' }}
+                        style={{ fontSize: '13px', color: 'var(--text-secondary)' }}
                       />
                     </div>
                   </div>
@@ -618,13 +602,15 @@ export default function TabPsb({ showToast, confirm }) {
               {/* EDITOR KONTEN (Hanya Jika Tipe Halaman Internal) */}
               {form.linkType === 'page' && (
                 <div>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--teal-900)', marginBottom: '8px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '8px' }}>
                     Isi Konten Halaman PSB
                   </label>
-                  <RichTextEditor
-                    value={form.content}
-                    onChange={(val) => setForm({ ...form, content: val })}
-                  />
+                  <div style={{ background: '#ffffff', borderRadius: 'var(--radius-sm)', overflow: 'hidden' }}>
+                    <RichTextEditor
+                      value={form.content}
+                      onChange={(val) => setForm({ ...form, content: val })}
+                    />
+                  </div>
                 </div>
               )}
 
@@ -632,14 +618,11 @@ export default function TabPsb({ showToast, confirm }) {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
+                  className="btn"
                   style={{
-                    background: '#f1f5f9',
-                    color: '#475569',
-                    border: 'none',
-                    padding: '12px 24px',
-                    borderRadius: '10px',
-                    fontWeight: '600',
-                    cursor: 'pointer'
+                    background: 'var(--surface)',
+                    color: 'var(--text-secondary)',
+                    border: '1px solid var(--border)'
                   }}
                 >
                   Batal
@@ -647,15 +630,11 @@ export default function TabPsb({ showToast, confirm }) {
                 <button
                   type="submit"
                   disabled={saving}
+                  className="btn btn-primary"
                   style={{
-                    background: 'var(--teal-900)',
-                    color: 'var(--gold-500)',
-                    border: 'none',
-                    padding: '12px 28px',
-                    borderRadius: '10px',
-                    fontWeight: '700',
-                    cursor: 'pointer',
-                    boxShadow: '0 6px 16px rgba(15,43,36,0.2)'
+                    background: 'var(--gold-dark)',
+                    color: '#0B1A16',
+                    fontWeight: '700'
                   }}
                 >
                   {saving ? 'Menyimpan...' : 'Simpan Menu PSB'}
