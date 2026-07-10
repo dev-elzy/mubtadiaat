@@ -41,6 +41,11 @@ export default function Header() {
     return pathname.startsWith(item.href);
   }
 
+  // Warna teks menyesuaikan status scroll agar selalu berkontras tinggi & tajam
+  const textColor = isScrolled ? '#FFFFFF' : 'var(--teal-900)';
+  const subTextColor = 'var(--gold-500)';
+  const navLinkColor = isScrolled ? 'rgba(255, 255, 255, 0.9)' : 'var(--ink)';
+
   return (
     <header
       className={`header ${isScrolled ? 'scrolled' : ''}`}
@@ -50,50 +55,103 @@ export default function Header() {
         left: 0,
         right: 0,
         height: '80px',
-        background: isScrolled ? 'rgba(10, 26, 21, 0.95)' : 'transparent',
-        backdropFilter: isScrolled ? 'blur(10px)' : 'none',
-        borderBottom: isScrolled ? '1px solid rgba(218, 190, 140, 0.15)' : 'none',
+        background: isScrolled ? 'rgba(15, 43, 36, 0.98)' : 'rgba(251, 248, 241, 0.94)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderBottom: isScrolled ? '1px solid rgba(218, 190, 140, 0.25)' : '1px solid rgba(173, 138, 78, 0.18)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: '0 5%',
-        zIndex: 100,
-        transition: 'all 0.3s ease'
+        zIndex: 900,
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        boxShadow: isScrolled ? '0 10px 30px rgba(0,0,0,0.15)' : '0 4px 20px rgba(15,43,36,0.03)'
       }}
     >
+      {/* Brand & Identitas P3HM */}
       <Link href="/" className="logo-wrap" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
-        <img src="/logo.png" alt="Logo P3HM" style={{ width: '42px', height: '42px' }} />
+        <img src="/logo.png" alt="Logo P3HM" style={{ width: '44px', height: '44px', objectFit: 'contain' }} />
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <span style={{ fontFamily: '"Fraunces", serif', fontSize: '15px', color: '#fff', fontWeight: '600', letterSpacing: '0.02em', lineHeight: '1.2' }}>Hidayatul Mubtadiat</span>
-          <span style={{ fontSize: '11px', color: 'var(--gold-500)', fontWeight: '600', letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: '2px' }}>Pondok Pesantren Putri</span>
+          <span style={{ fontFamily: '"Fraunces", serif', fontSize: '16px', color: textColor, fontWeight: '700', letterSpacing: '0.01em', lineHeight: '1.2' }}>
+            Hidayatul Mubtadiat
+          </span>
+          <span style={{ fontSize: '10.5px', color: subTextColor, fontWeight: '700', letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: '2px' }}>
+            Pondok Pesantren Putri
+          </span>
         </div>
       </Link>
       
-      <div className="nav-links">
-        {navItems.map(item => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={`nav-link ${isActive(item) ? 'active' : ''}`}
-          >
-            {item.label}
-          </Link>
-        ))}
+      {/* Navigasi Desktop */}
+      <div className="nav-links" style={{ display: 'flex', gap: '28px', alignItems: 'center' }}>
+        {navItems.map(item => {
+          const active = isActive(item);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`nav-link ${active ? 'active' : ''}`}
+              style={{
+                color: active ? 'var(--gold-500)' : navLinkColor,
+                fontWeight: active ? '700' : '600',
+                fontSize: '14px',
+                textDecoration: 'none',
+                padding: '6px 0',
+                transition: 'color 0.2s ease',
+                borderBottom: active ? '2px solid var(--gold-500)' : '2px solid transparent'
+              }}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
       </div>
       
-      <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <div className="desktop-ctas" style={{ display: 'flex', gap: '8px' }}>
-          <Link href="/pendaftaran" className="nav-cta">Pendaftaran Santri Baru</Link>
-          <Link href="/redirect" className="nav-cta" style={{ background: 'var(--gold-500)' }}>Portal Wali &amp; Akademik</Link>
+      {/* CTA Buttons */}
+      <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div className="desktop-ctas" style={{ display: 'flex', gap: '10px' }}>
+          <Link
+            href="/pendaftaran"
+            className="nav-cta"
+            style={{
+              background: 'var(--teal-900)',
+              color: '#ffffff',
+              padding: '10px 20px',
+              borderRadius: '100px',
+              fontSize: '13px',
+              fontWeight: '700',
+              textDecoration: 'none',
+              border: '1px solid rgba(218, 190, 140, 0.3)',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            Pendaftaran Santri Baru
+          </Link>
+          <Link
+            href="/redirect"
+            className="nav-cta"
+            style={{
+              background: 'linear-gradient(90deg, var(--gold-500) 0%, #C4A05C 100%)',
+              color: '#0F2B24',
+              padding: '10px 20px',
+              borderRadius: '100px',
+              fontSize: '13px',
+              fontWeight: '700',
+              textDecoration: 'none',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            Portal Wali &amp; Akademik
+          </Link>
         </div>
         
+        {/* Tombol Mobile Menu */}
         <div
           className="burger"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          style={{ padding: '8px', cursor: 'pointer', zIndex: 110 }}
+          style={{ padding: '8px', cursor: 'pointer', zIndex: 910 }}
           aria-label="Toggle Menu"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal-900)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
+          <svg viewBox="0 0 24 24" fill="none" stroke={textColor} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
             {isMobileMenuOpen ? (
               <path d="M18 6L6 18M6 6l12 12" />
             ) : (
@@ -108,12 +166,12 @@ export default function Header() {
         <div
           style={{
             position: 'absolute',
-            top: '100%',
+            top: '80px',
             left: 0,
             right: 0,
-            height: 'calc(100vh - 70px)',
+            height: 'calc(100vh - 80px)',
             background: '#fbf8f1',
-            padding: '24px 28px 48px',
+            padding: '28px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -123,11 +181,11 @@ export default function Header() {
             zIndex: 999
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
             <div style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--gold-500)' }}>
               Menu Navigasi
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', fontSize: '18px', fontWeight: '600', color: 'var(--teal-900)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', fontSize: '18px', fontWeight: '700', color: 'var(--teal-900)' }}>
               {navItems.map(item => (
                 <Link
                   key={item.href}
@@ -135,13 +193,13 @@ export default function Header() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   style={{
                     textDecoration: 'none',
-                    color: isActive(item) ? 'var(--gold-500)' : 'inherit',
+                    color: isActive(item) ? 'var(--gold-500)' : 'var(--teal-900)',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px'
+                    gap: '10px'
                   }}
                 >
-                  {isActive(item) && <span style={{ width: '4px', height: '20px', borderRadius: '2px', background: 'var(--gold-500)' }} />}
+                  {isActive(item) && <span style={{ width: '4px', height: '22px', borderRadius: '2px', background: 'var(--gold-500)' }} />}
                   {item.label}
                 </Link>
               ))}
@@ -151,19 +209,37 @@ export default function Header() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '32px', paddingTop: '24px', borderTop: '1px solid rgba(173,138,78,0.2)' }}>
             <Link
               href="/pendaftaran"
-              className="nav-cta"
-              style={{ textAlign: 'center', display: 'block', padding: '14px', fontSize: '14.5px' }}
+              style={{
+                textAlign: 'center',
+                display: 'block',
+                padding: '14px',
+                fontSize: '14.5px',
+                background: 'var(--teal-900)',
+                color: '#fff',
+                borderRadius: '12px',
+                fontWeight: '700',
+                textDecoration: 'none'
+              }}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               📝 Pendaftaran Santri Baru
             </Link>
             <Link
               href="/redirect"
-              className="nav-cta"
-              style={{ background: 'var(--gold-500)', textAlign: 'center', display: 'block', padding: '14px', fontSize: '14.5px' }}
+              style={{
+                textAlign: 'center',
+                display: 'block',
+                padding: '14px',
+                fontSize: '14.5px',
+                background: 'var(--gold-500)',
+                color: 'var(--teal-900)',
+                borderRadius: '12px',
+                fontWeight: '700',
+                textDecoration: 'none'
+              }}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              🔐 Portal Wali &amp; Akademik
+              🎓 Portal Wali &amp; Akademik
             </Link>
           </div>
         </div>

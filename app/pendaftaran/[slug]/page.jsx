@@ -28,7 +28,7 @@ export default function PendaftaranSlugPage() {
   }, [slug]);
 
   return (
-    <main style={{ background: '#fbf8f1', minHeight: '100vh', paddingBottom: '80px', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+    <main style={{ background: '#fbf8f1', minHeight: '100vh', paddingTop: 0, paddingBottom: '80px', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
       {/* PSB Navbar Sesuai Referensi Top Header + Navigasi Menu */}
       <PsbNavbar />
 

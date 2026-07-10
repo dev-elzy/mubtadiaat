@@ -26,6 +26,9 @@
     -webkit-font-smoothing:antialiased;
     width: 100%;
   }
+  main {
+    padding-top: 86px;
+  }
   img{max-width:100%; display:block;}
   a{color:inherit; text-decoration:none;}
   .display{font-family:'Fraunces', serif;}
