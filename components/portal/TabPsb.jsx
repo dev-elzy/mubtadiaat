@@ -5,6 +5,7 @@ import * as XLSX from 'xlsx';
 import RichTextEditor from './RichTextEditor';
 
 export default function TabPsb({ showToast, confirm }) {
+  const [activeSubTab, setActiveSubTab] = useState('ALL');
   const [pages, setPages] = useState([]);
   const [classes, setClasses] = useState([]);
   const [acceptedSantri, setAcceptedSantri] = useState([]);
@@ -469,7 +470,46 @@ export default function TabPsb({ showToast, confirm }) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+      {/* Sub-navigasi Filter Menu PSB */}
+      <div style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '8px',
+        padding: '12px',
+        background: 'var(--surface)',
+        borderRadius: '12px',
+        border: '1px solid var(--border)'
+      }}>
+        {[
+          { id: 'ALL', label: '🌟 Tampilkan Semua Bagian' },
+          { id: 'NAV_BANNER', label: '1. ⚙️ Pengaturan Periode & Daftar Navigasi PSB' },
+          { id: 'KELAS', label: '2. 🎓 Manajemen Tabel Kelas & Kurikulum' },
+          { id: 'SANTRI', label: '3. 🎉 Manajemen Daftar Santri Diterima' },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            type="button"
+            onClick={() => setActiveSubTab(tab.id)}
+            style={{
+              padding: '9px 18px',
+              borderRadius: '8px',
+              border: activeSubTab === tab.id ? '1px solid var(--gold)' : '1px solid var(--border)',
+              fontSize: '13px',
+              fontWeight: activeSubTab === tab.id ? '600' : '500',
+              backgroundColor: activeSubTab === tab.id ? 'var(--gold-dark)' : 'var(--bg-elevated)',
+              color: activeSubTab === tab.id ? '#ffffff' : 'var(--text-secondary)',
+              boxShadow: activeSubTab === tab.id ? '0 4px 14px rgba(216,190,140,0.25)' : 'none',
+              cursor: 'pointer',
+              transition: 'all 0.2s'
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
       {/* 1. PENGATURAN PERIODE & BANNER ATAS PSB ONLINE */}
+      {(activeSubTab === 'ALL' || activeSubTab === 'NAV_BANNER') && (
       <div className="card">
         <div className="card-head">
           <div className="card-head-left">
@@ -535,8 +575,10 @@ export default function TabPsb({ showToast, confirm }) {
           </div>
         </form>
       </div>
+      )}
 
       {/* 2. MANAJEMEN DAFTAR SANTRI DITERIMA (INFORMASI PENERIMAAN + IMPORT EXCEL TERKUNCI) */}
+      {(activeSubTab === 'ALL' || activeSubTab === 'SANTRI') && (
       <div className="card">
         <div className="card-head">
           <div className="card-head-left">
@@ -663,8 +705,10 @@ export default function TabPsb({ showToast, confirm }) {
           </table>
         </div>
       </div>
+      )}
 
       {/* 3. MANAJEMEN TABEL KARTU KELAS (MATERI UJIAN & KURIKULUM) */}
+      {(activeSubTab === 'ALL' || activeSubTab === 'KELAS') && (
       <div className="card">
         <div className="card-head">
           <div className="card-head-left">
@@ -746,8 +790,10 @@ export default function TabPsb({ showToast, confirm }) {
           </table>
         </div>
       </div>
+      )}
 
       {/* 4. DAFTAR NAVIGASI & HALAMAN PSB (/pendaftaran) */}
+      {(activeSubTab === 'ALL' || activeSubTab === 'NAV_BANNER') && (
       <div className="card">
         <div className="card-head">
           <div className="card-head-left">
@@ -898,6 +944,7 @@ export default function TabPsb({ showToast, confirm }) {
           </table>
         </div>
       </div>
+      )}
 
       {/* POPUP MODAL TAMBAH SANTRI DITERIMA MANUAL */}
       {santriModalOpen && (
@@ -1280,7 +1327,7 @@ export default function TabPsb({ showToast, confirm }) {
                   <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '8px' }}>
                     Isi Konten Halaman PSB (Ketik Visual Ala MS Word)
                   </label>
-                  <div style={{ background: '#ffffff', borderRadius: 'var(--radius-sm)', overflow: 'hidden' }}>
+                  <div style={{ background: 'var(--surface)', borderRadius: 'var(--radius-sm)', overflow: 'hidden', border: '1px solid var(--border)' }}>
                     <RichTextEditor
                       value={form.content}
                       onChange={(val) => setForm({ ...form, content: val })}

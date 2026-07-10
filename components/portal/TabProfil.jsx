@@ -173,9 +173,9 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
         gap: '8px',
         marginBottom: '24px',
         padding: '12px',
-        background: '#f8fafc',
+        background: 'var(--surface)',
         borderRadius: '12px',
-        border: '1px solid #e2e8f0'
+        border: '1px solid var(--border)'
       }}>
         {[
           { id: 'ALL', label: '🌟 Tampilkan Semua Bagian (Awal - Akhir)' },
@@ -194,12 +194,12 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
             style={{
               padding: '8px 16px',
               borderRadius: '8px',
-              border: 'none',
+              border: activeSubTab === tab.id ? '1px solid var(--gold)' : '1px solid var(--border)',
               fontSize: '13px',
               fontWeight: activeSubTab === tab.id ? '600' : '500',
-              backgroundColor: activeSubTab === tab.id ? '#0f766e' : '#ffffff',
-              color: activeSubTab === tab.id ? '#ffffff' : '#334155',
-              boxShadow: activeSubTab === tab.id ? '0 2px 8px rgba(15,118,110,0.25)' : '0 1px 2px rgba(0,0,0,0.05)',
+              backgroundColor: activeSubTab === tab.id ? 'var(--gold-dark)' : 'var(--bg-elevated)',
+              color: activeSubTab === tab.id ? '#ffffff' : 'var(--text-secondary)',
+              boxShadow: activeSubTab === tab.id ? '0 4px 14px rgba(216,190,140,0.25)' : 'none',
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}
@@ -276,28 +276,28 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
               </div>
             </div>
 
-            <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '16px' }}>
-              <h4 style={{ fontSize: '14px', fontWeight: 600, color: '#0f766e', marginBottom: '12px' }}>📊 4 Kotak Statistik Utama Hero</h4>
+            <div style={{ borderTop: '1px solid var(--border)', paddingTop: '16px' }}>
+              <h4 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--gold)', marginBottom: '12px' }}>📊 4 Kotak Statistik Utama Hero</h4>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
-                <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <div style={{ background: 'var(--surface)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)' }}>
                   <label className="form-label" style={{ fontSize: '12px' }}>Kotak 1 - Angka/Teks Utama</label>
                   <input className="form-input" style={{ marginBottom: '8px' }} value={formData.stat1Num} onChange={e => setFormData({ ...formData, stat1Num: e.target.value })} />
                   <label className="form-label" style={{ fontSize: '12px' }}>Kotak 1 - Keterangan</label>
                   <input className="form-input" value={formData.stat1Label} onChange={e => setFormData({ ...formData, stat1Label: e.target.value })} />
                 </div>
-                <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <div style={{ background: 'var(--surface)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)' }}>
                   <label className="form-label" style={{ fontSize: '12px' }}>Kotak 2 - Angka/Teks Utama</label>
                   <input className="form-input" style={{ marginBottom: '8px' }} value={formData.stat2Num} onChange={e => setFormData({ ...formData, stat2Num: e.target.value })} />
                   <label className="form-label" style={{ fontSize: '12px' }}>Kotak 2 - Keterangan</label>
                   <input className="form-input" value={formData.stat2Label} onChange={e => setFormData({ ...formData, stat2Label: e.target.value })} />
                 </div>
-                <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <div style={{ background: 'var(--surface)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)' }}>
                   <label className="form-label" style={{ fontSize: '12px' }}>Kotak 3 - Angka/Teks Utama</label>
                   <input className="form-input" style={{ marginBottom: '8px' }} value={formData.stat3Num} onChange={e => setFormData({ ...formData, stat3Num: e.target.value })} />
                   <label className="form-label" style={{ fontSize: '12px' }}>Kotak 3 - Keterangan</label>
                   <input className="form-input" value={formData.stat3Label} onChange={e => setFormData({ ...formData, stat3Label: e.target.value })} />
                 </div>
-                <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <div style={{ background: 'var(--surface)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)' }}>
                   <label className="form-label" style={{ fontSize: '12px' }}>Kotak 4 - Angka/Teks Utama</label>
                   <input className="form-input" style={{ marginBottom: '8px' }} value={formData.stat4Num} onChange={e => setFormData({ ...formData, stat4Num: e.target.value })} />
                   <label className="form-label" style={{ fontSize: '12px' }}>Kotak 4 - Keterangan</label>
@@ -436,8 +436,8 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
               />
             </div>
 
-            <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '16px' }}>
-              <h4 style={{ fontSize: '14px', fontWeight: 600, color: '#0f766e', marginBottom: '12px' }}>🏛️ Kartu Informasi Berdiri &amp; Pendiri Pesantren</h4>
+            <div style={{ borderTop: '1px solid var(--border)', paddingTop: '16px' }}>
+              <h4 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--gold)', marginBottom: '12px' }}>🏛️ Kartu Informasi Berdiri &amp; Pendiri Pesantren</h4>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '14px' }}>
                 <div className="form-group">
                   <label className="form-label">Tahun Hijriah (Bold)</label>
@@ -450,19 +450,19 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px', marginTop: '14px' }}>
-                <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <div style={{ background: 'var(--surface)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)' }}>
                   <label className="form-label" style={{ fontSize: '12px' }}>Tokoh 1 - Jabatan/Judul</label>
                   <input className="form-input" style={{ marginBottom: '8px' }} value={formData.sejarahFounder1Title} onChange={e => setFormData({ ...formData, sejarahFounder1Title: e.target.value })} />
                   <label className="form-label" style={{ fontSize: '12px' }}>Tokoh 1 - Nama Lengkap</label>
                   <input className="form-input" value={formData.sejarahFounder1Name} onChange={e => setFormData({ ...formData, sejarahFounder1Name: e.target.value })} />
                 </div>
-                <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <div style={{ background: 'var(--surface)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)' }}>
                   <label className="form-label" style={{ fontSize: '12px' }}>Tokoh 2 - Jabatan/Judul</label>
                   <input className="form-input" style={{ marginBottom: '8px' }} value={formData.sejarahFounder2Title} onChange={e => setFormData({ ...formData, sejarahFounder2Title: e.target.value })} />
                   <label className="form-label" style={{ fontSize: '12px' }}>Tokoh 2 - Nama Lengkap</label>
                   <input className="form-input" value={formData.sejarahFounder2Name} onChange={e => setFormData({ ...formData, sejarahFounder2Name: e.target.value })} />
                 </div>
-                <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <div style={{ background: 'var(--surface)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)' }}>
                   <label className="form-label" style={{ fontSize: '12px' }}>Tokoh 3 - Jabatan/Judul</label>
                   <input className="form-input" style={{ marginBottom: '8px' }} value={formData.sejarahFounder3Title} onChange={e => setFormData({ ...formData, sejarahFounder3Title: e.target.value })} />
                   <label className="form-label" style={{ fontSize: '12px' }}>Tokoh 3 - Nama Lengkap</label>
@@ -513,9 +513,9 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
               />
             </div>
 
-            <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '16px' }}>
+            <div style={{ borderTop: '1px solid var(--border)', paddingTop: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                <h4 style={{ fontSize: '14px', fontWeight: 600, color: '#0f766e', margin: 0 }}>📋 Daftar Poin Misi Pondok Pesantren</h4>
+                <h4 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--gold)', margin: 0 }}>📋 Daftar Poin Misi Pondok Pesantren</h4>
                 <button
                   type="button"
                   className="btn btn-primary"
@@ -528,7 +528,7 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {misiList.map((item, index) => (
                   <div key={index} style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                    <span style={{ fontWeight: 600, minWidth: '32px', color: '#0f766e' }}>
+                    <span style={{ fontWeight: 600, minWidth: '32px', color: 'var(--gold)' }}>
                       {String(index + 1).padStart(2, '0')}.
                     </span>
                     <input
@@ -609,9 +609,9 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px' }}>
                 {programList.map((p, i) => (
-                  <div key={i} style={{ background: '#f8fafc', padding: '14px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+                  <div key={i} style={{ background: 'var(--surface)', padding: '14px', borderRadius: '10px', border: '1px solid var(--border)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                      <span style={{ fontWeight: 600, fontSize: '13px', color: '#0f766e' }}>Pilar {i + 1}</span>
+                      <span style={{ fontWeight: 600, fontSize: '13px', color: 'var(--gold)' }}>Pilar {i + 1}</span>
                       <button
                         type="button"
                         onClick={() => setProgramList(programList.filter((_, idx) => idx !== i))}
@@ -682,7 +682,7 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px' }}>
                 {jenjangList.map((j, i) => (
-                  <div key={i} style={{ background: '#f8fafc', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0', display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <div key={i} style={{ background: 'var(--surface)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <div style={{ flex: 1 }}>
                       <input
                         className="form-input"
@@ -751,7 +751,7 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
             </div>
 
             {/* Kolom 1: Jam'iyyah */}
-            <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+            <div style={{ background: 'var(--surface)', padding: '16px', borderRadius: '10px', border: '1px solid var(--border)' }}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px', marginBottom: '14px' }}>
                 <div>
                   <label className="form-label">Judul Kolom 1</label>
@@ -764,7 +764,7 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                <h5 style={{ fontSize: '13px', fontWeight: 600, color: '#0f766e', margin: 0 }}>Daftar Kegiatan Jam'iyyah</h5>
+                <h5 style={{ fontSize: '13px', fontWeight: 600, color: 'var(--gold)', margin: 0 }}>Daftar Kegiatan Jam'iyyah</h5>
                 <button
                   type="button"
                   className="btn btn-primary"
@@ -777,7 +777,7 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '10px' }}>
                 {ekstraCol1List.map((item, i) => (
-                  <div key={i} style={{ background: '#ffffff', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
+                  <div key={i} style={{ background: 'var(--bg-elevated)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
                       <span style={{ fontSize: '12px', fontWeight: 600 }}>Kegiatan {i + 1}</span>
                       <button type="button" onClick={() => setEkstraCol1List(ekstraCol1List.filter((_, idx) => idx !== i))} style={{ background: 'transparent', border: 'none', color: '#b91c1c', cursor: 'pointer', fontSize: '12px' }}>Hapus</button>
@@ -798,7 +798,7 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
             </div>
 
             {/* Kolom 2: Kursus Keterampilan */}
-            <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+            <div style={{ background: 'var(--surface)', padding: '16px', borderRadius: '10px', border: '1px solid var(--border)' }}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px', marginBottom: '14px' }}>
                 <div>
                   <label className="form-label">Judul Kolom 2</label>
@@ -811,7 +811,7 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                <h5 style={{ fontSize: '13px', fontWeight: 600, color: '#0f766e', margin: 0 }}>Daftar Kursus Keterampilan</h5>
+                <h5 style={{ fontSize: '13px', fontWeight: 600, color: 'var(--gold)', margin: 0 }}>Daftar Kursus Keterampilan</h5>
                 <button
                   type="button"
                   className="btn btn-primary"
@@ -824,7 +824,7 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '10px' }}>
                 {ekstraCol2List.map((item, i) => (
-                  <div key={i} style={{ background: '#ffffff', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
+                  <div key={i} style={{ background: 'var(--bg-elevated)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
                       <span style={{ fontSize: '12px', fontWeight: 600 }}>Kursus {i + 1}</span>
                       <button type="button" onClick={() => setEkstraCol2List(ekstraCol2List.filter((_, idx) => idx !== i))} style={{ background: 'transparent', border: 'none', color: '#b91c1c', cursor: 'pointer', fontSize: '12px' }}>Hapus</button>
@@ -883,8 +883,8 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '6px',
-                    background: '#f1f5f9',
-                    border: '1px solid #cbd5e1',
+                    background: 'var(--surface)',
+                    border: '1px solid var(--border)',
                     borderRadius: '20px',
                     padding: '6px 14px'
                   }}>
@@ -970,19 +970,19 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
       <div style={{
         position: 'sticky',
         bottom: '16px',
-        background: 'rgba(255, 255, 255, 0.92)',
-        backdropFilter: 'blur(8px)',
+        background: 'rgba(14, 37, 32, 0.96)',
+        backdropFilter: 'blur(12px)',
         padding: '16px 24px',
         borderRadius: '16px',
-        border: '1px solid #e2e8f0',
-        boxShadow: '0 10px 25px rgba(0,0,0,0.08)',
+        border: '1px solid var(--border-strong)',
+        boxShadow: '0 10px 25px rgba(0,0,0,0.35)',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: '32px',
         zIndex: 100
       }}>
-        <div style={{ fontSize: '13px', color: '#64748b' }}>
+        <div style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
           💡 Semua informasi dari awal sampai akhir pada menu profil siap diedit &amp; disimpan secara real-time.
         </div>
         <button type="submit" className="btn btn-primary" disabled={saving} style={{ padding: '12px 32px', fontSize: '14px', fontWeight: '600' }}>

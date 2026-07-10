@@ -190,7 +190,7 @@ input, select, textarea { font-family: inherit; }
   margin-left: var(--sidebar-w);
   flex: 1;
   min-height: 100vh;
-  padding-top: 86px;
+  padding-top: 0px;
 }
 .main-header {
   position: fixed;
@@ -241,7 +241,7 @@ input, select, textarea { font-family: inherit; }
 @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
 
 .main-body {
-  padding: 28px 32px;
+  padding: 108px 32px 32px 32px;
 }
 
 /* ============================================

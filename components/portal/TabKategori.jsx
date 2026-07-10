@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 export default function TabKategori({ categories, onRefresh, showToast, confirm }) {
+  const [activeSubTab, setActiveSubTab] = useState('ALL');
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState({ id: '', name: '', type: 'berita' });
   const [saving, setSaving] = useState(false);
@@ -59,6 +60,43 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      {/* Sub-navigasi Filter Menu Kategori */}
+      <div style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '8px',
+        padding: '12px',
+        background: 'var(--surface)',
+        borderRadius: '12px',
+        border: '1px solid var(--border)'
+      }}>
+        {[
+          { id: 'ALL', label: '🌟 Semua Kategori' },
+          { id: 'BERITA', label: '1. 📰 Kategori Artikel Berita' },
+          { id: 'GALERI', label: '2. 🖼️ Kategori Galeri Dokumentasi' },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            type="button"
+            onClick={() => setActiveSubTab(tab.id)}
+            style={{
+              padding: '9px 18px',
+              borderRadius: '8px',
+              border: activeSubTab === tab.id ? '1px solid var(--gold)' : '1px solid var(--border)',
+              fontSize: '13px',
+              fontWeight: activeSubTab === tab.id ? '600' : '500',
+              backgroundColor: activeSubTab === tab.id ? 'var(--gold-dark)' : 'var(--bg-elevated)',
+              color: activeSubTab === tab.id ? '#ffffff' : 'var(--text-secondary)',
+              boxShadow: activeSubTab === tab.id ? '0 4px 14px rgba(216,190,140,0.25)' : 'none',
+              cursor: 'pointer',
+              transition: 'all 0.2s'
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <h3 style={{ fontSize: '18px', color: 'var(--text)' }}>Daftar Kategori Kustom P3HM</h3>
@@ -79,6 +117,7 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
         {/* Kategori Berita */}
+        {(activeSubTab === 'ALL' || activeSubTab === 'BERITA') && (
         <div className="card">
           <div className="card-head">
             <div className="card-head-left">
@@ -104,8 +143,10 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
             )}
           </div>
         </div>
+        )}
 
         {/* Kategori Galeri */}
+        {(activeSubTab === 'ALL' || activeSubTab === 'GALERI') && (
         <div className="card">
           <div className="card-head">
             <div className="card-head-left">
@@ -131,6 +172,7 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
             )}
           </div>
         </div>
+        )}
       </div>
 
       {modalOpen && (

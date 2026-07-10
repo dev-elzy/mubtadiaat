@@ -443,10 +443,10 @@ export default function RichTextEditor({ label, value, onChange, placeholder, he
           </button>
         </div>
 
-        {/* KANVAS EDITOR WYSIWYG MS WORD */}
+        {/* KANVAS EDITOR WYSIWYG LUXURY DARK */}
         <div style={{
-          background: '#FFFFFF',
-          color: '#1F2937',
+          background: 'var(--bg)',
+          color: 'var(--text)',
           padding: '24px',
           minHeight: '320px',
           maxHeight: '600px',
@@ -462,33 +462,35 @@ export default function RichTextEditor({ label, value, onChange, placeholder, he
             }
             .ProseMirror p {
               margin-bottom: 12px;
+              color: var(--text);
             }
             .ProseMirror h1 {
               font-size: 26px;
               font-weight: 700;
               margin: 18px 0 10px;
-              color: #111827;
+              color: var(--gold-bright);
             }
             .ProseMirror h2 {
               font-size: 21px;
               font-weight: 700;
               margin: 16px 0 8px;
-              color: #1F2937;
+              color: var(--gold-bright);
             }
             .ProseMirror h3 {
               font-size: 18px;
               font-weight: 600;
               margin: 14px 0 6px;
-              color: #374151;
+              color: var(--gold);
             }
             .ProseMirror ul, .ProseMirror ol {
               padding-left: 24px;
               margin-bottom: 12px;
+              color: var(--text);
             }
             .ProseMirror blockquote {
-              border-left: 4px solid #AD8A4E;
+              border-left: 4px solid var(--gold);
               padding-left: 14px;
-              color: #4B5563;
+              color: var(--text-secondary);
               font-style: italic;
               margin: 14px 0;
             }
@@ -499,7 +501,7 @@ export default function RichTextEditor({ label, value, onChange, placeholder, he
               margin: 14px 0;
             }
             .ProseMirror a {
-              color: #2563EB;
+              color: var(--gold);
               text-decoration: underline;
             }
           `}</style>

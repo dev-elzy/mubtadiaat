@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 export default function TabPesan({ pesanList = [], onRefresh, showToast, confirm }) {
+  const [activeSubTab, setActiveSubTab] = useState('ALL');
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPesan, setSelectedPesan] = useState(null);
   const [replyText, setReplyText] = useState('');
@@ -84,8 +85,51 @@ export default function TabPesan({ pesanList = [], onRefresh, showToast, confirm
     }
   };
 
+  const filteredPesanList = pesanList.filter(item => {
+    if (activeSubTab === 'UNREAD') return item.is_read === 0;
+    if (activeSubTab === 'READ') return item.is_read !== 0;
+    return true;
+  });
+
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      {/* Sub-navigasi Filter Menu Pesan */}
+      <div style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '8px',
+        padding: '12px',
+        background: 'var(--surface)',
+        borderRadius: '12px',
+        border: '1px solid var(--border)'
+      }}>
+        {[
+          { id: 'ALL', label: '🌟 Semua Pesan Masuk' },
+          { id: 'UNREAD', label: '1. 📩 Pesan Baru / Belum Dibaca' },
+          { id: 'READ', label: '2. 📬 Sudah Dibaca / Dibalas' },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            type="button"
+            onClick={() => setActiveSubTab(tab.id)}
+            style={{
+              padding: '9px 18px',
+              borderRadius: '8px',
+              border: activeSubTab === tab.id ? '1px solid var(--gold)' : '1px solid var(--border)',
+              fontSize: '13px',
+              fontWeight: activeSubTab === tab.id ? '600' : '500',
+              backgroundColor: activeSubTab === tab.id ? 'var(--gold-dark)' : 'var(--bg-elevated)',
+              color: activeSubTab === tab.id ? '#ffffff' : 'var(--text-secondary)',
+              boxShadow: activeSubTab === tab.id ? '0 4px 14px rgba(216,190,140,0.25)' : 'none',
+              cursor: 'pointer',
+              transition: 'all 0.2s'
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
       <div style={{ marginBottom: '20px' }}>
         <h3 style={{ fontSize: '18px', color: 'var(--text)' }}>📬 Kotak Masuk Pesan &amp; Kontak</h3>
         <p style={{ fontSize: '13px', color: 'var(--text-tertiary)' }}>
@@ -106,11 +150,11 @@ export default function TabPesan({ pesanList = [], onRefresh, showToast, confirm
             </tr>
           </thead>
           <tbody>
-            {pesanList.map(item => (
+            {filteredPesanList.map(item => (
               <tr key={item.id} style={{ fontWeight: item.is_read === 0 ? '700' : 'normal' }}>
                 <td>
                   {item.is_read === 0 ? (
-                    <span className="badge" style={{ background: '#3B82F6', color: '#fff' }}>Baru</span>
+                    <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.2)', color: '#34D399', border: '1px solid rgba(16, 185, 129, 0.3)' }}>Baru</span>
                   ) : (
                     <span className="badge" style={{ background: 'var(--border)', color: 'var(--text-tertiary)' }}>Dibaca</span>
                   )}

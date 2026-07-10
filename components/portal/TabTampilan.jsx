@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 export default function TabTampilan({ settings, berita, galeri, onSaveSettings }) {
+  const [activeSubTab, setActiveSubTab] = useState('ALL');
   const [formData, setFormData] = useState({
     showSectionBerita: settings.showSectionBerita || "true",
     homeBeritaMode: settings.homeBeritaMode || "auto",
@@ -54,7 +55,45 @@ export default function TabTampilan({ settings, berita, galeri, onSaveSettings }
   const publishedGaleri = galeri.filter(g => g.status === 'published');
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      {/* Sub-navigasi Filter Menu Tampilan */}
+      <div style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '8px',
+        padding: '12px',
+        background: 'var(--surface)',
+        borderRadius: '12px',
+        border: '1px solid var(--border)'
+      }}>
+        {[
+          { id: 'ALL', label: '🌟 Semua Pengaturan Tampilan' },
+          { id: 'BERITA', label: '1. 📰 Bagian Berita Beranda' },
+          { id: 'GALERI', label: '2. 🖼️ Bagian Galeri Beranda' },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            type="button"
+            onClick={() => setActiveSubTab(tab.id)}
+            style={{
+              padding: '9px 18px',
+              borderRadius: '8px',
+              border: activeSubTab === tab.id ? '1px solid var(--gold)' : '1px solid var(--border)',
+              fontSize: '13px',
+              fontWeight: activeSubTab === tab.id ? '600' : '500',
+              backgroundColor: activeSubTab === tab.id ? 'var(--gold-dark)' : 'var(--bg-elevated)',
+              color: activeSubTab === tab.id ? '#ffffff' : 'var(--text-secondary)',
+              boxShadow: activeSubTab === tab.id ? '0 4px 14px rgba(216,190,140,0.25)' : 'none',
+              cursor: 'pointer',
+              transition: 'all 0.2s'
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {(activeSubTab === 'ALL' || activeSubTab === 'BERITA') && (
       <div className="card">
         <div className="card-head">
           <div className="card-head-left">
@@ -117,7 +156,9 @@ export default function TabTampilan({ settings, berita, galeri, onSaveSettings }
           )}
         </div>
       </div>
+      )}
 
+      {(activeSubTab === 'ALL' || activeSubTab === 'GALERI') && (
       <div className="card">
         <div className="card-head">
           <div className="card-head-left">
@@ -187,6 +228,7 @@ export default function TabTampilan({ settings, berita, galeri, onSaveSettings }
           )}
         </div>
       </div>
+      )}
 
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '24px' }}>
         <button type="submit" className="btn btn-primary" disabled={saving}>

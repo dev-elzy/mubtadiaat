@@ -4,6 +4,7 @@ import { useState } from 'react';
 import RichTextEditor from './RichTextEditor';
 
 export default function TabBerita({ berita, categories = [], onRefresh, showToast, confirm }) {
+  const [activeSubTab, setActiveSubTab] = useState('ALL');
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState({
     id: '',
@@ -104,9 +105,52 @@ export default function TabBerita({ berita, categories = [], onRefresh, showToas
     }
   };
 
+  const filteredBerita = berita.filter(b => {
+    if (activeSubTab === 'PUBLISHED') return b.status === 'published';
+    if (activeSubTab === 'DRAFT') return b.status !== 'published';
+    return true;
+  });
+
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      {/* Sub-navigasi Filter Menu Berita */}
+      <div style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '8px',
+        padding: '12px',
+        background: 'var(--surface)',
+        borderRadius: '12px',
+        border: '1px solid var(--border)'
+      }}>
+        {[
+          { id: 'ALL', label: '🌟 Semua Artikel Berita' },
+          { id: 'PUBLISHED', label: '1. ✅ Diterbitkan (Published)' },
+          { id: 'DRAFT', label: '2. 📝 Draf & Dijadwalkan (Draft / Scheduled)' },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            type="button"
+            onClick={() => setActiveSubTab(tab.id)}
+            style={{
+              padding: '9px 18px',
+              borderRadius: '8px',
+              border: activeSubTab === tab.id ? '1px solid var(--gold)' : '1px solid var(--border)',
+              fontSize: '13px',
+              fontWeight: activeSubTab === tab.id ? '600' : '500',
+              backgroundColor: activeSubTab === tab.id ? 'var(--gold-dark)' : 'var(--bg-elevated)',
+              color: activeSubTab === tab.id ? '#ffffff' : 'var(--text-secondary)',
+              boxShadow: activeSubTab === tab.id ? '0 4px 14px rgba(216,190,140,0.25)' : 'none',
+              cursor: 'pointer',
+              transition: 'all 0.2s'
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <h3 style={{ fontSize: '18px', color: 'var(--text)' }}>Daftar Artikel Berita P3HM</h3>
           <p style={{ fontSize: '13px', color: 'var(--text-tertiary)' }}>
@@ -150,7 +194,7 @@ export default function TabBerita({ berita, categories = [], onRefresh, showToas
             </tr>
           </thead>
           <tbody>
-            {berita.map(b => (
+            {filteredBerita.map(b => (
               <tr key={b.id}>
                 <td style={{ width: '80px' }}>
                   {b.image ? (
