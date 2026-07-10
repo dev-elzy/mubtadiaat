@@ -1,19 +1,25 @@
+"use client";
+
+import { useState } from 'react';
 import Image from 'next/image';
 import Reveal from '../ui/Reveal';
 
 export default function ProfilSingkat({ text }) {
+  const [imgFailed, setImgFailed] = useState(false);
+
   return (
     <section className="profil" id="profil">
       <div className="wrap">
         <div className="profil-grid">
           <Reveal className="profil-media">
-            <div className="art-panel" id="profilPanel">
+            <div className={`art-panel ${imgFailed ? 'img-failed' : ''}`} id="profilPanel">
               <Image 
-                src="https://lirboyo.net/wp-content/uploads/2025/01/Kamar-Santri-1-1024x683.png" 
+                src="https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?q=80&w=1200" 
                 alt="Kamar santri di Pondok Pesantren Putri Hidayatul Mubtadiat" 
                 width={460}
                 height={575}
                 unoptimized
+                onError={() => setImgFailed(true)}
                 style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: 0, left: 0 }}
               />
             </div>

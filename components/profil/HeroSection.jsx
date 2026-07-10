@@ -1,8 +1,12 @@
+"use client";
+
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Reveal from '../ui/Reveal';
 
 export default function HeroSection({ settings = {} }) {
+  const [imgFailed, setImgFailed] = useState(false);
   const eyebrow = settings.heroEyebrow || "Lirboyo · Kota Kediri · Jawa Timur";
   const arabic = settings.heroArabic || "مَعْهَدْ لِلْبَنَاتْ هِدَايَةُ الْمُبْتَدِئَاتْ";
   const titleHtml = settings.heroTitleHtml || 'Menempa Muslimah <em>Sejati</em>,<br />Berakar pada Kitab Salaf';
@@ -29,14 +33,15 @@ export default function HeroSection({ settings = {} }) {
             <Link href="#profil" className="btn-ghost">Lihat Profil Pondok</Link>
           </Reveal>
 
-          <Reveal className="hero-frame" id="heroFrame">
+          <Reveal className={`hero-frame ${imgFailed ? 'img-failed' : ''}`} id="heroFrame">
             <Image 
-              src="https://lirboyo.net/wp-content/uploads/2022/02/Bangunan-dalam.jpg" 
+              src="https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=1200" 
               alt="Lingkungan Pondok Pesantren Putri Hidayatul Mubtadiat, Lirboyo Kediri" 
               width={920}
               height={448}
               priority
               unoptimized
+              onError={() => setImgFailed(true)}
               style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: 0, left: 0 }}
             />
             <div className="hero-fallback">
