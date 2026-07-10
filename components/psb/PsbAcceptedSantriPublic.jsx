@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 export default function PsbAcceptedSantriPublic() {
   const [santriList, setSantriList] = useState([]);
   const [waInstansi, setWaInstansi] = useState('628561985565');
+  const [psbPeriode, setPsbPeriode] = useState('TA 1446 - 1447 H / 2025 - 2026 M');
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -19,6 +20,15 @@ export default function PsbAcceptedSantriPublic() {
       })
       .catch(() => {})
       .finally(() => setLoading(false));
+
+    fetch('/api/settings')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.psbPeriode) {
+          setPsbPeriode(data.psbPeriode);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   const filtered = santriList.filter(item => {
@@ -130,7 +140,7 @@ Ingin melakukan konfirmasi daftar ulang resmi. Terima kasih. Wassalamu’alaikum
             borderRadius: '100px',
             fontWeight: '700'
           }}>
-            Tahun Ajaran 1446-1447 H / 2025-2026 M
+            {psbPeriode}
           </span>
         </div>
 

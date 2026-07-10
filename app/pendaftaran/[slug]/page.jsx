@@ -29,9 +29,11 @@ export default function PendaftaranSlugPage() {
       .finally(() => setLoading(false));
   }, [slug]);
 
+  const isBeranda = slug === 'beranda';
+
   return (
     <main style={{ background: '#fbf8f1', minHeight: '100vh', paddingTop: 0, paddingBottom: '80px', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
-      {/* PSB Navbar Sesuai Referensi Top Header + Navigasi Menu */}
+      {/* PSB Navbar Dinamis dari Database */}
       <PsbNavbar />
 
       <div className="wrap" style={{ maxWidth: '1180px', margin: '0 auto', padding: '0 24px' }}>
@@ -42,11 +44,19 @@ export default function PendaftaranSlugPage() {
         ) : slug === 'informasi-penerimaan' ? (
           <div>
             {page && page.content ? (
-              <div
-                className="psb-dynamic-html"
-                style={{ margin: '24px 0' }}
-                dangerouslySetInnerHTML={{ __html: page.content }}
-              />
+              <div style={{
+                background: '#ffffff',
+                border: '1px solid rgba(173, 138, 78, 0.25)',
+                borderRadius: '20px',
+                padding: '32px 36px',
+                boxShadow: '0 8px 30px rgba(0,0,0,0.04)',
+                marginBottom: '28px'
+              }}>
+                <div
+                  className="psb-dynamic-html"
+                  dangerouslySetInnerHTML={{ __html: page.content }}
+                />
+              </div>
             ) : null}
             <PsbAcceptedSantriPublic />
           </div>
@@ -58,16 +68,25 @@ export default function PendaftaranSlugPage() {
         ) : (
           <div style={{ margin: '24px 0' }}>
             {page.content ? (
-              <div
-                className="psb-dynamic-html"
-                dangerouslySetInnerHTML={{ __html: page.content }}
-              />
+              <div style={{
+                background: '#ffffff',
+                border: '1px solid rgba(173, 138, 78, 0.25)',
+                borderRadius: '20px',
+                padding: '36px 40px',
+                boxShadow: '0 8px 30px rgba(0,0,0,0.04)',
+                marginBottom: '36px'
+              }}>
+                <div
+                  className="psb-dynamic-html"
+                  dangerouslySetInnerHTML={{ __html: page.content }}
+                />
+              </div>
             ) : null}
           </div>
         )}
 
-        {/* TABEL KELAS & MATERI UJIAN / KURIKULUM */}
-        <PsbClassCards />
+        {/* TABEL KELAS & MATERI UJIAN / KURIKULUM - HANYA MUNCUL DI BERANDA */}
+        {isBeranda && <PsbClassCards />}
       </div>
     </main>
   );

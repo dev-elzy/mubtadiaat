@@ -16,7 +16,7 @@ export default function PendaftaranPage() {
       .then(data => {
         if (Array.isArray(data)) {
           const home = data.find(p => p.is_default_home === 1 || p.slug === 'beranda');
-          setHomePage(home);
+          setHomePage(home || null);
         }
       })
       .catch(() => {})
@@ -25,7 +25,7 @@ export default function PendaftaranPage() {
 
   return (
     <main style={{ background: '#fbf8f1', minHeight: '100vh', paddingTop: 0, paddingBottom: '80px', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
-      {/* PSB Navbar Sesuai Referensi Top Header + Navigasi Menu */}
+      {/* PSB Navbar Dinamis dari Database */}
       <PsbNavbar />
 
       <div className="wrap" style={{ maxWidth: '1180px', margin: '0 auto', padding: '0 24px' }}>
@@ -35,13 +35,22 @@ export default function PendaftaranPage() {
             Memuat portal penerimaan santri baru...
           </div>
         ) : homePage && homePage.content ? (
-          <div 
-            className="psb-dynamic-html"
-            dangerouslySetInnerHTML={{ __html: homePage.content }}
-          />
+          <div style={{
+            background: '#ffffff',
+            border: '1px solid rgba(173, 138, 78, 0.25)',
+            borderRadius: '20px',
+            padding: '36px 40px',
+            boxShadow: '0 8px 30px rgba(0,0,0,0.04)',
+            marginBottom: '36px'
+          }}>
+            <div 
+              className="psb-dynamic-html"
+              dangerouslySetInnerHTML={{ __html: homePage.content }}
+            />
+          </div>
         ) : null}
 
-        {/* TABEL KELAS & MATERI UJIAN / KURIKULUM (Sesuai Referensi Gambar Ke-3) */}
+        {/* TABEL KELAS & MATERI UJIAN / KURIKULUM - KHUSUS DI HALAMAN BERANDA */}
         <PsbClassCards />
 
       </div>
