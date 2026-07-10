@@ -1,59 +1,55 @@
 "use client";
 
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import Underline from '@tiptap/extension-underline';
+import TextAlign from '@tiptap/extension-text-align';
+import Image from '@tiptap/extension-image';
+import Link from '@tiptap/extension-link';
 
-export default function RichTextEditor({ label, value, onChange, placeholder, rows = 6, helperText }) {
-  const [showPreview, setShowPreview] = useState(false);
-  const [showHelp, setShowHelp] = useState(false);
+export default function RichTextEditor({ label, value, onChange, placeholder, helperText }) {
   const [imageModalOpen, setImageModalOpen] = useState(false);
-  const textareaRef = useRef(null);
-
-  // Image modal state
+  const [linkModalOpen, setLinkModalOpen] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
-  const [imgLayout, setImgLayout] = useState('img-large');
   const [imgAlt, setImgAlt] = useState('');
+  const [linkUrl, setLinkUrl] = useState('');
   const [uploading, setUploading] = useState(false);
 
-  const insertTag = (openTag, closeTag = '') => {
-    const textarea = textareaRef.current;
-    if (!textarea) return;
+  const editor = useEditor({
+    extensions: [
+      StarterKit.configure({
+        heading: {
+          levels: [1, 2, 3]
+        }
+      }),
+      Underline,
+      TextAlign.configure({
+        types: ['heading', 'paragraph']
+      }),
+      Image.configure({
+        inline: true,
+        allowBase64: true
+      }),
+      Link.configure({
+        openOnClick: false
+      })
+    ],
+    content: value || '',
+    onUpdate: ({ editor }) => {
+      onChange(editor.getHTML());
+    }
+  });
 
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const selectedText = value.substring(start, end);
-    const replacement = openTag + selectedText + closeTag;
-
-    const newValue = value.substring(0, start) + replacement + value.substring(end);
-    onChange(newValue);
-
-    // Set cursor post-insertion
-    setTimeout(() => {
-      textarea.focus();
-      textarea.setSelectionRange(
-        start + openTag.length,
-        start + openTag.length + selectedText.length
-      );
-    }, 10);
-  };
-
-  const handleInsertImage = () => {
-    if (!imgUrl.trim()) return;
-    
-    // Generate img tag with corresponding size/layout class
-    const altAttr = imgAlt.trim() ? ` alt="${imgAlt.replace(/"/g, '&quot;')}"` : '';
-    const imgTag = `<img src="${imgUrl}"${altAttr} class="${imgLayout}" />`;
-    
-    insertTag(imgTag);
-    
-    // Reset state & close modal
-    setImgUrl('');
-    setImgLayout('img-large');
-    setImgAlt('');
-    setImageModalOpen(false);
-  };
+  // Sinkronisasi nilai ketika editor dimuat atau value berubah dari luar (misal edit item baru)
+  useEffect(() => {
+    if (editor && value !== undefined && value !== editor.getHTML()) {
+      editor.commands.setContent(value || '');
+    }
+  }, [value, editor]);
 
   async function handleImageUpload(e) {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (!file) return;
 
     setUploading(true);
@@ -76,314 +72,613 @@ export default function RichTextEditor({ label, value, onChange, placeholder, ro
     }
   }
 
+  const insertImageToEditor = () => {
+    if (!imgUrl.trim() || !editor) return;
+    editor.chain().focus().setImage({ src: imgUrl, alt: imgAlt }).run();
+    setImgUrl('');
+    setImgAlt('');
+    setImageModalOpen(false);
+  };
+
+  const insertLinkToEditor = () => {
+    if (!linkUrl.trim() || !editor) return;
+    editor.chain().focus().setLink({ href: linkUrl, target: '_blank' }).run();
+    setLinkUrl('');
+    setLinkModalOpen(false);
+  };
+
+  if (!editor) {
+    return (
+      <div style={{ padding: '24px', background: 'var(--surface)', borderRadius: '8px', color: 'var(--text-secondary)' }}>
+        Memuat Editor Teks MS Word...
+      </div>
+    );
+  }
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
       {label && (
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <label className="form-label" style={{ margin: 0 }}>{label}</label>
-          <div style={{ display: 'flex', gap: '8px' }}>
-            <button
-              type="button"
-              onClick={() => setShowHelp(!showHelp)}
-              style={{
-                background: 'transparent',
-                border: '1px solid var(--border)',
-                color: 'var(--text-secondary)',
-                padding: '4px 10px',
-                borderRadius: '6px',
-                fontSize: '11px',
-                fontWeight: '600',
-                cursor: 'pointer'
-              }}
-            >
-              ❓ Panduan Tag HTML
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowPreview(!showPreview)}
-              style={{
-                background: showPreview ? 'var(--gold-dark)' : 'transparent',
-                border: '1px solid var(--border)',
-                color: showPreview ? '#fff' : 'var(--text-secondary)',
-                padding: '4px 10px',
-                borderRadius: '6px',
-                fontSize: '11px',
-                fontWeight: '600',
-                cursor: 'pointer'
-              }}
-            >
-              {showPreview ? '✏️ Kembali Edit Teks' : '👁️ Pratinjau MS Word / Hasil'}
-            </button>
-          </div>
-        </div>
+        <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--gold)', margin: 0 }}>
+          {label}
+        </label>
       )}
 
-      {/* MS Word Style Formatting Toolbar */}
-      {!showPreview && (
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '8px 12px',
-            background: 'var(--surface)',
-            border: '1px solid var(--border)',
-            borderBottom: 'none',
-            borderTopLeftRadius: '10px',
-            borderTopRightRadius: '10px'
-          }}
-        >
-          <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--gold)', marginRight: '6px' }}>
-            FORMAT MS WORD:
-          </span>
+      <div style={{
+        border: '1px solid var(--border-strong)',
+        borderRadius: 'var(--radius-md)',
+        overflow: 'hidden',
+        background: 'var(--surface)',
+        boxShadow: '0 4px 14px rgba(0,0,0,0.15)'
+      }}>
+        {/* TOOLBAR MS WORD STYLE */}
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          gap: '4px',
+          padding: '10px 12px',
+          background: 'var(--bg-elevated)',
+          borderBottom: '1px solid var(--border)'
+        }}>
+          {/* Kelompok Format Huruf */}
           <button
             type="button"
-            onClick={() => insertTag('<b>', '</b>')}
-            title="Tebalkan Teks (Bold)"
-            style={toolbarBtnStyle}
+            onClick={() => editor.chain().focus().toggleBold().run()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: editor.isActive('bold') ? 'var(--gold)' : 'transparent',
+              color: editor.isActive('bold') ? '#0B1A16' : 'var(--text)',
+              fontWeight: '700',
+              fontSize: '13px',
+              cursor: 'pointer'
+            }}
+            title="Tebal (Bold)"
           >
-            <b>B Tebal</b>
+            B
           </button>
           <button
             type="button"
-            onClick={() => insertTag('<i>', '</i>')}
-            title="Miringkan Teks (Italic)"
-            style={toolbarBtnStyle}
+            onClick={() => editor.chain().focus().toggleItalic().run()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: editor.isActive('italic') ? 'var(--gold)' : 'transparent',
+              color: editor.isActive('italic') ? '#0B1A16' : 'var(--text)',
+              fontStyle: 'italic',
+              fontWeight: '600',
+              fontSize: '13px',
+              cursor: 'pointer'
+            }}
+            title="Miring (Italic)"
           >
-            <i>I Miring</i>
+            I
           </button>
           <button
             type="button"
-            onClick={() => insertTag('<br>')}
-            title="Pindah Baris Baru tanpa enter paragraf baru"
-            style={{ ...toolbarBtnStyle, background: 'rgba(216,190,140,0.15)', color: 'var(--gold-bright)' }}
+            onClick={() => editor.chain().focus().toggleUnderline().run()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: editor.isActive('underline') ? 'var(--gold)' : 'transparent',
+              color: editor.isActive('underline') ? '#0B1A16' : 'var(--text)',
+              textDecoration: 'underline',
+              fontWeight: '600',
+              fontSize: '13px',
+              cursor: 'pointer'
+            }}
+            title="Garis Bawah (Underline)"
           >
-            ↵ Baris Baru &lt;br&gt;
+            U
           </button>
           <button
             type="button"
-            onClick={() => insertTag('<p>', '</p>')}
-            title="Paragraf Baru"
-            style={toolbarBtnStyle}
+            onClick={() => editor.chain().focus().toggleStrike().run()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: editor.isActive('strike') ? 'var(--gold)' : 'transparent',
+              color: editor.isActive('strike') ? '#0B1A16' : 'var(--text)',
+              textDecoration: 'line-through',
+              fontSize: '13px',
+              cursor: 'pointer'
+            }}
+            title="Coretan (Strikethrough)"
           >
-            ¶ Paragraf &lt;p&gt;
+            S
+          </button>
+
+          <span style={{ width: '1px', height: '22px', background: 'var(--border)', margin: '0 4px' }} />
+
+          {/* Heading / Hierarchy */}
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().setParagraph().run()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: editor.isActive('paragraph') ? 'var(--gold)' : 'transparent',
+              color: editor.isActive('paragraph') ? '#0B1A16' : 'var(--text)',
+              fontSize: '12px',
+              fontWeight: '600',
+              cursor: 'pointer'
+            }}
+            title="Teks Normal"
+          >
+            Paragraf
           </button>
           <button
             type="button"
-            onClick={() => insertTag('<h2>', '</h2>')}
-            title="Judul Sub-Bagian"
-            style={toolbarBtnStyle}
+            onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: editor.isActive('heading', { level: 1 }) ? 'var(--gold)' : 'transparent',
+              color: editor.isActive('heading', { level: 1 }) ? '#0B1A16' : 'var(--text)',
+              fontSize: '13px',
+              fontWeight: '700',
+              cursor: 'pointer'
+            }}
+            title="Judul Utama (H1)"
           >
-            H2 Judul
+            H1
           </button>
           <button
             type="button"
-            onClick={() => insertTag('<blockquote>', '</blockquote>')}
-            title="Kotak Catatan Khusus"
-            style={toolbarBtnStyle}
+            onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: editor.isActive('heading', { level: 2 }) ? 'var(--gold)' : 'transparent',
+              color: editor.isActive('heading', { level: 2 }) ? '#0B1A16' : 'var(--text)',
+              fontSize: '13px',
+              fontWeight: '700',
+              cursor: 'pointer'
+            }}
+            title="Sub-judul (H2)"
           >
-            💡 Catatan
+            H2
           </button>
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: editor.isActive('heading', { level: 3 }) ? 'var(--gold)' : 'transparent',
+              color: editor.isActive('heading', { level: 3 }) ? '#0B1A16' : 'var(--text)',
+              fontSize: '13px',
+              fontWeight: '700',
+              cursor: 'pointer'
+            }}
+            title="Judul Bagian (H3)"
+          >
+            H3
+          </button>
+
+          <span style={{ width: '1px', height: '22px', background: 'var(--border)', margin: '0 4px' }} />
+
+          {/* Rata Teks (Align) */}
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().setTextAlign('left').run()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: editor.isActive({ textAlign: 'left' }) ? 'var(--gold)' : 'transparent',
+              color: editor.isActive({ textAlign: 'left' }) ? '#0B1A16' : 'var(--text)',
+              fontSize: '13px',
+              cursor: 'pointer'
+            }}
+            title="Rata Kiri"
+          >
+            ⬅️ Kiri
+          </button>
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().setTextAlign('center').run()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: editor.isActive({ textAlign: 'center' }) ? 'var(--gold)' : 'transparent',
+              color: editor.isActive({ textAlign: 'center' }) ? '#0B1A16' : 'var(--text)',
+              fontSize: '13px',
+              cursor: 'pointer'
+            }}
+            title="Rata Tengah"
+          >
+            ↔️ Tengah
+          </button>
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().setTextAlign('right').run()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: editor.isActive({ textAlign: 'right' }) ? 'var(--gold)' : 'transparent',
+              color: editor.isActive({ textAlign: 'right' }) ? '#0B1A16' : 'var(--text)',
+              fontSize: '13px',
+              cursor: 'pointer'
+            }}
+            title="Rata Kanan"
+          >
+            ➡️ Kanan
+          </button>
+
+          <span style={{ width: '1px', height: '22px', background: 'var(--border)', margin: '0 4px' }} />
+
+          {/* Daftar Poin & Angka */}
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().toggleBulletList().run()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: editor.isActive('bulletList') ? 'var(--gold)' : 'transparent',
+              color: editor.isActive('bulletList') ? '#0B1A16' : 'var(--text)',
+              fontSize: '13px',
+              cursor: 'pointer'
+            }}
+            title="Daftar Poin"
+          >
+            • Poin
+          </button>
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().toggleOrderedList().run()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: editor.isActive('orderedList') ? 'var(--gold)' : 'transparent',
+              color: editor.isActive('orderedList') ? '#0B1A16' : 'var(--text)',
+              fontSize: '13px',
+              cursor: 'pointer'
+            }}
+            title="Daftar Angka"
+          >
+            1. Angka
+          </button>
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().toggleBlockquote().run()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: editor.isActive('blockquote') ? 'var(--gold)' : 'transparent',
+              color: editor.isActive('blockquote') ? '#0B1A16' : 'var(--text)',
+              fontSize: '13px',
+              cursor: 'pointer'
+            }}
+            title="Kutipan"
+          >
+            &ldquo;&rdquo; Kutipan
+          </button>
+
+          <span style={{ width: '1px', height: '22px', background: 'var(--border)', margin: '0 4px' }} />
+
+          {/* Sisipkan Media */}
           <button
             type="button"
             onClick={() => setImageModalOpen(true)}
-            title="Sisipkan Gambar di Dalam Berita"
             style={{
-              ...toolbarBtnStyle,
-              background: 'var(--gold-dark)',
-              borderColor: 'var(--gold-dark)',
-              color: '#fff',
-              fontWeight: '700'
+              padding: '6px 12px',
+              borderRadius: '6px',
+              border: '1px solid var(--border)',
+              background: 'rgba(216, 190, 140, 0.08)',
+              color: 'var(--gold)',
+              fontSize: '12.5px',
+              fontWeight: '600',
+              cursor: 'pointer'
             }}
           >
-            📷 Sisipkan Gambar
+            🖼️ Sisipkan Gambar
+          </button>
+          <button
+            type="button"
+            onClick={() => setLinkModalOpen(true)}
+            style={{
+              padding: '6px 12px',
+              borderRadius: '6px',
+              border: '1px solid var(--border)',
+              background: 'rgba(216, 190, 140, 0.08)',
+              color: 'var(--gold)',
+              fontSize: '12.5px',
+              fontWeight: '600',
+              cursor: 'pointer'
+            }}
+          >
+            🔗 Sisipkan Link
+          </button>
+
+          <span style={{ width: '1px', height: '22px', background: 'var(--border)', margin: '0 4px' }} />
+
+          {/* Undo / Redo */}
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().undo().run()}
+            disabled={!editor.can().undo()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: 'transparent',
+              color: editor.can().undo() ? 'var(--text)' : 'var(--text-tertiary)',
+              cursor: editor.can().undo() ? 'pointer' : 'not-allowed',
+              fontSize: '14px'
+            }}
+            title="Batalkan (Undo)"
+          >
+            ↩️
+          </button>
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().redo().run()}
+            disabled={!editor.can().redo()}
+            style={{
+              padding: '6px 10px',
+              borderRadius: '6px',
+              border: 'none',
+              background: 'transparent',
+              color: editor.can().redo() ? 'var(--text)' : 'var(--text-tertiary)',
+              cursor: editor.can().redo() ? 'pointer' : 'not-allowed',
+              fontSize: '14px'
+            }}
+            title="Ulangi (Redo)"
+          >
+            ↪️
           </button>
         </div>
-      )}
 
-      {/* Panduan HTML Edukatif */}
-      {showHelp && (
-        <div
-          style={{
-            padding: '12px 16px',
-            background: 'rgba(173,138,78,0.08)',
-            border: '1px solid var(--border-strong)',
-            borderRadius: '8px',
-            fontSize: '12px',
-            color: 'var(--text-secondary)',
-            lineHeight: 1.6
-          }}
-        >
-          <div style={{ fontWeight: '700', color: 'var(--gold-bright)', marginBottom: '6px' }}>
-            📖 Panduan Format Profesional (Fungsi Tag HTML):
-          </div>
-          <ul style={{ margin: 0, paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <li>
-              <b>&lt;br&gt; (Baris Baru):</b> Digunakan untuk turun 1 baris tanpa memberi jarak jauh paragraf. Sangat cocok untuk judul 2 baris atau alamat.
-            </li>
-            <li>
-              <b>&lt;b&gt; ... &lt;/b&gt; (Tebal):</b> Menandai kata penting agar terlihat lebih tebal dan mencolok.
-            </li>
-            <li>
-              <b>&lt;i&gt; ... &lt;/i&gt; (Miring):</b> Digunakan untuk istilah bahasa asing, bahasa Arab, atau nama kitab salaf.
-            </li>
-            <li>
-              <b>&lt;p&gt; ... &lt;/p&gt; (Paragraf):</b> Memisahkan antar paragraf agar ada jarak pemisah yang nyaman dibaca.
-            </li>
-            <li>
-              <b>Sisipkan Gambar:</b> Memungkinkan penempatan gambar di tengah teks (Lebar Penuh) atau disebelah teks kiri/kanan (Ukuran Kecil) seperti koran.
-            </li>
-          </ul>
+        {/* KANVAS EDITOR WYSIWYG MS WORD */}
+        <div style={{
+          background: '#FFFFFF',
+          color: '#1F2937',
+          padding: '24px',
+          minHeight: '320px',
+          maxHeight: '600px',
+          overflowY: 'auto',
+          fontSize: '15px',
+          lineHeight: '1.7',
+          fontFamily: '"Plus Jakarta Sans", sans-serif'
+        }}>
+          <style jsx global>{`
+            .ProseMirror {
+              outline: none !important;
+              min-height: 270px;
+            }
+            .ProseMirror p {
+              margin-bottom: 12px;
+            }
+            .ProseMirror h1 {
+              font-size: 26px;
+              font-weight: 700;
+              margin: 18px 0 10px;
+              color: #111827;
+            }
+            .ProseMirror h2 {
+              font-size: 21px;
+              font-weight: 700;
+              margin: 16px 0 8px;
+              color: #1F2937;
+            }
+            .ProseMirror h3 {
+              font-size: 18px;
+              font-weight: 600;
+              margin: 14px 0 6px;
+              color: #374151;
+            }
+            .ProseMirror ul, .ProseMirror ol {
+              padding-left: 24px;
+              margin-bottom: 12px;
+            }
+            .ProseMirror blockquote {
+              border-left: 4px solid #AD8A4E;
+              padding-left: 14px;
+              color: #4B5563;
+              font-style: italic;
+              margin: 14px 0;
+            }
+            .ProseMirror img {
+              max-width: 100%;
+              height: auto;
+              border-radius: 8px;
+              margin: 14px 0;
+            }
+            .ProseMirror a {
+              color: #2563EB;
+              text-decoration: underline;
+            }
+          `}</style>
+          <EditorContent editor={editor} />
         </div>
-      )}
+      </div>
 
-      {/* Area Edit atau Pratinjau */}
-      {showPreview ? (
-        <div
-          className="article-content"
-          style={{
-            minHeight: `${rows * 24}px`,
-            padding: '14px 16px',
-            background: 'var(--surface)',
-            border: '1px solid var(--border)',
-            borderRadius: '10px',
-            color: 'var(--text)',
-            lineHeight: 1.7
-          }}
-          dangerouslySetInnerHTML={{ __html: value || '<em style="color:var(--text-tertiary)">Belum ada konten tertulis</em>' }}
-        />
-      ) : (
-        <textarea
-          ref={textareaRef}
-          className="form-input"
-          style={{
-            borderTopLeftRadius: 0,
-            borderTopRightRadius: 0,
-            fontFamily: 'monospace',
-            fontSize: '13.5px',
-            lineHeight: 1.6
-          }}
-          rows={rows}
-          value={value}
-          onChange={e => onChange(e.target.value)}
-          placeholder={placeholder}
-        />
-      )}
-
-      {helperText && (
-        <span style={{ fontSize: '11.5px', color: 'var(--text-tertiary)' }}>
-          {helperText}
-        </span>
-      )}
-
-      {/* MODAL POP-UP SISIPKAN GAMBAR */}
+      {/* MODAL SISIPKAN GAMBAR */}
       {imageModalOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: 'rgba(0, 0, 0, 0.7)',
-            backdropFilter: 'blur(6px)',
-            WebkitBackdropFilter: 'blur(6px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 10005,
-            padding: '20px'
-          }}
-        >
-          <div
-            style={{
-              background: 'var(--bg-elevated, #16342c)',
-              border: '1px solid var(--border-strong, rgba(218, 190, 140, 0.2))',
-              borderRadius: '16px',
-              padding: '24px',
-              width: '100%',
-              maxWidth: '460px',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '16px'
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h4 style={{ fontFamily: '"Fraunces", serif', fontSize: '18px', color: 'var(--gold-bright)', margin: 0 }}>
-                📷 Sisipkan Gambar Internal
-              </h4>
-              <button
-                type="button"
-                onClick={() => setImageModalOpen(false)}
-                style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', fontSize: '18px', cursor: 'pointer' }}
-              >
-                ✕
-              </button>
-            </div>
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(0,0,0,0.7)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 2000,
+          padding: '20px'
+        }}>
+          <div style={{
+            background: 'var(--bg-elevated)',
+            border: '1px solid var(--border-strong)',
+            borderRadius: 'var(--radius-lg)',
+            width: '100%',
+            maxWidth: '480px',
+            padding: '24px',
+            color: 'var(--text)'
+          }}>
+            <h4 style={{ fontSize: '16px', color: 'var(--gold)', marginBottom: '16px' }}>
+              🖼️ Sisipkan Gambar ke Dokumen
+            </h4>
 
-            <div className="form-group" style={{ margin: 0 }}>
-              <label className="form-label" style={{ color: 'var(--gold)' }}>1. Unggah Gambar dari Komputer</label>
-              <input type="file" accept="image/*" className="form-input" onChange={handleImageUpload} />
-              {uploading && (
-                <p style={{ fontSize: '11.5px', color: 'var(--gold)', marginTop: '4px' }}>
-                  Mengunggah gambar ke server...
-                </p>
-              )}
-            </div>
-
-            <div className="form-group" style={{ margin: 0 }}>
-              <label className="form-label" style={{ color: 'var(--gold)' }}>2. Atau Isi Tautan URL Gambar</label>
-              <input
-                type="url"
-                placeholder="https://example.com/gambar.jpg"
-                className="form-input"
-                value={imgUrl}
-                onChange={e => setImgUrl(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group" style={{ margin: 0 }}>
-              <label className="form-label" style={{ color: 'var(--gold)' }}>3. Ukuran &amp; Posisi Teks (Layout Koran)</label>
-              <select className="form-input" value={imgLayout} onChange={e => setImgLayout(e.target.value)}>
-                <option value="img-large">📏 Lebar Penuh (Besar - Berada di Tengah)</option>
-                <option value="img-float-left">⬅️ Sebelah Kiri (Kecil - Teks Melingkar Kanan)</option>
-                <option value="img-float-right">➡️ Sebelah Kanan (Kecil - Teks Melingkar Kiri)</option>
-              </select>
-            </div>
-
-            <div className="form-group" style={{ margin: 0 }}>
-              <label className="form-label" style={{ color: 'var(--gold)' }}>4. Deskripsi Gambar / Alt (Opsional)</label>
-              <input
-                type="text"
-                placeholder="Misal: Foto suasana kajian"
-                className="form-input"
-                value={imgAlt}
-                onChange={e => setImgAlt(e.target.value)}
-              />
-            </div>
-
-            {imgUrl && (
-              <div style={{ border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden' }}>
-                <img src={imgUrl} alt="Preview" style={{ width: '100%', height: '120px', objectFit: 'cover' }} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '600', color: 'var(--gold)', marginBottom: '6px' }}>
+                  Opsi 1: Unggah dari Komputer / Perangkat
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  style={{ fontSize: '13px', color: 'var(--text)' }}
+                />
+                {uploading && (
+                  <p style={{ fontSize: '12px', color: 'var(--gold)', marginTop: '6px' }}>
+                    ⏳ Sedang mengunggah gambar...
+                  </p>
+                )}
               </div>
-            )}
 
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '8px' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '600', color: 'var(--gold)', marginBottom: '6px' }}>
+                  Opsi 2: Atau Masukkan URL Gambar Langsung
+                </label>
+                <input
+                  type="url"
+                  placeholder="https://..."
+                  value={imgUrl}
+                  onChange={(e) => setImgUrl(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: '8px',
+                    background: 'var(--surface)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--text)',
+                    fontSize: '13px'
+                  }}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '600', color: 'var(--gold)', marginBottom: '6px' }}>
+                  Keterangan Gambar / Caption (Pilihan)
+                </label>
+                <input
+                  type="text"
+                  placeholder="Contoh: Suasana kegiatan santriwati"
+                  value={imgAlt}
+                  onChange={(e) => setImgAlt(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: '8px',
+                    background: 'var(--surface)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--text)',
+                    fontSize: '13px'
+                  }}
+                />
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '20px' }}>
               <button
                 type="button"
-                className="btn btn-ghost"
                 onClick={() => setImageModalOpen(false)}
-                style={{ padding: '8px 16px', fontSize: '13px' }}
+                className="btn"
+                style={{ background: 'var(--surface)', color: 'var(--text-secondary)', border: '1px solid var(--border)' }}
               >
                 Batal
               </button>
               <button
                 type="button"
+                onClick={insertImageToEditor}
+                disabled={!imgUrl.trim()}
                 className="btn btn-primary"
-                disabled={!imgUrl || uploading}
-                onClick={handleInsertImage}
-                style={{ padding: '8px 16px', fontSize: '13px' }}
+                style={{ background: 'var(--gold-dark)', color: '#0B1A16', fontWeight: '700' }}
               >
-                Sisipkan Foto
+                Sisipkan ke Dokumen
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL SISIPKAN LINK */}
+      {linkModalOpen && (
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(0,0,0,0.7)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 2000,
+          padding: '20px'
+        }}>
+          <div style={{
+            background: 'var(--bg-elevated)',
+            border: '1px solid var(--border-strong)',
+            borderRadius: 'var(--radius-lg)',
+            width: '100%',
+            maxWidth: '440px',
+            padding: '24px',
+            color: 'var(--text)'
+          }}>
+            <h4 style={{ fontSize: '16px', color: 'var(--gold)', marginBottom: '16px' }}>
+              🔗 Sisipkan Tautan (Link)
+            </h4>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '600', color: 'var(--gold)', marginBottom: '6px' }}>
+                Alamat URL Tautan
+              </label>
+              <input
+                type="url"
+                placeholder="https://..."
+                value={linkUrl}
+                onChange={(e) => setLinkUrl(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '10px 12px',
+                  borderRadius: '8px',
+                  background: 'var(--surface)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text)',
+                  fontSize: '13px'
+                }}
+              />
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '20px' }}>
+              <button
+                type="button"
+                onClick={() => setLinkModalOpen(false)}
+                className="btn"
+                style={{ background: 'var(--surface)', color: 'var(--text-secondary)', border: '1px solid var(--border)' }}
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                onClick={insertLinkToEditor}
+                disabled={!linkUrl.trim()}
+                className="btn btn-primary"
+                style={{ background: 'var(--gold-dark)', color: '#0B1A16', fontWeight: '700' }}
+              >
+                Pasang Tautan
               </button>
             </div>
           </div>
@@ -392,14 +687,3 @@ export default function RichTextEditor({ label, value, onChange, placeholder, ro
     </div>
   );
 }
-
-const toolbarBtnStyle = {
-  background: 'rgba(255,255,255,0.05)',
-  border: '1px solid var(--border)',
-  color: 'var(--text)',
-  padding: '5px 10px',
-  borderRadius: '6px',
-  fontSize: '11.5px',
-  cursor: 'pointer',
-  transition: 'all 0.2s'
-};
