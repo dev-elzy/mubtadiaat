@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import PsbNavbar from '../../../components/psb/PsbNavbar';
 import PsbClassCards from '../../../components/psb/PsbClassCards';
+import PsbAcceptedSantriPublic from '../../../components/psb/PsbAcceptedSantriPublic';
 
 export const runtime = 'edge';
 
@@ -38,6 +39,17 @@ export default function PendaftaranSlugPage() {
           <div style={{ textAlign: 'center', padding: '80px', color: 'var(--ink-soft)' }}>
             Memuat halaman...
           </div>
+        ) : slug === 'informasi-penerimaan' ? (
+          <div>
+            {page && page.content ? (
+              <div
+                className="psb-dynamic-html"
+                style={{ margin: '24px 0' }}
+                dangerouslySetInnerHTML={{ __html: page.content }}
+              />
+            ) : null}
+            <PsbAcceptedSantriPublic />
+          </div>
         ) : !page ? (
           <div style={{ padding: '60px 0', textAlign: 'center' }}>
             <h2 style={{ fontFamily: '"Fraunces", serif', color: 'var(--teal-900)' }}>Halaman Tidak Ditemukan</h2>
@@ -54,7 +66,7 @@ export default function PendaftaranSlugPage() {
           </div>
         )}
 
-        {/* TABEL KELAS & MATERI UJIAN / KURIKULUM (Tampil secara konsisten di setiap halaman PSB) */}
+        {/* TABEL KELAS & MATERI UJIAN / KURIKULUM */}
         <PsbClassCards />
       </div>
     </main>

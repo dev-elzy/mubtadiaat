@@ -153,3 +153,33 @@ Nahwu Tingkat Atas (Alfiyah Ibnu Malik)
 Tafsir & Ulumul Qur''an
 Bahtsul Masail Putri Lanjutan', '', 'http://bit.ly/hidayatul-mubtadiaat', 4);
 
+CREATE TABLE IF NOT EXISTS psb_accepted_santri (
+  id TEXT PRIMARY KEY,
+  no_reg TEXT UNIQUE NOT NULL,
+  nama_lengkap TEXT NOT NULL,
+  kecamatan TEXT NOT NULL,
+  kabupaten TEXT NOT NULL,
+  nama_wali TEXT NOT NULL,
+  confirm_status INTEGER DEFAULT 1,
+  created_at TEXT DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT OR IGNORE INTO psb_accepted_santri (id, no_reg, nama_lengkap, kecamatan, kabupaten, nama_wali, confirm_status) VALUES
+('santri-1', 'REG-2026-001', 'Aisyah Az-Zahra Putri', 'Mojoroto', 'Kota Kediri', 'H. Ahmad Fauzi', 1),
+('santri-2', 'REG-2026-002', 'Fatimah Nabila Syahputri', 'Kertosono', 'Nganjuk', 'Hj. Maimunah', 1),
+('santri-3', 'REG-2026-003', 'Zahra Nurul Qolbi', 'Pare', 'Kediri', 'Ustadz Abdullah', 0);
+
+INSERT OR IGNORE INTO psb_pages (id, title, slug, icon, order_num, is_default_home, link_type, content, status) VALUES (
+  'psb-info-terima',
+  'INFORMASI PENERIMAAN',
+  'informasi-penerimaan',
+  'users',
+  3,
+  0,
+  'page',
+  '<div style="background: #ffffff; border: 1px solid rgba(173,138,78,0.2); border-radius: 16px; padding: 24px; margin-bottom: 24px;">
+    <h3 style="font-family: Fraunces, serif; color: var(--teal-900); margin: 0 0 8px 0;">Pengumuman Hasil Seleksi Santriwati Baru P3HM</h3>
+    <p style="color: var(--ink-soft); font-size: 14.5px; line-height: 1.7; margin: 0;">Berikut adalah daftar santriwati yang telah dinyatakan lulus seleksi masuk Pondok Pesantren Putri Hidayatul Mubtadiat Lirboyo. Bagi santriwati yang berstatus konfirmasi aktif, harap klik tombol konfirmasi WhatsApp formal yang tersedia.</p>
+  </div>',
+  'published'
+);

@@ -1,21 +1,30 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import * as XLSX from 'xlsx';
 import RichTextEditor from './RichTextEditor';
 
 export default function TabPsb({ showToast, confirm }) {
   const [pages, setPages] = useState([]);
   const [classes, setClasses] = useState([]);
+  const [acceptedSantri, setAcceptedSantri] = useState([]);
+  const [waInstansi, setWaInstansi] = useState('628561985565');
+
   const [settings, setSettings] = useState({
     psbPeriode: 'TA 1446 - 1447 H / 2025 - 2026 M',
     psbTitle: 'Penerimaan Santri Baru Pondok Pesantren Putri Hidayatul Mubtadiat'
   });
+
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [classModalOpen, setClassModalOpen] = useState(false);
+  const [santriModalOpen, setSantriModalOpen] = useState(false);
+
   const [saving, setSaving] = useState(false);
   const [savingClass, setSavingClass] = useState(false);
+  const [savingSantri, setSavingSantri] = useState(false);
   const [savingSettings, setSavingSettings] = useState(false);
+  const [savingWa, setSavingWa] = useState(false);
 
   const [form, setForm] = useState({
     id: '',
@@ -41,19 +50,32 @@ export default function TabPsb({ showToast, confirm }) {
     order_num: 1
   });
 
+  const [santriForm, setSantriForm] = useState({
+    id: '',
+    no_reg: '',
+    nama_lengkap: '',
+    kecamatan: '',
+    kabupaten: '',
+    nama_wali: '',
+    confirm_status: 1
+  });
+
   const loadData = async () => {
     setLoading(true);
     try {
       const res = await fetch('/api/psb');
       const data = await res.json();
-      if (Array.isArray(data)) {
-        setPages(data);
-      }
+      if (Array.isArray(data)) setPages(data);
 
       const classRes = await fetch('/api/psb/classes');
       const classData = await classRes.json();
-      if (Array.isArray(classData)) {
-        setClasses(classData);
+      if (Array.isArray(classData)) setClasses(classData);
+
+      const accRes = await fetch('/api/psb/accepted');
+      const accData = await accRes.json();
+      if (accData && Array.isArray(accData.santriList)) {
+        setAcceptedSantri(accData.santriList);
+        if (accData.waInstansi) setWaInstansi(accData.waInstansi);
       }
 
       const setRes = await fetch('/api/settings');
@@ -95,6 +117,174 @@ export default function TabPsb({ showToast, confirm }) {
     }
   };
 
+  const handleSaveWaInstansi = async () => {
+    setSavingWa(true);
+    try {
+      const res = await fetch('/api/psb/accepted', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'save_wa', waInstansi })
+      });
+      if (res.ok) {
+        if (showToast) showToast('Nomor WhatsApp Instansi berhasil disimpan!', 'success');
+      }
+    } catch (e) {
+      if (showToast) showToast('Gagal menyimpan No WA', 'error');
+    } finally {
+      setSavingWa(false);
+    }
+  };
+
+  // DOWNLOAD TEMPLATE EXCEL TERKUNCI
+  const handleDownloadTemplateExcel = () => {
+    const templateData = [
+      {
+        'No. Registrasi': 'REG-2026-001',
+        'Nama Lengkap': 'Aisyah Az-Zahra Putri',
+        'Kecamatan': 'Mojoroto',
+        'Kabupaten': 'Kota Kediri',
+        'Nama Wali': 'H. Ahmad Fauzi'
+      },
+      {
+        'No. Registrasi': 'REG-2026-002',
+        'Nama Lengkap': 'Fatimah Nabila Syahputri',
+        'Kecamatan': 'Kertosono',
+        'Kabupaten': 'Nganjuk',
+        'Nama Wali': 'Hj. Maimunah'
+      }
+    ];
+
+    const worksheet = XLSX.utils.json_to_sheet(templateData, {
+      header: ['No. Registrasi', 'Nama Lengkap', 'Kecamatan', 'Kabupaten', 'Nama Wali']
+    });
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Santri Diterima');
+    XLSX.writeFile(workbook, 'Template_Santri_Diterima_P3HM.xlsx');
+    if (showToast) showToast('Template Excel Terkunci berhasil diunduh!', 'success');
+  };
+
+  // IMPORT EXCEL (.xlsx / .csv)
+  const handleImportExcel = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async (evt) => {
+      try {
+        const data = new Uint8Array(evt.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const rows = XLSX.utils.sheet_to_json(worksheet);
+
+        if (!rows || rows.length === 0) {
+          if (showToast) showToast('File Excel kosong atau format tidak sesuai', 'error');
+          return;
+        }
+
+        const res = await fetch('/api/psb/accepted', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'bulk_import', rows })
+        });
+
+        const resData = await res.json();
+        if (res.ok && resData.success) {
+          if (showToast) showToast(`Berhasil mengimpor ${rows.length} santriwati dari Excel!`, 'success');
+          loadData();
+        } else {
+          if (showToast) showToast(resData.error || 'Gagal mengimpor Excel', 'error');
+        }
+      } catch (err) {
+        if (showToast) showToast('Format file Excel tidak valid', 'error');
+      }
+    };
+    reader.readAsArrayBuffer(file);
+    e.target.value = '';
+  };
+
+  // TOGGLE KONFIRMASI (AKTIFKAN / NON-AKTIFKAN)
+  const handleToggleConfirm = async (item) => {
+    const newStatus = Number(item.confirm_status) === 1 ? 0 : 1;
+    try {
+      const res = await fetch('/api/psb/accepted', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'toggle_confirm',
+          id: item.id,
+          confirm_status: newStatus
+        })
+      });
+      if (res.ok) {
+        if (showToast) {
+          showToast(
+            newStatus === 1 ? `Konfirmasi WA diaktifkan untuk ${item.nama_lengkap}` : `Konfirmasi WA dinonaktifkan untuk ${item.nama_lengkap}`,
+            'success'
+          );
+        }
+        loadData();
+      }
+    } catch (err) {
+      if (showToast) showToast('Gagal mengubah status konfirmasi', 'error');
+    }
+  };
+
+  const handleOpenCreateSantri = () => {
+    setSantriForm({
+      id: '',
+      no_reg: '',
+      nama_lengkap: '',
+      kecamatan: '',
+      kabupaten: '',
+      nama_wali: '',
+      confirm_status: 1
+    });
+    setSantriModalOpen(true);
+  };
+
+  const handleSaveSantri = async (e) => {
+    e.preventDefault();
+    setSavingSantri(true);
+    try {
+      const res = await fetch('/api/psb/accepted', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(santriForm)
+      });
+      if (res.ok) {
+        if (showToast) showToast('Data santri diterima berhasil disimpan', 'success');
+        setSantriModalOpen(false);
+        loadData();
+      }
+    } catch (err) {
+      if (showToast) showToast('Gagal menyimpan santri', 'error');
+    } finally {
+      setSavingSantri(false);
+    }
+  };
+
+  const handleDeleteSantri = async (item) => {
+    const ok = await confirm(`Hapus data santri "${item.nama_lengkap}" (${item.no_reg})?`);
+    if (!ok) return;
+
+    try {
+      const res = await fetch('/api/psb/accepted', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete', id: item.id })
+      });
+      if (res.ok) {
+        if (showToast) showToast('Santri berhasil dihapus', 'success');
+        loadData();
+      }
+    } catch (err) {
+      if (showToast) showToast('Gagal menghapus santri', 'error');
+    }
+  };
+
+  // MANAJEMEN MENU PSB
   const handleOpenCreate = () => {
     setForm({
       id: 'psb-' + Date.now(),
@@ -198,15 +388,13 @@ export default function TabPsb({ showToast, confirm }) {
       if (res.ok && data.success) {
         if (showToast) showToast('Menu PSB berhasil dihapus', 'success');
         loadData();
-      } else {
-        if (showToast) showToast(data.error || 'Gagal menghapus', 'error');
       }
     } catch (err) {
       if (showToast) showToast('Terjadi kesalahan koneksi', 'error');
     }
   };
 
-  // MANAGEMENT CLASS CARDS (MATERI UJIAN & KURIKULUM)
+  // MANAJEMEN KARTU KELAS (MATERI UJIAN & KURIKULUM)
   const handleOpenCreateClass = () => {
     setClassForm({
       id: 'class-' + Date.now(),
@@ -252,8 +440,6 @@ export default function TabPsb({ showToast, confirm }) {
         if (showToast) showToast('Tabel kelas berhasil disimpan!', 'success');
         setClassModalOpen(false);
         loadData();
-      } else {
-        if (showToast) showToast(resData.error || 'Gagal menyimpan tabel kelas', 'error');
       }
     } catch (err) {
       if (showToast) showToast('Terjadi kesalahan jaringan', 'error');
@@ -272,12 +458,9 @@ export default function TabPsb({ showToast, confirm }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'delete', id: item.id })
       });
-      const data = await res.json();
-      if (res.ok && data.success) {
+      if (res.ok) {
         if (showToast) showToast('Tabel kelas berhasil dihapus', 'success');
         loadData();
-      } else {
-        if (showToast) showToast(data.error || 'Gagal menghapus', 'error');
       }
     } catch (err) {
       if (showToast) showToast('Terjadi kesalahan koneksi', 'error');
@@ -353,7 +536,135 @@ export default function TabPsb({ showToast, confirm }) {
         </form>
       </div>
 
-      {/* 2. MANAJEMEN TABEL KARTU KELAS (MATERI UJIAN & KURIKULUM - Sesuai Gambar Referensi ke-3) */}
+      {/* 2. MANAJEMEN DAFTAR SANTRI DITERIMA (INFORMASI PENERIMAAN + IMPORT EXCEL TERKUNCI) */}
+      <div className="card">
+        <div className="card-head">
+          <div className="card-head-left">
+            <h3>🎉 Manajemen Daftar Santri Diterima (Informasi Penerimaan)</h3>
+            <p>Import Excel santriwati lulus seleksi (Format kolom terkunci: No. Registrasi | Nama Lengkap | Kecamatan | Kabupaten | Nama Wali) &amp; kendalikan tombol Konfirmasi WA</p>
+          </div>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <button
+              type="button"
+              onClick={handleDownloadTemplateExcel}
+              className="btn"
+              style={{ background: 'rgba(173, 138, 78, 0.15)', color: 'var(--gold)', border: '1px solid var(--gold)' }}
+            >
+              📥 Download Template Excel
+            </button>
+            <label className="btn btn-primary" style={{ background: '#10B981', color: '#FFFFFF', fontWeight: '700', cursor: 'pointer', margin: 0 }}>
+              📤 Import Excel
+              <input
+                type="file"
+                accept=".xlsx,.xls,.csv"
+                onChange={handleImportExcel}
+                style={{ display: 'none' }}
+              />
+            </label>
+            <button
+              type="button"
+              onClick={handleOpenCreateSantri}
+              className="btn btn-primary"
+              style={{ background: 'var(--gold-dark)', color: '#0B1A16', fontWeight: '700' }}
+            >
+              + Tambah Santri
+            </button>
+          </div>
+        </div>
+
+        <div style={{ padding: '16px 24px', background: 'var(--bg-elevated)', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+          <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--gold)' }}>
+            💬 Nomor WhatsApp Instansi (Tujuan Pesan Konfirmasi Daftar Ulang):
+          </span>
+          <input
+            type="text"
+            value={waInstansi}
+            onChange={(e) => setWaInstansi(e.target.value)}
+            placeholder="Contoh: 628561985565"
+            style={{ padding: '8px 12px', borderRadius: '8px', background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)', fontSize: '13px', width: '200px' }}
+          />
+          <button
+            type="button"
+            onClick={handleSaveWaInstansi}
+            disabled={savingWa}
+            className="btn"
+            style={{ background: 'var(--surface)', color: 'var(--gold)', border: '1px solid var(--border)', padding: '8px 14px', fontSize: '12.5px' }}
+          >
+            {savingWa ? 'Menyimpan...' : 'Simpan No WA'}
+          </button>
+        </div>
+
+        <div style={{ overflowX: 'auto' }}>
+          <table className="table">
+            <thead>
+              <tr>
+                <th style={{ width: '50px' }}>No</th>
+                <th>No. Registrasi</th>
+                <th>Nama Lengkap</th>
+                <th>Kecamatan</th>
+                <th>Kabupaten</th>
+                <th>Nama Wali</th>
+                <th style={{ textAlign: 'center' }}>Aksi Konfirmasi WA</th>
+                <th style={{ textAlign: 'right' }}>Kelola</th>
+              </tr>
+            </thead>
+            <tbody>
+              {acceptedSantri.length === 0 ? (
+                <tr>
+                  <td colSpan={8} style={{ padding: '36px', textAlign: 'center', color: 'var(--text-secondary)' }}>
+                    Belum ada santriwati diterima. Klik Download Template Excel lalu Import Excel.
+                  </td>
+                </tr>
+              ) : (
+                acceptedSantri.map((s, idx) => {
+                  const isActive = Number(s.confirm_status) === 1;
+                  return (
+                    <tr key={s.id || idx}>
+                      <td style={{ fontWeight: '700', color: 'var(--gold)' }}>{idx + 1}</td>
+                      <td style={{ fontWeight: '700', color: 'var(--text)' }}>{s.no_reg}</td>
+                      <td style={{ fontWeight: '700', color: 'var(--text)' }}>{s.nama_lengkap}</td>
+                      <td style={{ color: 'var(--text-secondary)' }}>{s.kecamatan}</td>
+                      <td style={{ color: 'var(--text-secondary)' }}>{s.kabupaten}</td>
+                      <td style={{ color: 'var(--text-secondary)' }}>{s.nama_wali}</td>
+                      <td style={{ textAlign: 'center' }}>
+                        <button
+                          type="button"
+                          onClick={() => handleToggleConfirm(s)}
+                          style={{
+                            padding: '6px 14px',
+                            borderRadius: '100px',
+                            border: '1px solid',
+                            borderColor: isActive ? 'rgba(16, 185, 129, 0.4)' : 'rgba(239, 68, 68, 0.4)',
+                            background: isActive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                            color: isActive ? '#34D399' : '#F87171',
+                            fontSize: '11.5px',
+                            fontWeight: '700',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {isActive ? '✔ Aktifkan Konfirmasi' : '⏸ Non-Aktifkan Konfirmasi'}
+                        </button>
+                      </td>
+                      <td style={{ textAlign: 'right' }}>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteSantri(s)}
+                          className="btn"
+                          style={{ background: 'rgba(239, 68, 68, 0.12)', color: '#F87171', border: '1px solid rgba(239,68,68,0.2)', padding: '6px 10px', fontSize: '12px' }}
+                        >
+                          🗑️
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* 3. MANAJEMEN TABEL KARTU KELAS (MATERI UJIAN & KURIKULUM) */}
       <div className="card">
         <div className="card-head">
           <div className="card-head-left">
@@ -436,12 +747,12 @@ export default function TabPsb({ showToast, confirm }) {
         </div>
       </div>
 
-      {/* 3. DAFTAR NAVIGASI & HALAMAN PSB (/pendaftaran) */}
+      {/* 4. DAFTAR NAVIGASI & HALAMAN PSB (/pendaftaran) */}
       <div className="card">
         <div className="card-head">
           <div className="card-head-left">
             <h3>📋 Daftar Navigasi &amp; Halaman PSB (/pendaftaran)</h3>
-            <p>Semua menu navigasi, ikon, tautan Google Form / Google Drive, atau halaman internal diatur sepenuhnya di sini (Tanpa teks statis)</p>
+            <p>Semua menu navigasi, ikon, tautan Google Form / Google Drive, atau halaman internal diatur sepenuhnya di sini</p>
           </div>
           <button
             onClick={handleOpenCreate}
@@ -587,6 +898,61 @@ export default function TabPsb({ showToast, confirm }) {
           </table>
         </div>
       </div>
+
+      {/* POPUP MODAL TAMBAH SANTRI DITERIMA MANUAL */}
+      {santriModalOpen && (
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(5, 15, 12, 0.8)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '24px',
+          zIndex: 1100
+        }}>
+          <div style={{
+            background: 'var(--bg-elevated)',
+            border: '1px solid var(--border-strong)',
+            borderRadius: 'var(--radius-lg)',
+            width: '100%',
+            maxWidth: '520px',
+            padding: '28px'
+          }}>
+            <h3 style={{ fontFamily: '"Fraunces", serif', fontSize: '18px', color: 'var(--gold)', marginBottom: '18px' }}>
+              + Tambah Santri Diterima
+            </h3>
+            <form onSubmit={handleSaveSantri} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '600', color: 'var(--gold)', marginBottom: '4px' }}>No. Registrasi *</label>
+                <input type="text" required placeholder="Contoh: REG-2026-001" value={santriForm.no_reg} onChange={e => setSantriForm({ ...santriForm, no_reg: e.target.value })} style={{ width: '100%', padding: '10px', borderRadius: '8px', background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }} />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '600', color: 'var(--gold)', marginBottom: '4px' }}>Nama Lengkap *</label>
+                <input type="text" required placeholder="Contoh: Aisyah Az-Zahra Putri" value={santriForm.nama_lengkap} onChange={e => setSantriForm({ ...santriForm, nama_lengkap: e.target.value })} style={{ width: '100%', padding: '10px', borderRadius: '8px', background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }} />
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '600', color: 'var(--gold)', marginBottom: '4px' }}>Kecamatan *</label>
+                  <input type="text" required placeholder="Mojoroto" value={santriForm.kecamatan} onChange={e => setSantriForm({ ...santriForm, kecamatan: e.target.value })} style={{ width: '100%', padding: '10px', borderRadius: '8px', background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }} />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '600', color: 'var(--gold)', marginBottom: '4px' }}>Kabupaten *</label>
+                  <input type="text" required placeholder="Kota Kediri" value={santriForm.kabupaten} onChange={e => setSantriForm({ ...santriForm, kabupaten: e.target.value })} style={{ width: '100%', padding: '10px', borderRadius: '8px', background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }} />
+                </div>
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '12.5px', fontWeight: '600', color: 'var(--gold)', marginBottom: '4px' }}>Nama Wali *</label>
+                <input type="text" required placeholder="H. Ahmad Fauzi" value={santriForm.nama_wali} onChange={e => setSantriForm({ ...santriForm, nama_wali: e.target.value })} style={{ width: '100%', padding: '10px', borderRadius: '8px', background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }} />
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '14px' }}>
+                <button type="button" onClick={() => setSantriModalOpen(false)} className="btn" style={{ background: 'var(--surface)', color: 'var(--text)' }}>Batal</button>
+                <button type="submit" disabled={savingSantri} className="btn btn-primary" style={{ background: 'var(--gold-dark)', color: '#0B1A16', fontWeight: '700' }}>Simpan Santri</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* POPUP MODAL TAMBAH / EDIT KELAS (MATERI UJIAN & KURIKULUM) */}
       {classModalOpen && (
