@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 export default function TabKategori({ categories, onRefresh, showToast, confirm }) {
+  const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState({ id: '', name: '', type: 'berita' });
   const [saving, setSaving] = useState(false);
 
@@ -21,6 +22,7 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
       if (res.ok && data.success) {
         showToast('Kategori berhasil disimpan!');
         setForm({ id: '', name: '', type: 'berita' });
+        setModalOpen(false);
         onRefresh();
       } else {
         showToast(data.error || 'Gagal menyimpan kategori', 'error');
@@ -57,65 +59,22 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <div className="card">
-        <div className="card-head">
-          <div className="card-head-left">
-            <h3>🗂️ Tambah / Edit Kategori Kustom</h3>
-            <p>Kategori yang ditambahkan di sini akan otomatis muncul pada pilihan kategori saat membuat Berita / Galeri</p>
-          </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <h3 style={{ fontSize: '18px', color: 'var(--text)' }}>Daftar Kategori Kustom P3HM</h3>
+          <p style={{ fontSize: '13px', color: 'var(--text-tertiary)' }}>
+            Kelola kategori untuk Berita dan Galeri Dokumentasi secara dinamis
+          </p>
         </div>
-        <form onSubmit={handleSave}>
-          <div className="card-body" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
-            <div className="form-group" style={{ flex: '1 1 240px' }}>
-              <label className="form-label">Nama Kategori Baru</label>
-              <input
-                className="form-input"
-                required
-                placeholder="Misal: Kajian Subuh, Prestasi Santri, dsb."
-                value={form.name}
-                onChange={e => setForm({ ...form, name: e.target.value })}
-                style={{ height: '38px' }}
-              />
-            </div>
-
-            <div className="form-group" style={{ flex: '0 0 180px' }}>
-              <label className="form-label">Tipe Kategori</label>
-              <select
-                className="form-input"
-                value={form.type}
-                onChange={e => setForm({ ...form, type: e.target.value })}
-                style={{ height: '38px' }}
-              >
-                <option value="berita">📰 Untuk Berita</option>
-                <option value="galeri">🖼️ Untuk Galeri</option>
-              </select>
-            </div>
-
-            <button 
-              type="submit" 
-              className="btn btn-primary" 
-              disabled={saving} 
-              style={{ height: '38px', padding: '0 20px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
-            >
-              {saving ? (
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                  <span>Menyimpan</span>
-                  <span className="dot-loading"><span></span><span></span><span></span></span>
-                </span>
-              ) : form.id ? '💾 Perbarui Kategori' : '➕ Tambah Kategori'}
-            </button>
-            {form.id && (
-              <button
-                type="button"
-                className="btn btn-ghost"
-                onClick={() => setForm({ id: '', name: '', type: 'berita' })}
-                style={{ height: '38px', padding: '0 20px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
-              >
-                Batal Edit
-              </button>
-            )}
-          </div>
-        </form>
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            setForm({ id: '', name: '', type: 'berita' });
+            setModalOpen(true);
+          }}
+        >
+          ➕ Tambah Kategori Baru
+        </button>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
@@ -135,7 +94,7 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
                   <div style={{ fontSize: '11px', color: 'var(--text-tertiary)' }}>ID: {c.id}</div>
                 </div>
                 <div style={{ display: 'flex', gap: '8px' }}>
-                  <button className="btn btn-ghost btn-sm" onClick={() => setForm(c)}>Edit</button>
+                  <button className="btn btn-ghost btn-sm" onClick={() => { setForm(c); setModalOpen(true); }}>Edit</button>
                   <button className="btn btn-danger btn-sm" onClick={() => handleDelete(c.id)}>Hapus</button>
                 </div>
               </div>
@@ -162,7 +121,7 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
                   <div style={{ fontSize: '11px', color: 'var(--text-tertiary)' }}>ID: {c.id}</div>
                 </div>
                 <div style={{ display: 'flex', gap: '8px' }}>
-                  <button className="btn btn-ghost btn-sm" onClick={() => setForm(c)}>Edit</button>
+                  <button className="btn btn-ghost btn-sm" onClick={() => { setForm(c); setModalOpen(true); }}>Edit</button>
                   <button className="btn btn-danger btn-sm" onClick={() => handleDelete(c.id)}>Hapus</button>
                 </div>
               </div>
@@ -173,6 +132,56 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
           </div>
         </div>
       </div>
+
+      {modalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content" style={{ maxWidth: '480px' }}>
+            <div className="modal-header">
+              <h3>{form.id ? 'Edit Kategori Kustom' : 'Tambah Kategori Kustom Baru'}</h3>
+              <button className="modal-close" onClick={() => setModalOpen(false)}>✕</button>
+            </div>
+            <form onSubmit={handleSave}>
+              <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div className="form-group">
+                  <label className="form-label">Nama Kategori</label>
+                  <input
+                    className="form-input"
+                    required
+                    placeholder="Misal: Kajian Subuh, Prestasi Santri, dsb."
+                    value={form.name}
+                    onChange={e => setForm({ ...form, name: e.target.value })}
+                    style={{ height: '38px' }}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Tipe Kategori</label>
+                  <select
+                    className="form-input"
+                    value={form.type}
+                    onChange={e => setForm({ ...form, type: e.target.value })}
+                    style={{ height: '38px' }}
+                  >
+                    <option value="berita">📰 Untuk Berita</option>
+                    <option value="galeri">🖼️ Untuk Galeri</option>
+                  </select>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-ghost" onClick={() => setModalOpen(false)}>Batal</button>
+                <button type="submit" className="btn btn-primary" disabled={saving} style={{ height: '38px', padding: '0 20px' }}>
+                  {saving ? (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                      <span>Menyimpan</span>
+                      <span className="dot-loading"><span></span><span></span><span></span></span>
+                    </span>
+                  ) : 'Simpan Kategori'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
