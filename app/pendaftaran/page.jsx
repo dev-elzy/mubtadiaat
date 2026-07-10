@@ -35,14 +35,7 @@ export default function PendaftaranPage() {
             Memuat portal penerimaan santri baru...
           </div>
         ) : homePage && homePage.content ? (
-          <div style={{
-            background: '#ffffff',
-            border: '1px solid rgba(173, 138, 78, 0.25)',
-            borderRadius: '20px',
-            padding: '36px 40px',
-            boxShadow: '0 8px 30px rgba(0,0,0,0.04)',
-            marginBottom: '36px'
-          }}>
+          <div className="psb-portal-card">
             <div 
               className="psb-dynamic-html"
               dangerouslySetInnerHTML={{ __html: homePage.content }}

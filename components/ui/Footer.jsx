@@ -4,13 +4,13 @@ export default function Footer() {
   return (
     <footer style={{ background: '#0a1a15', color: '#e5ddd0', padding: '80px 0 32px 0', marginTop: 'auto', borderTop: '4px solid var(--gold-500)' }}>
       <div className="wrap">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', gap: '48px', marginBottom: '64px' }}>
+        <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', gap: '48px', marginBottom: '64px' }}>
           
           {/* Brand Column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div className="footer-grid-col" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div className="footer-brand-wrap" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
               <img src="/logo.png" alt="Logo P3HM" style={{ width: '48px', height: '48px' }} />
-              <div>
+              <div style={{ textAlign: 'left' }}>
                 <h3 style={{ margin: 0, fontSize: '18px', color: 'white', fontFamily: '"Fraunces", serif' }}>Hidayatul Mubtadiat</h3>
                 <p style={{ margin: '4px 0 0', fontSize: '14px', color: 'var(--gold-500)' }}>Pondok Pesantren Putri</p>
               </div>
@@ -21,7 +21,7 @@ export default function Footer() {
           </div>
 
           {/* Navigasi Column */}
-          <div>
+          <div className="footer-grid-col">
             <h4 style={{ color: 'white', fontSize: '16px', marginBottom: '24px', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>Tautan Cepat</h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <li><Link href="/" style={{ color: 'rgba(229, 221, 208, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }}>Beranda</Link></li>
@@ -32,8 +32,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Kontak Column */}
-          <div>
+          {/* Hubungi Kami Column */}
+          <div className="footer-grid-col">
             <h4 style={{ color: 'white', fontSize: '16px', marginBottom: '24px', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>Hubungi Kami</h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
@@ -53,11 +53,11 @@ export default function Footer() {
         </div>
 
         {/* Footer Bottom */}
-        <div style={{ paddingTop: '32px', borderTop: '1px solid rgba(229, 221, 208, 0.1)', display: 'flex', flexWrap: 'wrap', gap: '24px', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="footer-bottom" style={{ paddingTop: '32px', borderTop: '1px solid rgba(229, 221, 208, 0.1)', display: 'flex', flexWrap: 'wrap', gap: '24px', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ fontSize: '14px', color: 'rgba(229, 221, 208, 0.6)' }}>
             © {new Date().getFullYear()} Yayasan Hidayatul Mubtadiat · Lirboyo, Kediri.
           </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', fontSize: '14px' }}>
+          <div className="footer-bottom-links" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', fontSize: '14px' }}>
             <Link href="/tentang-kami" style={{ color: 'rgba(229, 221, 208, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = '#fff'} onMouseOut={(e) => e.currentTarget.style.color = 'rgba(229, 221, 208, 0.8)'}>Tentang Kami</Link>
             <span style={{ color: 'rgba(229, 221, 208, 0.3)' }}>|</span>
             <Link href="/disclaimer" style={{ color: 'rgba(229, 221, 208, 0.8)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = '#fff'} onMouseOut={(e) => e.currentTarget.style.color = 'rgba(229, 221, 208, 0.8)'}>Disclaimer</Link>

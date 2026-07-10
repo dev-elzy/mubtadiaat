@@ -44,14 +44,7 @@ export default function PendaftaranSlugPage() {
         ) : slug === 'informasi-penerimaan' ? (
           <div>
             {page && page.content ? (
-              <div style={{
-                background: '#ffffff',
-                border: '1px solid rgba(173, 138, 78, 0.25)',
-                borderRadius: '20px',
-                padding: '32px 36px',
-                boxShadow: '0 8px 30px rgba(0,0,0,0.04)',
-                marginBottom: '28px'
-              }}>
+              <div className="psb-portal-card">
                 <div
                   className="psb-dynamic-html"
                   dangerouslySetInnerHTML={{ __html: page.content }}
@@ -68,14 +61,7 @@ export default function PendaftaranSlugPage() {
         ) : (
           <div style={{ margin: '24px 0' }}>
             {page.content ? (
-              <div style={{
-                background: '#ffffff',
-                border: '1px solid rgba(173, 138, 78, 0.25)',
-                borderRadius: '20px',
-                padding: '36px 40px',
-                boxShadow: '0 8px 30px rgba(0,0,0,0.04)',
-                marginBottom: '36px'
-              }}>
+              <div className="psb-portal-card">
                 <div
                   className="psb-dynamic-html"
                   dangerouslySetInnerHTML={{ __html: page.content }}

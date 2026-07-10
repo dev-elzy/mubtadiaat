@@ -91,7 +91,7 @@ export default function HeroSection({ settings = {} }) {
                 </g>
               </svg>
             </div>
-            <div className="hero-frame-caption" style={{ position: 'relative', zIndex: 2 }}><span className="dot"></span> Lingkungan Pondok Putri Hidayatul Mubtadiat, Lirboyo Kediri</div>
+            <div className="hero-frame-caption"><span className="dot"></span> Lingkungan Pondok Putri Hidayatul Mubtadiat, Lirboyo Kediri</div>
           </Reveal>
 
           <Reveal className="stat-row stat-row-4">

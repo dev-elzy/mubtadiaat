@@ -61,109 +61,110 @@ export default function Header() {
         borderBottom: isScrolled ? '1px solid rgba(218, 190, 140, 0.25)' : '1px solid rgba(173, 138, 78, 0.18)',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 5%',
         zIndex: 9999,
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         boxShadow: isScrolled ? '0 10px 30px rgba(0,0,0,0.15)' : '0 4px 20px rgba(15,43,36,0.03)'
       }}
     >
-      {/* Brand & Identitas P3HM */}
-      <Link href="/" className="logo-wrap" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
-        <img src="/logo.png" alt="Logo P3HM" style={{ width: '44px', height: '44px', objectFit: 'contain' }} />
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <span style={{ fontFamily: '"Fraunces", serif', fontSize: '16px', color: textColor, fontWeight: '700', letterSpacing: '0.01em', lineHeight: '1.2' }}>
-            Hidayatul Mubtadiat
-          </span>
-          <span style={{ fontSize: '10.5px', color: subTextColor, fontWeight: '700', letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: '2px' }}>
-            Pondok Pesantren Putri
-          </span>
-        </div>
-      </Link>
-      
-      {/* Navigasi Desktop */}
-      <div className="nav-links" style={{ display: 'flex', gap: '28px', alignItems: 'center' }}>
-        {navItems.map(item => {
-          const active = isActive(item);
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`nav-link ${active ? 'active' : ''}`}
-              style={{
-                color: active ? 'var(--gold-500)' : navLinkColor,
-                fontWeight: active ? '700' : '600',
-                fontSize: '14px',
-                textDecoration: 'none',
-                padding: '6px 0',
-                transition: 'color 0.2s ease',
-                borderBottom: active ? '2px solid var(--gold-500)' : '2px solid transparent'
-              }}
-            >
-              {item.label}
-            </Link>
-          );
-        })}
-      </div>
-      
-      {/* CTA Buttons */}
-      <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <div className="desktop-ctas" style={{ display: 'flex', gap: '10px' }}>
-          <Link
-            href="/pendaftaran"
-            className="nav-cta"
-            style={{
-              background: 'var(--teal-900)',
-              color: '#ffffff',
-              padding: '10px 20px',
-              borderRadius: '100px',
-              fontSize: '13px',
-              fontWeight: '700',
-              textDecoration: 'none',
-              border: '1px solid rgba(218, 190, 140, 0.3)',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            Pendaftaran Santri Baru
-          </Link>
-          <Link
-            href="/redirect"
-            className="nav-cta"
-            style={{
-              background: 'linear-gradient(90deg, var(--gold-500) 0%, #C4A05C 100%)',
-              color: '#0F2B24',
-              padding: '10px 20px',
-              borderRadius: '100px',
-              fontSize: '13px',
-              fontWeight: '700',
-              textDecoration: 'none',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            Portal Wali &amp; Akademik
-          </Link>
+      <div className="wrap" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        {/* Brand & Identitas P3HM */}
+        <Link href="/" className="logo-wrap" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
+          <img src="/logo.png" alt="Logo P3HM" className="brand-logo" style={{ objectFit: 'contain' }} />
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span className="brand-title" style={{ color: textColor }}>
+              Hidayatul Mubtadiat
+            </span>
+            <span className="brand-subtitle" style={{ color: subTextColor }}>
+              Pondok Pesantren Putri
+            </span>
+          </div>
+        </Link>
+        
+        {/* Navigasi Desktop */}
+        <div className="nav-links" style={{ gap: '28px', alignItems: 'center' }}>
+          {navItems.map(item => {
+            const active = isActive(item);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`nav-link ${active ? 'active' : ''}`}
+                style={{
+                  color: active ? 'var(--gold-500)' : navLinkColor,
+                  fontWeight: active ? '700' : '600',
+                  fontSize: '14px',
+                  textDecoration: 'none',
+                  padding: '6px 0',
+                  transition: 'color 0.2s ease',
+                  borderBottom: active ? '2px solid var(--gold-500)' : '2px solid transparent'
+                }}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </div>
         
-        {/* Tombol Mobile Menu */}
-        <div
-          className="burger"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          style={{ padding: '8px', cursor: 'pointer', zIndex: 910 }}
-          aria-label="Toggle Menu"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke={textColor} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
-            {isMobileMenuOpen ? (
-              <path d="M18 6L6 18M6 6l12 12" />
-            ) : (
-              <path d="M3 12h18M3 6h18M3 18h18" />
-            )}
-          </svg>
+        {/* CTA Buttons */}
+        <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div className="desktop-ctas" style={{ gap: '10px' }}>
+            <Link
+              href="/pendaftaran"
+              className="nav-cta"
+              style={{
+                background: 'var(--teal-900)',
+                color: '#ffffff',
+                padding: '10px 20px',
+                borderRadius: '100px',
+                fontSize: '13px',
+                fontWeight: '700',
+                textDecoration: 'none',
+                border: '1px solid rgba(218, 190, 140, 0.3)',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              Pendaftaran Santri Baru
+            </Link>
+            <Link
+              href="/redirect"
+              className="nav-cta"
+              style={{
+                background: 'linear-gradient(90deg, var(--gold-500) 0%, #C4A05C 100%)',
+                color: '#0F2B24',
+                padding: '10px 20px',
+                borderRadius: '100px',
+                fontSize: '13px',
+                fontWeight: '700',
+                textDecoration: 'none',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              Portal Wali &amp; Akademik
+            </Link>
+          </div>
+          
+          {/* Tombol Mobile Menu */}
+          <div
+            className="burger"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            style={{ padding: '8px', cursor: 'pointer', zIndex: 910 }}
+            aria-label="Toggle Menu"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke={textColor} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
+              {isMobileMenuOpen ? (
+                <path d="M18 6L6 18M6 6l12 12" />
+              ) : (
+                <path d="M3 12h18M3 6h18M3 18h18" />
+              )}
+            </svg>
+          </div>
         </div>
       </div>
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div
+          className="mobile-menu-overlay"
           style={{
             position: 'absolute',
             top: '80px',
