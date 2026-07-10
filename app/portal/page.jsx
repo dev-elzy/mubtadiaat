@@ -99,6 +99,12 @@ export default function PortalAdmin() {
     }
   }
 
+  async function handleReload() {
+    setLoading(true);
+    await loadData();
+    showToastMessage('Data berhasil dimuat ulang!');
+  }
+
   useEffect(() => {
     loadData();
   }, []);
@@ -271,7 +277,7 @@ export default function PortalAdmin() {
             </div>
           </div>
 
-          <a href="/" target="_blank" className="sidebar-link">
+          <a href="/" className="sidebar-link">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
               <polyline points="15 3 21 3 21 9" />
@@ -301,10 +307,10 @@ export default function PortalAdmin() {
               </div>
               <span style={{ fontWeight: '700', letterSpacing: '0.03em' }}>SERVER ACTIVE</span>
             </div>
-            <button className="btn btn-ghost btn-sm" onClick={loadData}>
+            <button className="btn btn-ghost btn-sm" onClick={handleReload}>
               🔄 Muat Ulang
             </button>
-            <a href="/" target="_blank" className="btn btn-ghost btn-sm">
+            <a href="/" className="btn btn-ghost btn-sm">
               🌐 Website
             </a>
             <button
