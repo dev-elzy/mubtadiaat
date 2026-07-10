@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import RichTextEditor from './RichTextEditor';
 
-export default function TabBerita({ berita, categories = [], onRefresh, showToast }) {
+export default function TabBerita({ berita, categories = [], onRefresh, showToast, confirm }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState({
     id: '',
@@ -85,7 +85,12 @@ export default function TabBerita({ berita, categories = [], onRefresh, showToas
   };
 
   const deleteBerita = async (id) => {
-    if (!confirm('Yakin ingin menghapus artikel berita ini?')) return;
+    if (confirm) {
+      const isConfirmed = await confirm('Yakin ingin menghapus artikel berita ini?', 'Hapus Artikel');
+      if (!isConfirmed) return;
+    } else {
+      if (!window.confirm('Yakin ingin menghapus artikel berita ini?')) return;
+    }
     try {
       await fetch('/api/berita', {
         method: 'POST',

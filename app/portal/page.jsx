@@ -9,6 +9,7 @@ import TabProfil from '../../components/portal/TabProfil';
 import TabBerita from '../../components/portal/TabBerita';
 import TabGaleri from '../../components/portal/TabGaleri';
 import TabKategori from '../../components/portal/TabKategori';
+import CustomModal from '../../components/ui/CustomModal';
 
 export default function PortalAdmin() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -19,7 +20,53 @@ export default function PortalAdmin() {
   const [loading, setLoading] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
   const [toast, setToast] = useState({ show: false, msg: '', type: 'success' });
+  const [modal, setModal] = useState({
+    show: false,
+    title: '',
+    message: '',
+    type: 'confirm',
+    theme: 'teal',
+    onConfirm: null,
+    onCancel: null
+  });
   const router = useRouter();
+
+  const customConfirm = (message, title = 'Konfirmasi Tindakan', theme = 'danger') => {
+    return new Promise((resolve) => {
+      setModal({
+        show: true,
+        title,
+        message,
+        type: 'confirm',
+        theme,
+        onConfirm: () => {
+          setModal(m => ({ ...m, show: false }));
+          resolve(true);
+        },
+        onCancel: () => {
+          setModal(m => ({ ...m, show: false }));
+          resolve(false);
+        }
+      });
+    });
+  };
+
+  const customAlert = (message, title = 'Pemberitahuan') => {
+    return new Promise((resolve) => {
+      setModal({
+        show: true,
+        title,
+        message,
+        type: 'alert',
+        theme: 'teal',
+        onConfirm: () => {
+          setModal(m => ({ ...m, show: false }));
+          resolve(true);
+        },
+        onCancel: null
+      });
+    });
+  };
 
   function showToastMessage(msg, type = 'success') {
     setToast({ show: true, msg, type });
@@ -302,6 +349,8 @@ export default function PortalAdmin() {
                   categories={categories}
                   onRefresh={loadData}
                   showToast={showToastMessage}
+                  confirm={customConfirm}
+                  alert={customAlert}
                 />
               )}
               {activeTab === 'profil' && (
@@ -316,6 +365,8 @@ export default function PortalAdmin() {
                   categories={categories}
                   onRefresh={loadData}
                   showToast={showToastMessage}
+                  confirm={customConfirm}
+                  alert={customAlert}
                 />
               )}
               {activeTab === 'galeri' && (
@@ -324,6 +375,8 @@ export default function PortalAdmin() {
                   categories={categories}
                   onRefresh={loadData}
                   showToast={showToastMessage}
+                  confirm={customConfirm}
+                  alert={customAlert}
                 />
               )}
             </>
@@ -355,6 +408,17 @@ export default function PortalAdmin() {
           <span>{toast.msg}</span>
         </div>
       )}
+
+      {/* CUSTOM MODAL CONFIRMATION/ALERT */}
+      <CustomModal
+        show={modal.show}
+        title={modal.title}
+        message={modal.message}
+        type={modal.type}
+        theme={modal.theme}
+        onConfirm={modal.onConfirm}
+        onCancel={modal.onCancel}
+      />
     </div>
   );
 }

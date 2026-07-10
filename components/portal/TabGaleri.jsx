@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default function TabGaleri({ galeri, categories = [], onRefresh, showToast }) {
+export default function TabGaleri({ galeri, categories = [], onRefresh, showToast, confirm }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState({
     id: '',
@@ -69,7 +69,12 @@ export default function TabGaleri({ galeri, categories = [], onRefresh, showToas
   }
 
   async function deleteGaleri(item) {
-    if (!confirm("Yakin ingin menghapus foto dokumentasi ini?")) return;
+    if (confirm) {
+      const isConfirmed = await confirm("Yakin ingin menghapus foto dokumentasi ini?", "Hapus Dokumentasi");
+      if (!isConfirmed) return;
+    } else {
+      if (!window.confirm("Yakin ingin menghapus foto dokumentasi ini?")) return;
+    }
     await fetch('/api/galeri', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

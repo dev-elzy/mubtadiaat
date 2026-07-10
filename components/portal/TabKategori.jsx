@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default function TabKategori({ categories, onRefresh, showToast }) {
+export default function TabKategori({ categories, onRefresh, showToast, confirm }) {
   const [form, setForm] = useState({ id: '', name: '', type: 'berita' });
   const [saving, setSaving] = useState(false);
 
@@ -33,7 +33,12 @@ export default function TabKategori({ categories, onRefresh, showToast }) {
   }
 
   async function handleDelete(id) {
-    if (!confirm('Hapus kategori ini? Kategori yang dihapus tidak akan muncul lagi di daftar pilihan.')) return;
+    if (confirm) {
+      const isConfirmed = await confirm('Hapus kategori ini? Kategori yang dihapus tidak akan muncul lagi di daftar pilihan.', 'Hapus Kategori');
+      if (!isConfirmed) return;
+    } else {
+      if (!window.confirm('Hapus kategori ini? Kategori yang dihapus tidak akan muncul lagi di daftar pilihan.')) return;
+    }
     try {
       await fetch('/api/categories', {
         method: 'POST',

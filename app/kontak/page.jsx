@@ -1,4 +1,5 @@
 import { getSettings } from '../lib/db';
+import ContactForm from '../../components/ui/ContactForm';
 
 export const revalidate = 0;
 export const runtime = 'edge';
@@ -103,58 +104,7 @@ export default async function KontakPage() {
               Punya pertanyaan seputar pendaftaran santri baru, kegiatan, atau kebutuhan lainnya? Kirimkan pesan Anda melalui formulir di bawah ini.
             </p>
 
-            <form style={{ display: 'flex', flexDirection: 'column', gap: '20px' }} action="#" method="POST" onSubmit={(e) => {
-              e.preventDefault();
-              alert('Terima kasih, pesan Anda telah terkirim! Staf sekretariat kami akan segera memproses atau menghubungi Anda.');
-              e.target.reset();
-            }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--teal-900)' }}>Nama Lengkap</label>
-                <input 
-                  type="text" 
-                  required 
-                  placeholder="Masukkan nama Anda..." 
-                  style={{ width: '100%', padding: '12px 16px', border: '1.5px solid rgba(173,138,78,0.2)', borderRadius: '8px', fontSize: '14px', outline: 'none', background: '#fcfbfa' }}
-                />
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--teal-900)' }}>Alamat Email</label>
-                <input 
-                  type="email" 
-                  required 
-                  placeholder="name@example.com" 
-                  style={{ width: '100%', padding: '12px 16px', border: '1.5px solid rgba(173,138,78,0.2)', borderRadius: '8px', fontSize: '14px', outline: 'none', background: '#fcfbfa' }}
-                />
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--teal-900)' }}>Subjek</label>
-                <input 
-                  type="text" 
-                  required 
-                  placeholder="Tujuan pesan (Pendaftaran / Informasi / dll)" 
-                  style={{ width: '100%', padding: '12px 16px', border: '1.5px solid rgba(173,138,78,0.2)', borderRadius: '8px', fontSize: '14px', outline: 'none', background: '#fcfbfa' }}
-                />
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label style={{ fontSize: '13px', fontWeight: '600', color: 'var(--teal-900)' }}>Pesan Anda</label>
-                <textarea 
-                  required 
-                  rows="5" 
-                  placeholder="Tulis pesan lengkap Anda di sini..." 
-                  style={{ width: '100%', padding: '12px 16px', border: '1.5px solid rgba(173,138,78,0.2)', borderRadius: '8px', fontSize: '14px', outline: 'none', background: '#fcfbfa', resize: 'vertical' }}
-                ></textarea>
-              </div>
-
-              <button 
-                type="submit" 
-                style={{ marginTop: '8px', padding: '14px', background: 'var(--teal-900)', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: '700', fontSize: '14.5px', cursor: 'pointer', transition: 'all 0.2s', boxShadow: '0 4px 15px rgba(15,43,36,0.15)' }}
-              >
-                Kirim Pesan
-              </button>
-            </form>
+            <ContactForm />
           </div>
 
         </div>
