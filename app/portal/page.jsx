@@ -341,7 +341,6 @@ export default function PortalAdmin() {
               onClick={() => setSidebarOpen(!sidebarOpen)}
               aria-label="Toggle Sidebar"
               style={{
-                display: 'none',
                 background: 'transparent',
                 border: '1px solid var(--border)',
                 borderRadius: 'var(--radius-sm)',
@@ -368,7 +367,7 @@ export default function PortalAdmin() {
           </div>
 
           <div className="main-header-actions">
-            <div className="server-badge online" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 14px' }}>
+            <div className="server-badge online" style={{ alignItems: 'center', gap: '8px', padding: '6px 14px' }}>
               <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
                 <span className="dot" style={{ background: '#10B981', width: '7px', height: '7px', borderRadius: '50%' }}></span>
                 <span className="dot" style={{ background: '#F59E0B', width: '7px', height: '7px', borderRadius: '50%', animationDelay: '0.3s' }}></span>
@@ -385,7 +384,7 @@ export default function PortalAdmin() {
             <button
               onClick={handleLogout}
               className="btn btn-danger btn-sm"
-              style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+              style={{ alignItems: 'center', gap: '6px' }}
             >
               <span>🚪</span>
               <span>Keluar</span>

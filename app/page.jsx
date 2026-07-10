@@ -42,9 +42,9 @@ export default async function HomePage() {
             <h1 className="hero-title" style={{ fontSize: 'clamp(24px, 3.5vw, 36px)', textAlign: 'left', lineHeight: '1.2' }} dangerouslySetInnerHTML={{ __html: heroTitleHtml }}></h1>
             <p className="hero-sub" style={{ textAlign: 'left', fontSize: '15px' }}>{heroSub}</p>
             
-            <div className="hero-actions" style={{ justifyContent: 'flex-start', marginTop: '24px', flexWrap: 'wrap', gap: '12px' }}>
-              <a href={settings.daftarUrl || '#'} target="_blank" className="btn-primary" style={{ flex: '1 1 200px', minWidth: '150px', justifyContent: 'center' }}>Pendaftaran Online</a>
-              <a href="/profil" className="btn-ghost" style={{ flex: '1 1 200px', minWidth: '150px', justifyContent: 'center' }}>Lihat Profil Lengkap</a>
+            <div className="hero-actions" style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '24px', width: '100%' }}>
+              <a href={settings.daftarUrl || '#'} target="_blank" className="btn-primary" style={{ width: '100%', display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}>Pendaftaran Online</a>
+              <a href="/profil" className="btn-ghost" style={{ width: '100%', display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}>Lihat Profil Lengkap</a>
             </div>
 
             {showGaleri && (

@@ -194,7 +194,7 @@ input, select, textarea { font-family: inherit; }
 .main-header {
   position: sticky;
   top: 0;
-  z-index: 9999;
+  z-index: 10;
   padding: 20px 32px;
   border-bottom: 1px solid var(--border);
   display: flex;
@@ -353,6 +353,9 @@ input, select, textarea { font-family: inherit; }
 .btn-danger:hover { background: var(--red-muted); }
 .btn-sm { padding: 6px 10px; font-size: 12px; }
 .btn-sm svg { width: 13px; height: 13px; }
+.mobile-menu-btn {
+  display: none;
+}
 
 /* ============================================
    ITEM LIST
@@ -657,7 +660,7 @@ select.form-input { cursor: pointer; }
 
 /* --- TABLET PORTRAIT (≤768px) --- */
 @media (max-width: 768px) {
-  .mobile-menu-btn { display: flex !important; align-items: center; justify-content: center; }
+  .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
   .sidebar {
     transform: translateX(-100%);
     width: 280px;
