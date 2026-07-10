@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 export default function TabTampilan({ settings, berita, galeri, onSaveSettings }) {
-  const [activeSubTab, setActiveSubTab] = useState('ALL');
+  const [activeSubTab, setActiveSubTab] = useState('BERITA');
   const [formData, setFormData] = useState({
     showSectionBerita: settings.showSectionBerita || "true",
     homeBeritaMode: settings.homeBeritaMode || "auto",
@@ -67,7 +67,6 @@ export default function TabTampilan({ settings, berita, galeri, onSaveSettings }
         border: '1px solid var(--border)'
       }}>
         {[
-          { id: 'ALL', label: '🌟 Semua Pengaturan Tampilan' },
           { id: 'BERITA', label: '1. 📰 Bagian Berita Beranda' },
           { id: 'GALERI', label: '2. 🖼️ Bagian Galeri Beranda' },
         ].map(tab => (

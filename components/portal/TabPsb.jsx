@@ -5,7 +5,7 @@ import * as XLSX from 'xlsx';
 import RichTextEditor from './RichTextEditor';
 
 export default function TabPsb({ showToast, confirm }) {
-  const [activeSubTab, setActiveSubTab] = useState('ALL');
+  const [activeSubTab, setActiveSubTab] = useState('NAV_BANNER');
   const [pages, setPages] = useState([]);
   const [classes, setClasses] = useState([]);
   const [acceptedSantri, setAcceptedSantri] = useState([]);
@@ -481,7 +481,6 @@ export default function TabPsb({ showToast, confirm }) {
         border: '1px solid var(--border)'
       }}>
         {[
-          { id: 'ALL', label: '🌟 Tampilkan Semua Bagian' },
           { id: 'NAV_BANNER', label: '1. ⚙️ Pengaturan Periode & Daftar Navigasi PSB' },
           { id: 'KELAS', label: '2. 🎓 Manajemen Tabel Kelas & Kurikulum' },
           { id: 'SANTRI', label: '3. 🎉 Manajemen Daftar Santri Diterima' },

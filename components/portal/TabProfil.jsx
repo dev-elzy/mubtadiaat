@@ -66,7 +66,7 @@ const DEFAULT_FASILITAS = [
 ];
 
 export default function TabProfil({ settings = {}, onSaveSettings }) {
-  const [activeSubTab, setActiveSubTab] = useState('ALL');
+  const [activeSubTab, setActiveSubTab] = useState('HERO');
 
   const [formData, setFormData] = useState({
     // 1. Hero & Statistik
@@ -178,7 +178,6 @@ export default function TabProfil({ settings = {}, onSaveSettings }) {
         border: '1px solid var(--border)'
       }}>
         {[
-          { id: 'ALL', label: '🌟 Tampilkan Semua Bagian (Awal - Akhir)' },
           { id: 'HERO', label: '1. Hero & Statistik' },
           { id: 'PROFIL', label: '2. Profil Singkat' },
           { id: 'SEJARAH', label: '3. Sejarah & Pendiri' },

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 export default function TabGaleri({ galeri, categories = [], onRefresh, showToast, confirm }) {
-  const [activeSubTab, setActiveSubTab] = useState('ALL');
+  const [activeSubTab, setActiveSubTab] = useState('PUBLISHED');
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState({
     id: '',
@@ -104,7 +104,6 @@ export default function TabGaleri({ galeri, categories = [], onRefresh, showToas
         border: '1px solid var(--border)'
       }}>
         {[
-          { id: 'ALL', label: '🌟 Semua Foto Galeri' },
           { id: 'PUBLISHED', label: '1. ✅ Diterbitkan (Published)' },
           { id: 'DRAFT', label: '2. 📝 Draf & Dijadwalkan (Draft / Scheduled)' },
         ].map(tab => (

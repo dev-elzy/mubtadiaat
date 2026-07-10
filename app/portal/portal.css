@@ -192,6 +192,7 @@ input, select, textarea { font-family: inherit; }
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-top: 0 !important;
 }
 .main-header {
   position: sticky;

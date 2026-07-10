@@ -4,7 +4,7 @@ import { useState } from 'react';
 import RichTextEditor from './RichTextEditor';
 
 export default function TabBerita({ berita, categories = [], onRefresh, showToast, confirm }) {
-  const [activeSubTab, setActiveSubTab] = useState('ALL');
+  const [activeSubTab, setActiveSubTab] = useState('PUBLISHED');
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState({
     id: '',
@@ -124,7 +124,6 @@ export default function TabBerita({ berita, categories = [], onRefresh, showToas
         border: '1px solid var(--border)'
       }}>
         {[
-          { id: 'ALL', label: '🌟 Semua Artikel Berita' },
           { id: 'PUBLISHED', label: '1. ✅ Diterbitkan (Published)' },
           { id: 'DRAFT', label: '2. 📝 Draf & Dijadwalkan (Draft / Scheduled)' },
         ].map(tab => (

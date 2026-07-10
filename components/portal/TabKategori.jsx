@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 export default function TabKategori({ categories, onRefresh, showToast, confirm }) {
-  const [activeSubTab, setActiveSubTab] = useState('ALL');
+  const [activeSubTab, setActiveSubTab] = useState('BERITA');
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState({ id: '', name: '', type: 'berita' });
   const [saving, setSaving] = useState(false);
@@ -71,7 +71,6 @@ export default function TabKategori({ categories, onRefresh, showToast, confirm 
         border: '1px solid var(--border)'
       }}>
         {[
-          { id: 'ALL', label: '🌟 Semua Kategori' },
           { id: 'BERITA', label: '1. 📰 Kategori Artikel Berita' },
           { id: 'GALERI', label: '2. 🖼️ Kategori Galeri Dokumentasi' },
         ].map(tab => (

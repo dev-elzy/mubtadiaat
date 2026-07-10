@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 export default function TabPesan({ pesanList = [], onRefresh, showToast, confirm }) {
-  const [activeSubTab, setActiveSubTab] = useState('ALL');
+  const [activeSubTab, setActiveSubTab] = useState('UNREAD');
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPesan, setSelectedPesan] = useState(null);
   const [replyText, setReplyText] = useState('');
@@ -104,7 +104,6 @@ export default function TabPesan({ pesanList = [], onRefresh, showToast, confirm
         border: '1px solid var(--border)'
       }}>
         {[
-          { id: 'ALL', label: '🌟 Semua Pesan Masuk' },
           { id: 'UNREAD', label: '1. 📩 Pesan Baru / Belum Dibaca' },
           { id: 'READ', label: '2. 📬 Sudah Dibaca / Dibalas' },
         ].map(tab => (
