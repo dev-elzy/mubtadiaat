@@ -7,7 +7,7 @@ export default async function BeritaPage() {
   const berita = await getPublishedBerita();
 
   return (
-    <main className="wrap" style={{ padding: '60px 0' }}>
+    <main className="wrap" style={{ padding: '140px 0 60px 0' }}>
       <h1 style={{ fontFamily: '"Fraunces", serif', fontSize: '36px', color: 'var(--teal-900)', marginBottom: '40px' }}>Portal Berita</h1>
       
       {berita.length === 0 ? (

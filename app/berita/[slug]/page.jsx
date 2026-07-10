@@ -16,7 +16,7 @@ export default async function ArticlePage({ params }) {
 
   if (!article) {
     return (
-      <main className="wrap" style={{ padding: '100px 0', textAlign: 'center' }}>
+      <main className="wrap" style={{ padding: '160px 0 100px 0', textAlign: 'center' }}>
         <h1 style={{ fontSize: '32px', color: 'var(--teal-900)' }}>404 - Berita Tidak Ditemukan</h1>
         <p style={{ marginTop: '16px' }}>Artikel yang Anda cari tidak ada atau belum dipublikasikan.</p>
         <a href="/" className="btn-primary" style={{ display: 'inline-flex', marginTop: '24px' }}>Kembali ke Beranda</a>
@@ -25,7 +25,7 @@ export default async function ArticlePage({ params }) {
   }
 
   return (
-    <main className="wrap" style={{ padding: '60px 0' }}>
+    <main className="wrap" style={{ padding: '140px 0 60px 0' }}>
       <article style={{ maxWidth: '800px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <span className="badge" style={{ background: 'var(--gold-200)', color: 'var(--teal-900)', padding: '6px 16px', borderRadius: '100px', fontWeight: '600', fontSize: '14px' }}>

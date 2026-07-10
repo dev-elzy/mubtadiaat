@@ -16,7 +16,7 @@ export default async function KontakPage() {
   const instagramUrl = `https://instagram.com/${instagram.replace('@', '')}`;
 
   return (
-    <main style={{ background: '#fbf8f1', minHeight: '100vh', padding: '60px 0 80px 0', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+    <main style={{ background: '#fbf8f1', minHeight: '100vh', padding: '140px 0 80px 0', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
       <div className="wrap" style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 24px' }}>
         
         {/* Header Section */}
