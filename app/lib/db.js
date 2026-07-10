@@ -93,6 +93,9 @@ export async function getCategories() {
 
 export async function verifyAdminCredentials(username, password) {
   try {
+    if (typeof username === 'undefined' || typeof password === 'undefined') {
+      return { success: false, error: "Username atau password tidak boleh kosong" };
+    }
     const db = getDb();
     const { results } = await db.prepare("SELECT * FROM admins WHERE username = ? AND password = ?").bind(username, password).all();
     if (results && results.length > 0) {

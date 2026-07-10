@@ -3,6 +3,7 @@ import { getRequestContext } from '@cloudflare/next-on-pages';
 export const runtime = 'edge';
 
 async function getArticleBySlug(slug) {
+  if (!slug) return null;
   const ctx = getRequestContext();
   if (!ctx || !ctx.env || !ctx.env.DB) throw new Error("Database not found");
   
