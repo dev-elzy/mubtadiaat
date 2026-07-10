@@ -73,3 +73,44 @@ INSERT INTO settings (key, value) VALUES ('portalWaliUrl', 'https://m.p3hm.my.id
 INSERT INTO settings (key, value) VALUES ('phoneWa', '0856-1985-565');
 INSERT INTO settings (key, value) VALUES ('instagramHandle', '@p3hmlirboyo');
 INSERT INTO settings (key, value) VALUES ('address', 'Jl. KH. Abdul Karim, PO. Box 140, Lirboyo, Mojoroto, Kota Kediri 64117, Jawa Timur');
+
+-- ==========================================
+-- VIEWS COUNTER (Real-time, Deduplicated)
+-- ==========================================
+DROP TABLE IF EXISTS page_views;
+CREATE TABLE page_views (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  content_type TEXT NOT NULL,
+  content_id TEXT NOT NULL,
+  visitor_hash TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_views_content ON page_views(content_type, content_id);
+CREATE INDEX IF NOT EXISTS idx_views_unique ON page_views(content_type, content_id, visitor_hash);
+
+-- ==========================================
+-- COMMENTS SYSTEM
+-- ==========================================
+DROP TABLE IF EXISTS comment_replies;
+DROP TABLE IF EXISTS comments;
+CREATE TABLE comments (
+  id TEXT PRIMARY KEY,
+  content_type TEXT NOT NULL,
+  content_id TEXT NOT NULL,
+  name TEXT NOT NULL,
+  email TEXT,
+  body TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_comments_content ON comments(content_type, content_id);
+
+CREATE TABLE comment_replies (
+  id TEXT PRIMARY KEY,
+  comment_id TEXT NOT NULL,
+  name TEXT NOT NULL,
+  email TEXT,
+  body TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (comment_id) REFERENCES comments(id) ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_replies_comment ON comment_replies(comment_id);

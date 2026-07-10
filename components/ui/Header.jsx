@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +28,19 @@ export default function Header() {
     };
   }, [isMobileMenuOpen]);
 
+  const navItems = [
+    { href: '/', label: 'Beranda', exact: true },
+    { href: '/profil', label: 'Profil Madrasah' },
+    { href: '/berita', label: 'Portal Berita' },
+    { href: '/galeri', label: 'Galeri' },
+    { href: '/kontak', label: 'Kontak' },
+  ];
+
+  function isActive(item) {
+    if (item.exact) return pathname === item.href;
+    return pathname.startsWith(item.href);
+  }
+
   return (
     <header
       id="siteHeader"
@@ -45,17 +60,17 @@ export default function Header() {
         </Link>
         
         <div className="nav-links">
-          <Link href="/">Beranda</Link>
-          <Link href="/profil">Profil Madrasah</Link>
-          <Link href="/berita">Portal Berita</Link>
-          <Link href="/galeri">Galeri</Link>
-          <Link href="/kontak">Kontak</Link>
+          {navItems.map(item => (
+            <Link key={item.href} href={item.href} className={isActive(item) ? 'active' : ''}>
+              {item.label}
+            </Link>
+          ))}
         </div>
         
         <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div className="desktop-ctas" style={{ display: 'flex', gap: '8px' }}>
             <Link href="https://docs.google.com/forms/d/e/1FAIpQLSfUOGLDZHGW7ApSoHTWbrMjbDJXALVHKdHEos95H5fkqxzHmg/viewform" target="_blank" className="nav-cta">Daftar Santri Baru</Link>
-            <Link href="/redirect" className="nav-cta" style={{ background: 'var(--gold-500)' }}>Portal Wali & Akademik</Link>
+            <Link href="/redirect" className="nav-cta" style={{ background: 'var(--gold-500)' }}>Portal Wali &amp; Akademik</Link>
           </div>
           
           <div
@@ -75,7 +90,7 @@ export default function Header() {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay - Menggunakan position absolute agar tidak terpotong backdrop-filter header */}
+      {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div
           style={{
@@ -100,21 +115,23 @@ export default function Header() {
               Menu Navigasi
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', fontSize: '18px', fontWeight: '600', color: 'var(--teal-900)' }}>
-              <Link href="/" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', color: 'inherit' }}>
-                Beranda
-              </Link>
-              <Link href="/profil" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', color: 'inherit' }}>
-                Profil Madrasah
-              </Link>
-              <Link href="/berita" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', color: 'inherit' }}>
-                Portal Berita
-              </Link>
-              <Link href="/galeri" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', color: 'inherit' }}>
-                Galeri Dokumentasi
-              </Link>
-              <Link href="/kontak" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', color: 'inherit' }}>
-                Hubungi Kami
-              </Link>
+              {navItems.map(item => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  style={{
+                    textDecoration: 'none',
+                    color: isActive(item) ? 'var(--gold-500)' : 'inherit',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}
+                >
+                  {isActive(item) && <span style={{ width: '4px', height: '20px', borderRadius: '2px', background: 'var(--gold-500)' }} />}
+                  {item.label}
+                </Link>
+              ))}
             </div>
           </div>
 
