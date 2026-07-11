@@ -116,7 +116,7 @@
   /* ---------- HERO ---------- */
   .hero{
     position:relative;
-    padding:168px 0 90px;
+    padding:56px 0 76px;
     background:
       radial-gradient(ellipse 780px 420px at 50% -14%, rgba(173,138,78,0.07), transparent 62%),
       var(--cream-100);
@@ -960,7 +960,7 @@
 
 /* --- MOBILE SMALL (≤480px) --- */
 @media (max-width: 480px) {
-  .hero { padding: 110px 0 50px; }
+  .hero { padding: 36px 0 44px; }
   .hero-arabic { margin-bottom: 12px; }
   .hero-sub { margin-bottom: 28px; }
   .hero-actions { flex-direction: column; align-items: center; margin-bottom: 36px; }

@@ -106,8 +106,8 @@ export default function Header() {
         </div>
         
         {/* CTA Buttons */}
-        <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div className="desktop-ctas" style={{ gap: '10px' }}>
+        <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div className="desktop-ctas" style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <Link
               href="/pendaftaran"
               className="nav-cta"
