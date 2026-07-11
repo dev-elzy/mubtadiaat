@@ -283,7 +283,7 @@ export default function PsbNavbar() {
             boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
             flexShrink: 0
           }}>
-            <img src="/images/logo-p3hm.png" alt="Logo P3HM" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
+            <img src="/logo.png" alt="Logo P3HM" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
           </div>
           <div>
             <div style={{

@@ -42,9 +42,9 @@ export default function Header() {
   }
 
   // Warna teks menyesuaikan status scroll agar selalu berkontras tinggi & tajam
-  const textColor = isScrolled ? '#FFFFFF' : 'var(--teal-900)';
-  const subTextColor = 'var(--gold-500)';
-  const navLinkColor = isScrolled ? 'rgba(255, 255, 255, 0.9)' : 'var(--ink)';
+  const textColor = '#FFFFFF';
+  const subTextColor = '#FAD692';
+  const navLinkColor = 'rgba(255, 255, 255, 0.88)';
 
   return (
     <header
@@ -55,26 +55,39 @@ export default function Header() {
         left: 0,
         right: 0,
         height: '80px',
-        background: isScrolled ? 'rgba(15, 43, 36, 0.98)' : 'rgba(251, 248, 241, 0.94)',
+        background: 'linear-gradient(180deg, #071813 0%, #0B241C 100%)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
-        borderBottom: isScrolled ? '1px solid rgba(218, 190, 140, 0.25)' : '1px solid rgba(173, 138, 78, 0.18)',
+        borderBottom: '1px solid rgba(212, 175, 55, 0.28)',
         display: 'flex',
         alignItems: 'center',
         zIndex: 9999,
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        boxShadow: isScrolled ? '0 10px 30px rgba(0,0,0,0.15)' : '0 4px 20px rgba(15,43,36,0.03)'
+        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.35)'
       }}
     >
       <div className="wrap" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Brand & Identitas P3HM */}
-        <Link href="/" className="logo-wrap" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
-          <img src="/logo.png" alt="Logo P3HM" className="brand-logo" style={{ objectFit: 'contain' }} />
+        <Link href="/" className="logo-wrap" style={{ display: 'flex', alignItems: 'center', gap: '14px', textDecoration: 'none' }}>
+          <div style={{
+            width: '44px',
+            height: '44px',
+            borderRadius: '12px',
+            background: 'linear-gradient(135deg, #103B2E 0%, #0A241C 100%)',
+            border: '1.5px solid rgba(212, 175, 55, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+            flexShrink: 0
+          }}>
+            <img src="/logo.png" alt="Logo P3HM" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
+          </div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span className="brand-title" style={{ color: textColor }}>
+            <span className="brand-title" style={{ color: textColor, fontWeight: '700', fontSize: '17px', lineHeight: '1.15' }}>
               Hidayatul Mubtadiat
             </span>
-            <span className="brand-subtitle" style={{ color: subTextColor }}>
+            <span className="brand-subtitle" style={{ color: subTextColor, fontWeight: '600', fontSize: '10.5px', letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: '2px' }}>
               Pondok Pesantren Putri
             </span>
           </div>
@@ -171,22 +184,22 @@ export default function Header() {
             left: 0,
             right: 0,
             height: 'calc(100vh - 80px)',
-            background: '#fbf8f1',
+            background: 'linear-gradient(180deg, #071813 0%, #0B241C 100%)',
             padding: '28px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
             overflowY: 'auto',
-            borderTop: '1px solid rgba(173,138,78,0.2)',
-            boxShadow: '0 25px 50px -12px rgba(15,43,36,0.25)',
+            borderTop: '1px solid rgba(212, 175, 55, 0.28)',
+            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)',
             zIndex: 999
           }}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
-            <div style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--gold-500)' }}>
+            <div style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#FAD692' }}>
               Menu Navigasi
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', fontSize: '18px', fontWeight: '700', color: 'var(--teal-900)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', fontSize: '18px', fontWeight: '700', color: '#FFFFFF' }}>
               {navItems.map(item => (
                 <Link
                   key={item.href}
@@ -194,7 +207,7 @@ export default function Header() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   style={{
                     textDecoration: 'none',
-                    color: isActive(item) ? 'var(--gold-500)' : 'var(--teal-900)',
+                    color: isActive(item) ? '#FAD692' : '#FFFFFF',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '10px'
