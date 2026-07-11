@@ -188,11 +188,15 @@ input, select, textarea { font-family: inherit; }
    ============================================ */
 .main {
   margin-left: var(--sidebar-w);
+  width: calc(100% - var(--sidebar-w));
+  max-width: calc(100% - var(--sidebar-w));
+  min-width: 0;
   flex: 1;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   padding-top: 0 !important;
+  overflow-x: hidden;
 }
 .main-header {
   position: sticky;
@@ -240,7 +244,10 @@ input, select, textarea { font-family: inherit; }
 @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
 
 .main-body {
-  padding: 28px 32px 32px 32px;
+  padding: 24px 28px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* ============================================
@@ -282,6 +289,9 @@ input, select, textarea { font-family: inherit; }
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   margin-bottom: 24px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   overflow: hidden;
 }
 .card-head {

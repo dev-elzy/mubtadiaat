@@ -517,7 +517,7 @@ export default function TabPsb({ showToast, confirm }) {
           </div>
         </div>
         <form onSubmit={handleSaveSettings} className="card-body">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px', marginBottom: '20px' }}>
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: 'var(--gold)', marginBottom: '8px' }}>
                 Badge Periode Tahun Ajaran (Pojok Kanan Atas Header PSB)
@@ -558,7 +558,7 @@ export default function TabPsb({ showToast, confirm }) {
               />
             </div>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
             <button
               type="submit"
               disabled={savingSettings}
