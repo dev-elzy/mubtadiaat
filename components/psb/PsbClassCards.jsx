@@ -305,38 +305,59 @@ export default function PsbClassCards() {
 
               {/* CARD FOOTER CTA BUTTON */}
               <div style={{ padding: '20px 24px 26px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
-                <a
-                  href={item.daftar_url || '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: 'block',
-                    width: '100%',
-                    padding: '14px',
-                    textAlign: 'center',
-                    background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-                    color: '#FFFFFF',
-                    borderRadius: '14px',
-                    fontWeight: '800',
-                    fontSize: '14px',
-                    letterSpacing: '0.04em',
-                    textTransform: 'uppercase',
-                    textDecoration: 'none',
-                    boxShadow: '0 8px 20px rgba(16, 185, 129, 0.35)',
-                    transition: 'all 0.2s ease',
-                    border: '1px solid rgba(255, 255, 255, 0.15)'
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.filter = 'brightness(1.1)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.filter = 'none';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  ISI FORMULIR DAFTAR &rarr;
-                </a>
+                {(!item.daftar_url || (!item.daftar_url.startsWith('http') && !item.daftar_url.startsWith('/') && !item.daftar_url.startsWith('#'))) ? (
+                  <div
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      padding: '14px',
+                      textAlign: 'center',
+                      background: 'rgba(239, 68, 68, 0.12)',
+                      color: '#FCA5A5',
+                      borderRadius: '14px',
+                      fontWeight: '800',
+                      fontSize: '13px',
+                      letterSpacing: '0.05em',
+                      textTransform: 'uppercase',
+                      border: '1.5px solid rgba(239, 68, 68, 0.3)'
+                    }}
+                  >
+                    {item.daftar_url || 'Pendaftaran Belum Dibuka'}
+                  </div>
+                ) : (
+                  <a
+                    href={item.daftar_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      padding: '14px',
+                      textAlign: 'center',
+                      background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                      color: '#FFFFFF',
+                      borderRadius: '14px',
+                      fontWeight: '800',
+                      fontSize: '14px',
+                      letterSpacing: '0.04em',
+                      textTransform: 'uppercase',
+                      textDecoration: 'none',
+                      boxShadow: '0 8px 20px rgba(16, 185, 129, 0.35)',
+                      transition: 'all 0.2s ease',
+                      border: '1px solid rgba(255, 255, 255, 0.15)'
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.filter = 'brightness(1.1)';
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.filter = 'none';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
+                  >
+                    ISI FORMULIR DAFTAR &rarr;
+                  </a>
+                )}
               </div>
             </div>
           );

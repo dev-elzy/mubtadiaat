@@ -1097,8 +1097,8 @@ export default function TabPsb({ showToast, confirm }) {
                   Alamat URL Tombol &ldquo;DAFTAR SEKARANG&rdquo;
                 </label>
                 <input
-                  type="url"
-                  placeholder="http://bit.ly/hidayatul-mubtadiaat atau https://wa.me/..."
+                  type="text"
+                  placeholder="http://bit.ly/hidayatul-mubtadiaat atau https://wa.me/... (atau ketik 'Pendaftaran Sudah Tutup')"
                   value={classForm.daftar_url}
                   onChange={(e) => setClassForm({ ...classForm, daftar_url: e.target.value })}
                   style={{ width: '100%', padding: '11px 14px', borderRadius: 'var(--radius-sm)', background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)', fontSize: '13.5px' }}
