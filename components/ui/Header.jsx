@@ -63,9 +63,7 @@ export default function Header() {
         background: headerBg,
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
-        borderBottom: isScrolled
-          ? '1px solid rgba(180, 130, 20, 0.55)'
-          : '1px solid rgba(180, 120, 10, 0.3)',
+        borderBottom: '3px solid #0F2B24',
         display: 'flex',
         alignItems: 'center',
         zIndex: 9999,

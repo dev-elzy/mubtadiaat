@@ -7,7 +7,7 @@ export default function Footer() {
       color: '#1A3322',
       padding: '72px 0 28px 0',
       marginTop: 'auto',
-      borderTop: '3px solid rgba(255,255,255,0.3)',
+      borderTop: '3px solid #0F2B24',
       boxShadow: '0 -4px 32px rgba(180,130,20,0.25)'
     }}>
       <div className="wrap">
