@@ -542,8 +542,57 @@
 .mag-card { background: var(--ivory); border-radius: 12px; overflow: hidden; border: 1px solid var(--line); transition: transform 0.3s; }
 .mag-card:hover { transform: translateY(-4px); }
 .mag-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; }
-.mag-body { padding: 20px; }
 @media(max-width: 900px) { .dual-layout { flex-direction: column; } .side-profil { max-width: 100%; position: static; } .mag-grid { grid-template-columns: 1fr; } }
+
+/* MODERN HOMEPAGE RESPONSIVE LAYOUTS */
+.home-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 36px;
+  align-items: start;
+}
+.home-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.home-news-subgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+.hero-actions-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 44px;
+}
+@media (max-width: 860px) {
+  .home-main-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+@media (max-width: 640px) {
+  .home-stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .home-news-subgrid {
+    grid-template-columns: 1fr;
+  }
+  .hero-actions-flex {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-actions-flex a {
+    width: 100%;
+    justify-content: center;
+  }
+}
 
 /* ====================================================================
    PAGE HERO — Sub-pages header

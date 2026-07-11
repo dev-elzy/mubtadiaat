@@ -103,14 +103,7 @@ export default async function HomePage() {
           </p>
 
           {/* Action CTA Buttons */}
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '14px',
-            marginBottom: '44px'
-          }}>
+          <div className="hero-actions-flex">
             <Link
               href={settings.daftarUrl || '/pendaftaran'}
               style={{
@@ -172,13 +165,7 @@ export default async function HomePage() {
           </div>
 
           {/* Highlight Stats Bar */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '16px',
-            maxWidth: '1040px',
-            margin: '0 auto'
-          }}>
+          <div className="home-stats-grid">
             {[
               {
                 icon: '🕌',
@@ -259,12 +246,7 @@ export default async function HomePage() {
       <section style={{ padding: '44px 24px 0' }}>
         <div className="wrap" style={{ maxWidth: '1180px', margin: '0 auto' }}>
           
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: showBerita ? 'minmax(0, 2fr) minmax(0, 1fr)' : '1fr',
-            gap: '36px',
-            alignItems: 'start'
-          }}>
+          <div className={showBerita ? "home-main-grid" : undefined}>
             
             {/* KOLOM KIRI: BERITA & PENGUMUMAN TERKINI */}
             {showBerita && (
@@ -400,11 +382,7 @@ export default async function HomePage() {
 
                     {/* Secondary News Grid */}
                     {berita.length > 1 && (
-                      <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-                        gap: '20px'
-                      }}>
+                      <div className="home-news-subgrid">
                         {berita.slice(1, 5).map(b => (
                           <article
                             key={b.id}
