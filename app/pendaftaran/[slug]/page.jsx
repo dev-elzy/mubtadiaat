@@ -85,21 +85,20 @@ export default function PendaftaranSlugPage() {
             ⏳ Memuat halaman pendaftaran...
           </div>
         ) : slug === 'informasi-penerimaan' ? (
-          <div>
+          <div style={{
+            background: '#FFFFFF',
+            borderRadius: '24px',
+            border: '1px solid rgba(212, 175, 55, 0.35)',
+            boxShadow: '0 20px 50px rgba(11, 36, 28, 0.07)',
+            padding: '44px 48px',
+            marginBottom: '40px'
+          }}>
             {page && page.content ? (
-              <div style={{
-                background: '#FFFFFF',
-                borderRadius: '24px',
-                border: '1px solid rgba(212, 175, 55, 0.35)',
-                boxShadow: '0 20px 50px rgba(11, 36, 28, 0.07)',
-                padding: '40px 44px',
-                marginBottom: '40px'
-              }}>
-                <div
-                  className="psb-dynamic-html"
-                  dangerouslySetInnerHTML={{ __html: page.content }}
-                />
-              </div>
+              <div
+                className="psb-dynamic-html"
+                style={{ marginBottom: '28px' }}
+                dangerouslySetInnerHTML={{ __html: page.content }}
+              />
             ) : null}
             <PsbAcceptedSantriPublic />
           </div>

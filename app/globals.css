@@ -624,11 +624,11 @@
 .berita-card-pro-title {
   font-family: 'Fraunces', serif; font-size: 18px; line-height: 1.35;
   color: var(--teal-900); margin-bottom: 10px; font-weight: 500;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 .berita-card-pro-summary {
   font-size: 13.5px; color: var(--ink-soft); line-height: 1.65; margin-bottom: 16px; flex: 1;
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
 .berita-card-pro-footer {
   border-top: 1px solid var(--line); padding-top: 14px;
@@ -686,7 +686,7 @@
 }
 .galeri-card-pro-caption {
   font-size: 12.5px; color: var(--ink-soft); line-height: 1.5;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
   margin-bottom: 8px;
 }
 .galeri-card-pro-footer { display: flex; align-items: center; gap: 12px; }

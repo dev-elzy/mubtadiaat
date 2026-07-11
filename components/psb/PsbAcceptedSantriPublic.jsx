@@ -65,7 +65,7 @@ Ingin melakukan konfirmasi daftar ulang resmi. Terima kasih. Wassalamu’alaikum
   }
 
   return (
-    <div style={{ margin: '32px 0 48px' }}>
+    <div style={{ margin: '0 0' }}>
       {/* KOTAK PENCARIAN SANTRI */}
       <div style={{
         background: '#0F2B24',
