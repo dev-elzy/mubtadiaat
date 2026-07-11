@@ -38,7 +38,7 @@ export default async function HomePage() {
       ========================================================= */}
       <section style={{
         position: 'relative',
-        padding: '28px 24px 56px',
+        padding: '8px 24px 44px',
         background: 'radial-gradient(ellipse 900px 500px at 50% -10%, rgba(173, 138, 78, 0.12), transparent 70%), linear-gradient(180deg, #FAF7F0 0%, #F4EFE6 100%)',
         borderBottom: '1px solid rgba(173, 138, 78, 0.22)',
         overflow: 'hidden'
