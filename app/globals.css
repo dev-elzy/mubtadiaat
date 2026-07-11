@@ -747,7 +747,7 @@
    ARTICLE DETAIL — Hero & Content
    ==================================================================== */
 .article-hero {
-  padding: 140px 0 40px;
+  padding: 8px 0 32px;
   background: radial-gradient(ellipse 600px 300px at 50% 0%, rgba(173,138,78,0.06), transparent 60%), var(--cream-100);
 }
 .article-header { max-width: 800px; }
@@ -952,17 +952,21 @@
 
 /* --- TABLET (≤860px) --- */
 @media (max-width: 860px) {
-  .hero { padding: 140px 0 70px; }
+  .hero { padding: 6px 0 44px; }
   .hero-sub { font-size: 15px; margin-bottom: 32px; }
   .hero-actions { margin-bottom: 48px; }
   .hero-frame { border-radius: 14px; }
   .kontak-card { padding: 32px; }
   .galeri-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .article-hero { padding: 8px 0 28px; }
+  .page-hero { padding: 8px 0 28px; }
 }
 
 /* --- MOBILE LARGE (≤640px) --- */
 @media (max-width: 640px) {
-  .hero { padding: 120px 0 60px; }
+  .hero { padding: 6px 0 40px; }
+  .article-hero { padding: 6px 0 24px; }
+  .page-hero { padding: 6px 0 24px; }
   .hero-eyebrow { font-size: 10px; letter-spacing: 0.16em; }
   .hero-sub { font-size: 14px; line-height: 1.65; }
   .hero-actions { gap: 12px; }
@@ -1009,7 +1013,9 @@
 
 /* --- MOBILE SMALL (≤480px) --- */
 @media (max-width: 480px) {
-  .hero { padding: 36px 0 44px; }
+  .hero { padding: 4px 0 36px; }
+  .article-hero { padding: 4px 0 20px; }
+  .page-hero { padding: 4px 0 20px; }
   .hero-arabic { margin-bottom: 12px; }
   .hero-sub { margin-bottom: 28px; }
   .hero-actions { flex-direction: column; align-items: center; margin-bottom: 36px; }
@@ -1037,12 +1043,14 @@
 /* --- MOBILE EXTRA SMALL (≤360px) --- */
 @media (max-width: 360px) {
   .wrap { padding: 0 16px; }
-  .hero { padding: 100px 0 44px; }
+  .hero { padding: 4px 0 32px; }
+  .article-hero { padding: 4px 0 16px; }
+  .page-hero { padding: 4px 0 16px; }
   .hero-arabic { line-height: 1.4; }
   .btn-primary { padding: 12px 20px; font-size: 13px; }
   .btn-ghost { padding: 12px 18px; font-size: 13px; }
   .profil-text p { font-size: 13.5px; }
-  section { padding: 60px 0; }
+  section { padding: 40px 0; }
   .section-head { margin-bottom: 32px; }
   .program-card { padding: 24px 18px; }
   .kontak-card .arabic { font-size: 18px; }
@@ -1055,11 +1063,11 @@
 /* --- EXTRA LARGE SCREENS (≥1440px) --- */
 @media (min-width: 1440px) {
   .wrap { max-width: 1320px; }
-  .hero { padding: 200px 0 110px; }
+  .hero { padding: 6px 0 56px; }
   .hero-sub { font-size: 17.5px; }
   .hero-frame { max-width: 1020px; }
   .stat-row { max-width: 1020px; }
-  section { padding: 130px 0; }
+  section { padding: 100px 0; }
   .profil-grid { gap: 80px; }
   .galeri-grid { gap: 18px; }
 }
