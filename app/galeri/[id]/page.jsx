@@ -53,8 +53,9 @@ export default async function GaleriDetailPage({ params }) {
 
   return (
     <main>
+      <div className="paper-scroll">
       {/* Hero */}
-      <section className="article-hero">
+      <section className="article-hero paper-section-hero">
         <div className="wrap">
           {/* Breadcrumb */}
           <nav className="breadcrumb">
@@ -132,6 +133,7 @@ export default async function GaleriDetailPage({ params }) {
           <CommentSection type="galeri" contentId={item.id} />
         </div>
       </section>
+    </div>
     </main>
   );
 }

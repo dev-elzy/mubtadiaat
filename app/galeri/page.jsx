@@ -11,8 +11,9 @@ export default async function GaleriPage() {
 
   return (
     <main>
+      <div className="paper-scroll">
       {/* Page Hero */}
-      <section className="page-hero">
+      <section className="page-hero paper-section-hero">
         <div className="wrap">
           <div className="page-hero-eyebrow eyebrow">Galeri Dokumentasi</div>
           <h1 className="page-hero-title display">
@@ -82,6 +83,7 @@ export default async function GaleriPage() {
           )}
         </div>
       </section>
+      </div>
     </main>
   );
 }

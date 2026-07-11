@@ -14,14 +14,33 @@ export default async function ProfilPage() {
   const settings = await getSettings();
 
   return (
-    <main className="profil-layout">
-      {/* 1. Komponen-komponen Profil Statis & Dinamis */}
-      <HeroSection settings={settings} />
-      <ProfilSingkat settings={settings} text={settings.profilSingkat} />
-      <SejarahSection settings={settings} />
-      <VisiMisi settings={settings} />
-      <ProgramPendidikan settings={settings} />
-      <EkstraFasilitas settings={settings} />
+    <main>
+      <div className="paper-scroll">
+        {/* 1. Hero */}
+        <div className="paper-section-hero">
+          <HeroSection settings={settings} />
+        </div>
+        {/* 2. Profil Singkat */}
+        <div className="paper-section-white">
+          <ProfilSingkat settings={settings} text={settings.profilSingkat} />
+        </div>
+        {/* 3. Sejarah */}
+        <div className="paper-section-cream">
+          <SejarahSection settings={settings} />
+        </div>
+        {/* 4. Visi Misi */}
+        <div className="paper-section-white">
+          <VisiMisi settings={settings} />
+        </div>
+        {/* 5. Program Pendidikan */}
+        <div className="paper-section-gold">
+          <ProgramPendidikan settings={settings} />
+        </div>
+        {/* 6. Ekstra & Fasilitas */}
+        <div className="paper-section-cream">
+          <EkstraFasilitas settings={settings} />
+        </div>
+      </div>
     </main>
   );
 }

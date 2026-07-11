@@ -37,8 +37,9 @@ export default async function ArticlePage({ params }) {
 
   return (
     <main>
+      <div className="paper-scroll">
       {/* Article Hero */}
-      <section className="article-hero">
+      <section className="article-hero paper-section-hero">
         <div className="wrap">
           {/* Breadcrumb */}
           <nav className="breadcrumb">
@@ -104,6 +105,7 @@ export default async function ArticlePage({ params }) {
           <CommentSection type="berita" contentId={article.id} />
         </div>
       </section>
+    </div>
     </main>
   );
 }

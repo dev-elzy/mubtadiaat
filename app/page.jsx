@@ -32,7 +32,8 @@ export default async function HomePage() {
   const heroSub = settings.heroSub || 'Pondok Pesantren Putri Hidayatul Mubtadiat mendidik santriwati dengan keilmuan agama yang mendalam dan kesiapan menjawab kebutuhan masyarakat — di bawah naungan Yayasan Hidayatul Mubtadiat, Lirboyo Kediri.';
 
   return (
-    <main style={{ background: '#FAF7F0', minHeight: '100vh', paddingBottom: '80px' }}>
+    <main>
+      <div className="paper-scroll">
       {/* =========================================================
           HERO SECTION BERANDA MEWAH & PROFESIONAL
       ========================================================= */}
@@ -576,6 +577,7 @@ export default async function HomePage() {
 
         </div>
       </section>
+      </div>
     </main>
   );
 }

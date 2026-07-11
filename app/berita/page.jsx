@@ -11,8 +11,9 @@ export default async function BeritaPage() {
 
   return (
     <main>
+      <div className="paper-scroll">
       {/* Page Hero */}
-      <section className="page-hero">
+      <section className="page-hero paper-section-hero">
         <div className="wrap">
           <div className="page-hero-eyebrow eyebrow">Portal Berita &amp; Pengumuman</div>
           <h1 className="page-hero-title display">
@@ -88,6 +89,7 @@ export default async function BeritaPage() {
           )}
         </div>
       </section>
+      </div>
     </main>
   );
 }

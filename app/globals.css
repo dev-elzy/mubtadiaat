@@ -20,7 +20,7 @@
   }
   html{scroll-behavior:smooth;}
   body{
-    background:var(--cream-100);
+    background: #F0E8D8;   /* Warm parchment background — meja di bawah kertas */
     color:var(--ink);
     font-family:'Plus Jakarta Sans', sans-serif;
     -webkit-font-smoothing:antialiased;
@@ -28,6 +28,80 @@
   }
   main {
     padding-top: 80px;
+  }
+
+  /* ===================================================
+     PAPER SCROLL SYSTEM — Kertas Terbungkus Premium
+     =================================================== */
+
+  /* Wrapper utama: satu kertas besar menyelimuti halaman */
+  .paper-scroll {
+    background: #FFFEFB;           /* putih gading premium */
+    border-radius: 22px 22px 0 0;
+    box-shadow:
+      0 -2px 0 rgba(212,175,55,0.45),   /* garis emas tipis di atas */
+      0 8px 48px rgba(0,0,0,0.13),
+      0 2px 12px rgba(0,0,0,0.06);
+    min-height: calc(100vh - 80px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Section pertama dalam paper: eyebrow + title */
+  .paper-section-hero {
+    background: #FFFEFB;
+    padding: 6px 0 36px;
+  }
+
+  /* Section alternating: putih bersih */
+  .paper-section-white {
+    background: #FFFFFF;
+    padding: 52px 0;
+    border-top: 1px solid rgba(36,31,25,0.07);
+  }
+
+  /* Section alternating: krem gading hangat */
+  .paper-section-cream {
+    background: #FBF7EF;
+    padding: 52px 0;
+    border-top: 1px solid rgba(173,138,78,0.12);
+  }
+
+  /* Section alternating: krem emas sangat tipis */
+  .paper-section-gold {
+    background: rgba(212,175,55,0.04);
+    padding: 52px 0;
+    border-top: 1px solid rgba(173,138,78,0.15);
+  }
+
+  /* Garis emas dekoratif di atas paper */
+  .paper-scroll::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+    border-radius: 0 0 4px 4px;
+    z-index: 2;
+  }
+
+  @media (max-width: 640px) {
+    .paper-scroll {
+      border-radius: 14px 14px 0 0;
+    }
+    .paper-section-white,
+    .paper-section-cream,
+    .paper-section-gold {
+      padding: 36px 0;
+    }
+  }
+  @media (max-width: 360px) {
+    .paper-scroll {
+      border-radius: 10px 10px 0 0;
+    }
   }
   img{max-width:100%; display:block;}
   a{color:inherit; text-decoration:none;}
